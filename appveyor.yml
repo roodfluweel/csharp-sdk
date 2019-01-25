@@ -34,7 +34,7 @@
   before_build:
     - dotnet restore
     - ps: .\build.ps1
-   dotnet_csproj:
+  dotnet_csproj:
     patch: true
     file: 'PAYNLSDK\PayNLSdk.csproj'    
     package_version: '{version}'
