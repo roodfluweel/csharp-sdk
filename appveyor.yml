@@ -40,3 +40,7 @@
     - '%USERPROFILE%\.nuget\packages -> **\project.json'  # project.json cache
     - C:\ProgramData\chocolatey\bin -> appveyor.yml
     - C:\ProgramData\chocolatey\lib -> appveyor.yml
+  test:
+    assemblies:
+      only:
+        - PayNLSdk.Tests/bin/**/PayNLSdk.Tests.dll
