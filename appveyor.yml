@@ -2,7 +2,7 @@
   branches:
     only:
       - master
-  configuration: Release
+  configuration: AppVeyor
   artifacts:
     - path: '**\RoodFluweel.PAYNLSDK.*.nupkg' # find all NuGet packages recursively
       name: MyApp
@@ -18,7 +18,7 @@
   assembly_info:
     patch: false
   build:
-    project: PAYNLSDK\PayNLSdk.csproj
+    project: PAYNLSDK.sln
   before_build:
     - dotnet restore
     - ps: .\build.ps1
@@ -28,10 +28,10 @@
     - C:\ProgramData\chocolatey\bin -> appveyor.yml
     - C:\ProgramData\chocolatey\lib -> appveyor.yml
 -
-  configuration: Debug
+  configuration: AppVeyor
   os: Visual Studio 2017  
   build:
-    project: PAYNLSDK\PayNLSdk.csproj
+    project: PAYNLSDK.sln
   before_build:
     - dotnet restore
     - ps: .\build.ps1
