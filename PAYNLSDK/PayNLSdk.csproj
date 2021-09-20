@@ -7,14 +7,12 @@
 
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>RoodFluweel.PAYNLSDK</PackageId>
-        <Version>1.6.0</Version>
+        <Version>1.6.1</Version>
         <Authors>paynl, dampee, Sebsoft</Authors>
         <Company>dampee, paynl</Company>
         <PackageLicenseUrl></PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/roodfluweel/csharp-sdk</PackageProjectUrl>
-        <PackageReleaseNotes>
-            Latest addition is the addition of the Statistics/Management api
-        </PackageReleaseNotes>
+        <PackageReleaseNotes>upgraded Alliance/addMerchant to v6</PackageReleaseNotes>
         <Description>Connector for Pay.NL, forked from the original and improved to support multiple tenants and the Alliance SDK.
 Targeting netstandard2.0
 </Description>
