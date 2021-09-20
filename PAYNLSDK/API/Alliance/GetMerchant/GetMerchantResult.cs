@@ -77,8 +77,11 @@ namespace PAYNLSDK.API.Alliance.GetMerchant
             public string type_id { get; set; }
             [JsonProperty("type_name")]
             public string type_name { get; set; }
+            /// <summary>
+            /// Can be one of these values: 1 (Requested), 2 (Uploaded), 3 (Approved), 4 (Rejected), 5 (Expired)
+            /// </summary>
             [JsonProperty("status_id")]
-            public string status_id { get; set; }
+            public int status_id { get; set; }
             [JsonProperty("status_name")]
             public string status_name { get; set; }
             [JsonProperty("expires")]
