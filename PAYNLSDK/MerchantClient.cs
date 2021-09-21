@@ -3,10 +3,15 @@ using System;
 
 namespace PayNLSdk
 {
+    [Obsolete("Use class MerchantClient", true)]
+    public class Merchant
+    {
+    }
+
     /// <summary>
     /// This is a part of the alliance SDK
     /// </summary>
-    public class Merchant : IMerchant
+    public class MerchantClient : IMerchantClient
     {
         private readonly IClient _webClient;
 
@@ -14,18 +19,21 @@ namespace PayNLSdk
         /// The merchant api. This is a part from the alliance SDK.
         /// </summary>
         /// <param name="webClient"></param>
-        public Merchant(IClient webClient)
+        public MerchantClient(IClient webClient)
         {
             _webClient = webClient;
         }
 
-        /// <summary>Create a new merchant</summary>
-        /// <remarks></remarks>
-        /// <returns>A new <see cref="API.Merchant.Add.Response"/> object</returns>
-        public API.Merchant.Add.Response Create(API.Merchant.Add.Request request)
+        /// <summary>
+        /// obsolete, use the alliance SDK
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [Obsolete("Use AllianceClient.AddMerchant()", true)]
+        public object Create(object request)
         {
-            var response = _webClient.PerformRequest(request);
-            return API.Merchant.Add.Response.FromRawResponse(response);
+            throw new NotImplementedException();
         }
 
         /// <summary>

@@ -1,13 +1,20 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using PayNLSdk.Net;
 
 namespace PayNLSdk
 {
     /// <summary>
+    /// Obsolete, use AllianceClient
+    /// </summary>
+    [Obsolete("Use AllianceClient class", true)]
+    public class Alliance { }
+
+    /// <summary>
     /// This is a part of the alliance SDK
     /// </summary>
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class Alliance : IAlliance
+    public class AllianceClient : IAllianceClient
     {
         private readonly IClient _webClient;
 
@@ -15,7 +22,7 @@ namespace PayNLSdk
         /// Create a new API client for the Alliance API
         /// </summary>
         /// <param name="webClient"></param>
-        public Alliance(IClient webClient)
+        public AllianceClient(IClient webClient)
         {
             _webClient = webClient;
         }

@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
-using PayNLSdk.Converters;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
-using System;
 using System.Collections.Specialized;
 
 namespace PayNLSdk.API.Validate.SOFI
@@ -12,13 +10,7 @@ namespace PayNLSdk.API.Validate.SOFI
         [JsonProperty("sofi")]
         public string SOFI { get; set; }
 
-        public override bool RequiresApiToken
-        {
-            get
-            {
-                return false;// base.RequiresApiToken;
-            }
-        }
+        public override bool RequiresApiToken => false;
 
         /// <inheritdoc />
         protected override int Version => 1;

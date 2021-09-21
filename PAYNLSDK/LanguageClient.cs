@@ -1,10 +1,4 @@
 ﻿using PayNLSdk.Net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PayNLSdk.API.Alliance;
 using PayNLSdk.API.Alliance.GetMerchant;
 using PayNLSdk.API.Language;
 
@@ -13,12 +7,15 @@ namespace PayNLSdk
     /// <summary>
     /// This is a part of the alliance SDK
     /// </summary>
-    public class Language : ILanguage
+    public class LanguageClient : ILanguage
     {
         private readonly IClient _webClient;
 
-        /// <inheritdoc />
-        public Language(IClient webClient)
+        /// <summary>
+        /// Create a new instance for the language client
+        /// </summary>
+        /// <param name="webClient"></param>
+        public LanguageClient(IClient webClient)
         {
             _webClient = webClient;
         }

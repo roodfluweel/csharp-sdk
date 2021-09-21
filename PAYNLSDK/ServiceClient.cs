@@ -1,5 +1,4 @@
-﻿using PayNLSdk.Enums;
-using PayNLSdk.Net;
+﻿using PayNLSdk.Net;
 using System;
 using ServiceGetCategories = PayNLSdk.API.Service.GetCategories.Request;
 

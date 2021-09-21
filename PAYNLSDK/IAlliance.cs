@@ -1,9 +1,16 @@
-﻿namespace PayNLSdk
+﻿using System;
+
+namespace PayNLSdk
 {
+    [Obsolete("Use IAllianceClient interface", true)]
+    public interface IAlliance
+    {
+    }
+
     /// <summary>
     /// Alliance methods
     /// </summary>
-    public interface IAlliance
+    public interface IAllianceClient
     {
         /// <summary>
         /// This function can be used to retrieve alliance merchant information. 
