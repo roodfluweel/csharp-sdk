@@ -2,6 +2,7 @@
 using PayNLSdk.Exceptions;
 using PayNLSdk.Net;
 using System;
+using Microsoft.Extensions.Logging;
 using TransactionGetService = PayNLSdk.API.Transaction.GetService.Request;
 using TransactionInfo = PayNLSdk.API.Transaction.Info.Request;
 using TransactionRefund = PayNLSdk.API.Transaction.Refund.Request;
@@ -18,14 +19,17 @@ namespace PayNLSdk
     {
 
         private readonly IClient _webClient;
+        private readonly Logger<Transaction> _logger;
 
         /// <summary>
         /// Initializes a new transaction object
         /// </summary>
         /// <param name="webClient"></param>
-        public Transaction(IClient webClient)
+        /// <param name="logger"></param>
+        public Transaction(IClient webClient, Logger<Transaction> logger)
         {
             _webClient = webClient;
+            _logger = logger;
         }
 
 
@@ -62,6 +66,7 @@ namespace PayNLSdk
             }
             catch (PayNlException e)
             {
+                _logger.LogError(e, "Unhandled exception on calling paynl");
                 return false;
             }
         }
@@ -89,6 +94,7 @@ namespace PayNLSdk
             }
             catch (PayNlException e)
             {
+                _logger.LogError(e, "Unhandled exception on calling paynl");
                 return false;
             }
         }
@@ -113,11 +119,11 @@ namespace PayNLSdk
             }
             catch (PayNlException e)
             {
+                _logger.LogError(e, "Unhandled exception on calling paynl");
                 return false;
             }
         }
-
-
+        
 
         /// <summary>
         /// Checks whether a status is a REFUND or REFUNDING status
@@ -126,14 +132,7 @@ namespace PayNLSdk
         /// <returns>True if REFUND or REFUNDING, false otherwise</returns>
         public static bool IsRefund(Enums.PaymentStatus status)
         {
-            try
-            {
-                return status == Enums.PaymentStatus.REFUND || status == Enums.PaymentStatus.REFUNDING;
-            }
-            catch (PayNlException e)
-            {
-                return false;
-            }
+            return status == Enums.PaymentStatus.REFUND || status == Enums.PaymentStatus.REFUNDING;
         }
 
         /// <summary>
@@ -143,14 +142,7 @@ namespace PayNLSdk
         /// <returns>True if REFUNDING, false otherwise</returns>
         public static bool IsRefunding(Enums.PaymentStatus status)
         {
-            try
-            {
-                return status == Enums.PaymentStatus.REFUNDING;
-            }
-            catch (PayNlException e)
-            {
-                return false;
-            }
+            return status == Enums.PaymentStatus.REFUNDING;
         }
 
         /// <summary>

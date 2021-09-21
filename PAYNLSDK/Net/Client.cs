@@ -1,29 +1,32 @@
-﻿using Newtonsoft.Json;
-using PayNLSdk.API;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Net.ProxyConfigurationInjector;
-using PayNLSdk.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Text;
+using Newtonsoft.Json;
+using PayNLSdk.API;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Net.ProxyConfigurationInjector;
+using PayNLSdk.Utilities;
 
 namespace PayNLSdk.Net
 {
     /// <inheritdoc />
-    ///<summary>
+    /// <summary>
     /// This is the default client to be used by the PayNl function calls
     /// </summary>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class Client : IClient
     {
+        private const string Endpoint = "https://rest-api.pay.nl";
+
         /// <summary>
         /// If the client needs to work with a proxy, inject it here
         /// </summary>
         protected readonly IProxyConfigurationInjector ProxyConfigurationInjector;
+
         /// <summary>
         /// The PayNL configuration
         /// </summary>
@@ -31,16 +34,15 @@ namespace PayNLSdk.Net
 
         /// <inheritdoc />
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global")]
-        public Client(IPayNlConfiguration securityConfiguration, IProxyConfigurationInjector proxyConfigurationInjector = null)
+        public Client(IPayNlConfiguration securityConfiguration,
+            IProxyConfigurationInjector proxyConfigurationInjector = null)
         {
             SecurityConfiguration = securityConfiguration;
             ProxyConfigurationInjector = proxyConfigurationInjector;
         }
 
-        private const string Endpoint = "https://rest-api.pay.nl";
-
         /// <inheritdoc />
-        public string ClientVersion => "1.1.0.0";
+        public string ClientVersion => GetAppVersion();
 
         /// <inheritdoc />
         public string UserAgent => $"PAYNL/SDK/{ClientVersion} DotNet/{Environment.Version.Major}";
@@ -58,7 +60,7 @@ namespace PayNLSdk.Net
                     using (var requestWriter = new StreamWriter(webRequest.GetRequestStream()))
                     {
                         //string serializedResource = resource.Serialize();
-                        string serializedResource = ToQueryString(request);
+                        var serializedResource = ToQueryString(request);
                         requestWriter.Write(serializedResource);
                     }
                 }
@@ -83,6 +85,13 @@ namespace PayNLSdk.Net
             //return rawResponse;
         }
 
+
+        private static string GetAppVersion()
+        {
+            var version = typeof(Client).Assembly.GetName().Version;
+            return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+        }
+
         /// <summary>
         /// Returns a NameValueCollection of all parameters used for this call.
         /// </summary>
@@ -95,6 +104,7 @@ namespace PayNLSdk.Net
                 ParameterValidator.IsNotEmpty(SecurityConfiguration.ApiToken, nameof(SecurityConfiguration.ApiToken));
                 nvc.Add("token", SecurityConfiguration.ApiToken);
             }
+
             if (request.RequiresServiceId)
             {
                 ParameterValidator.IsNotEmpty(SecurityConfiguration.ServiceId, nameof(SecurityConfiguration.ServiceId));
@@ -111,10 +121,7 @@ namespace PayNLSdk.Net
         private string ToQueryString(RequestBase request)
         {
             var nvc = GetParameters(request);
-            if (nvc.Count == 0)
-            {
-                return "";
-            }
+            if (nvc.Count == 0) return "";
 
             var sb = new StringBuilder();
             // TODO: add "?" if GET?
@@ -125,17 +132,12 @@ namespace PayNLSdk.Net
             {
                 var values = nvc.GetValues(key);
                 if (values == null)
-                {
                     // don't add empty parameters
                     continue;
-                }
 
                 foreach (var value in values)
                 {
-                    if (!first)
-                    {
-                        sb.Append("&");
-                    }
+                    if (!first) sb.Append("&");
 
                     sb.AppendFormat("{0}={1}", Uri.EscapeDataString(key), Uri.EscapeDataString(value));
 
@@ -166,9 +168,7 @@ namespace PayNLSdk.Net
             request.Method = method;
 
             if (null != ProxyConfigurationInjector)
-            {
                 request.Proxy = ProxyConfigurationInjector.InjectProxyConfiguration(request.Proxy, uri);
-            }
             return request;
         }
 
@@ -179,7 +179,8 @@ namespace PayNLSdk.Net
         /// <param name="expectedHttpStatusCode">expected http status code</param>
         /// <param name="requestAction">Any action that can be executed before actually performing the http request</param>
         /// <returns>raw response</returns>
-        private string PerformRoundTrip2(HttpWebRequest request, HttpStatusCode expectedHttpStatusCode, Action requestAction)
+        private string PerformRoundTrip2(HttpWebRequest request, HttpStatusCode expectedHttpStatusCode,
+            Action requestAction)
         {
             try
             {
@@ -189,12 +190,10 @@ namespace PayNLSdk.Net
                 {
                     var statusCode = (HttpStatusCode)response.StatusCode;
                     if (statusCode != expectedHttpStatusCode)
-                    {
                         throw new PayNlException(string.Format("Unexpected status code {0}", statusCode));
-                    }
 
-                    Stream responseStream = response.GetResponseStream();
-                    Encoding encoding = GetEncoding(response);
+                    var responseStream = response.GetResponseStream();
+                    var encoding = GetEncoding(response);
 
                     using (var responseReader = new StreamReader(responseStream, encoding))
                     {
@@ -220,7 +219,7 @@ namespace PayNLSdk.Net
         private static Encoding GetEncoding(HttpWebResponse response)
         {
             // TODO: Make this conditional on the encoding of the response.
-            Encoding encode = Encoding.UTF8; // GetEncoding("utf-8"); // Encoding.GetEncoding(response.CharacterSet);
+            var encode = Encoding.UTF8; // GetEncoding("utf-8"); // Encoding.GetEncoding(response.CharacterSet);
             return encode;
         }
 
@@ -233,10 +232,8 @@ namespace PayNLSdk.Net
         {
             var httpWebResponse = e.Response as HttpWebResponse;
             if (null == httpWebResponse)
-            {
                 // some kind of network error: didn't even make a connection
                 return new PayNlException(e.Message, e);
-            }
 
             var statusCode = (HttpStatusCode)httpWebResponse.StatusCode;
             switch (statusCode)
@@ -248,20 +245,15 @@ namespace PayNLSdk.Net
                 case HttpStatusCode.BadRequest:
                     using (var responseReader = new StreamReader(httpWebResponse.GetResponseStream()))
                     {
-                        string rawResponse = responseReader.ReadToEnd();
+                        var rawResponse = responseReader.ReadToEnd();
                         // Try JSON parsing.
                         try
                         {
-                            Dictionary<string, string> errors = JsonConvert.DeserializeObject<Dictionary<string, string>>(rawResponse);
-                            string errMessage = "";
+                            var errors = JsonConvert.DeserializeObject<Dictionary<string, string>>(rawResponse);
+                            var errMessage = "";
                             if (errors.ContainsKey("error"))
-                            {
                                 errMessage = errors["error"];
-                            }
-                            else if (errors.ContainsKey("message"))
-                            {
-                                errMessage = errors["message"];
-                            }
+                            else if (errors.ContainsKey("message")) errMessage = errors["message"];
 
                             return new PayNlException(errMessage, e);
                         }
@@ -289,6 +281,5 @@ namespace PayNLSdk.Net
                     return new PayNlException(string.Format("Unhandled status code {0}", statusCode), e);
             }
         }
-
     }
 }

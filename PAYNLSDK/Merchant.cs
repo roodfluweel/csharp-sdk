@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PayNLSdk.API.Merchant.Info;
 
 namespace PayNLSdk
 {
@@ -37,7 +38,7 @@ namespace PayNLSdk
         /// </summary>
         /// <param name="merchantId"></param>
         /// <returns></returns>
-        public API.Merchant.Get.Response Get(string merchantId)
+        public Response Get(string merchantId)
         {
             //api = new Api\GetMerchant();
             //   if (!String.IsNullOrEmpty( options['merchantId']))
@@ -47,13 +48,13 @@ namespace PayNLSdk
 
             //result =  api->doRequest();
 
-            var request = new API.Merchant.Get.Request
+            var request = new Request
             {
                 MerchantId = merchantId
             };
 
             var response = _webClient.PerformRequest(request);
-            return API.Merchant.Get.Response.FromRawResponse(response);
+            return Response.FromRawResponse(response);
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace PayNLSdk
             //var response = _webClient.PerformRequest(request);
             //return API.Merchant.GetAll.Response.FromRawResponse(response);
 
-            return new object(); // Result\Merchant\GetList( result);
+            //return new object(); // Result\Merchant\GetList( result);
         }
 
         public enum MerchantState

@@ -269,7 +269,6 @@ namespace PayNLSdk.Objects
         /// </summary>
         /// <param name="productId">Your systems product ID</param>
         /// <param name="price">Amount in cents of the product (amount incl. vat)</param>
-        /// <param name="vatCode">The vat code</param>
         public OrderData(string productId, int price) : this(productId, "", price, "N", 1, ProductType.ARTICLE) { }
 
     }

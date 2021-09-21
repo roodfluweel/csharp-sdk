@@ -9,13 +9,13 @@ namespace PayNLSdk.Tests
     public class ServiceTests
     {
         private Mock<IClient> _iClientMock;
-        private Service _sut;
+        private ServiceClient _sut;
 
         [TestInitialize]
         public void TestInitialize()
         {
             _iClientMock = new Mock<IClient>();
-            _sut = new Service(_iClientMock.Object);
+            _sut = new ServiceClient(_iClientMock.Object);
         }
 
         [TestMethod]

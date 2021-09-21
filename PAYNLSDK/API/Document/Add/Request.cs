@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using PayNLSdk.API;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 

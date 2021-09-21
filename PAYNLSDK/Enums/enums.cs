@@ -252,8 +252,10 @@ namespace PayNLSdk.Enums
     /// <summary>
     /// Payment status enumeration representing PAYNL Payment statuses
     /// </summary>
+
     public enum PaymentStatus
     {
+#pragma warning disable 1591
         [EnumMember(Value = "-90")]
         CANCEL = -90,
         [EnumMember(Value = "-60")]
@@ -298,6 +300,7 @@ namespace PayNLSdk.Enums
         AUTHORIZE = 95,
         [EnumMember(Value = "-63")]
         DENIED = -63,
+#pragma warning restore 1591
     }
 
     /// <summary>
@@ -305,6 +308,7 @@ namespace PayNLSdk.Enums
     /// </summary>
     public enum ProductType
     {
+#pragma warning disable 1591
         [EnumMember(Value = "ARTICLE")]
         ARTICLE,
         [EnumMember(Value = "SHIPPING")]
@@ -341,5 +345,6 @@ namespace PayNLSdk.Enums
         PAYMENT,
         [EnumMember(Value = "ROUNDING")]
         ROUNDING,
+#pragma warning restore 1591
     }
 }

@@ -68,12 +68,35 @@ namespace PayNLSdk.API.Merchant.Add
         [JsonRequired]
         [Required]
         public string CompanyName { get; set; }
+
+        /// <summary>
+        /// The cocNumber of the merchant
+        /// </summary>
         public string CocNumber { get; set; }
+        /// <summary>
+        /// The street of the merchant
+        /// </summary>
         public string Street { get; set; }
+        /// <summary>
+        /// The housenumber of the merchant
+        /// </summary>
         public string HouseNumber { get; set; }
+
+        /// <summary>
+        /// The postalcode of the merchant
+        /// </summary>
         public string PostalCode { get; set; }
+
+        /// <summary>
+        /// The city of the merchant
+        /// </summary>
         public string City { get; set; }
+
+        /// <summary>
+        /// The accounts linked to the merchant
+        /// </summary>
         public List<Account> Accounts { get; set; }
+
         /// <summary>
         /// Optional
         ///      Do you want to send a registration email to the accounts.
@@ -85,18 +108,33 @@ namespace PayNLSdk.API.Merchant.Add
         [JsonProperty("sendEmail")]
         public int? SendEmail { get; set; }
 
+        /// <summary>
+        /// The Two letter (ISO) country code
+        /// </summary>
         [JsonProperty("countryCode")]
         public string TwoLetterCountryCode { get; set; }
 
+        /// <summary>
+        /// The owner of the bank accounts
+        /// </summary>
         [JsonProperty("bankAccountOwner")]
         public string BankAccountOwner { get; set; }
 
+        /// <summary>
+        /// The account number
+        /// </summary>
         [JsonProperty("bankAccountNumber")]
         public string BankAccountNumber { get; set; }
 
+        /// <summary>
+        /// The BIC code of the BankAccountNumber
+        /// </summary>
         [JsonProperty("bankAccountBIC")]
         public string BankAccountBic { get; set; }
 
+        /// <summary>
+        /// The VAT number
+        /// </summary>
         [JsonProperty("vatNumber")]
         public string VatNumber { get; set; }
 

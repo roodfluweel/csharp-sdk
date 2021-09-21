@@ -16,13 +16,6 @@ namespace PayNLSdk.API.Transaction.Decline
         [JsonProperty("transactionId")]
         public string TransactionId { get; set; }
 
-        /// <summary>
-        /// not implemented
-        /// </summary>
-        //  [JsonProperty("entranceCode")]
-        //   public string EntranceCode { get; set; }
-
-        /* overrides */
         /// <inheritdoc />
         protected override int Version => 7;
 

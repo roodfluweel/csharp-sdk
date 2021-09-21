@@ -9,7 +9,7 @@ using System.Collections.Specialized;
 namespace PayNLSdk.API.Refund.Transaction
 {
     /// <summary>
-    /// A product specific refund for Products like Sofort & Afterpay
+    /// A product specific refund for Products like Sofort &amp; Afterpay
     /// For normal refunds, you should use <seealso cref="PayNLSdk.API.Transaction.Refund.Request"/>
     /// </summary>
     public class Request : RequestBase

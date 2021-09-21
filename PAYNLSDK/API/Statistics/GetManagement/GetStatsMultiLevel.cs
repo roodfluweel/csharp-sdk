@@ -15,7 +15,14 @@ namespace PayNLSdk.API.Statistics.GetManagement
     public class TopLevelStatsData
     {
         public string Id { get; set; }
+        /// <summary>
+        /// The name of the Data
+        /// </summary>
         public string Label { get; set; }
+
+        /// <summary>
+        /// An array with all the values
+        /// </summary>
         public GetStatsResultBase.StatsData[] Data { get; set; }
     }
 
