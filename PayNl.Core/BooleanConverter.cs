@@ -6,7 +6,7 @@ namespace PayNLSdk.Converters
     /// <summary>
     /// A boolean json converter for newtonsoft
     /// </summary>
-    internal class BooleanConverter : JsonConverter
+    public class BooleanConverter : JsonConverter
     {
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayNLSdk", "PAYNLSDK\PayNLSdk.csproj", "{C8AB15F6-3F29-490B-8424-F3A337177543}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayNLSdk.Tests", "PayNLSdk.Tests\PayNLSdk.Tests.csproj", "{4C691697-D689-4A00-9E3B-45C05D9F7817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayNlSdk.Tests", "PayNLSdk.Tests\PayNlSdk.Tests.csproj", "{4C691697-D689-4A00-9E3B-45C05D9F7817}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DACFE405-2E22-4BEB-8B31-60A285F03EA0}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		readme.md = readme.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayNl.Core", "PayNl.Core\PayNl.Core.csproj", "{E49671DC-33C0-4AAE-9C51-B1CC85E4425A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayNl.Alliance", "PayNl.Alliance\PayNl.Alliance.csproj", "{A805F9C5-DCF3-41DD-BD15-BE050654EA43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +38,18 @@ Global
 		{4C691697-D689-4A00-9E3B-45C05D9F7817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C691697-D689-4A00-9E3B-45C05D9F7817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C691697-D689-4A00-9E3B-45C05D9F7817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E49671DC-33C0-4AAE-9C51-B1CC85E4425A}.AppVeyor|Any CPU.ActiveCfg = Debug|Any CPU
+		{E49671DC-33C0-4AAE-9C51-B1CC85E4425A}.AppVeyor|Any CPU.Build.0 = Debug|Any CPU
+		{E49671DC-33C0-4AAE-9C51-B1CC85E4425A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E49671DC-33C0-4AAE-9C51-B1CC85E4425A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E49671DC-33C0-4AAE-9C51-B1CC85E4425A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E49671DC-33C0-4AAE-9C51-B1CC85E4425A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A805F9C5-DCF3-41DD-BD15-BE050654EA43}.AppVeyor|Any CPU.ActiveCfg = Debug|Any CPU
+		{A805F9C5-DCF3-41DD-BD15-BE050654EA43}.AppVeyor|Any CPU.Build.0 = Debug|Any CPU
+		{A805F9C5-DCF3-41DD-BD15-BE050654EA43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A805F9C5-DCF3-41DD-BD15-BE050654EA43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A805F9C5-DCF3-41DD-BD15-BE050654EA43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A805F9C5-DCF3-41DD-BD15-BE050654EA43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

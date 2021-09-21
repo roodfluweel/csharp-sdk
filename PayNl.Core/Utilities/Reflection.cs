@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PayNLSdk.Utilities
 {
-    internal class Reflection
+    public class Reflection
     {
         public static bool IsNullable(Type t)
         {

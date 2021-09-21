@@ -46,4 +46,8 @@ Targeting netstandard2.0
         <Folder Include="Properties\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PayNl.Core\PayNl.Core.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -21,10 +21,10 @@ namespace PayNLSdk
         }
 
         /// <inheritdoc />
-        public GetMerchantResult GetAll()
+        public PayNLSdk.API.Language.GetAllResult GetAll()
         {
             var response = _webClient.PerformRequest(new GetAllRequest());
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<GetMerchantResult>(response);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<PayNLSdk.API.Language.GetAllResult>(response);
         }
     }
 
@@ -33,6 +33,6 @@ namespace PayNLSdk
     /// </summary>
     public interface ILanguage
     {
-        GetMerchantResult GetAll();
+        PayNLSdk.API.Language.GetAllResult GetAll();
     }
 }
