@@ -1,19 +1,9 @@
 ﻿using PayNLSdk.Net.ProxyConfigurationInjector;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Net;
-using System.Text;
 using PayNLSdk.API;
-using PayNLSdk.Exceptions;
-using Newtonsoft.Json;
-using PayNLSdk.Utilities;
 
 namespace PayNLSdk.Net
 {
-    /// <inheritdoc />
     /// <summary>
     /// A client which can be constructed with an apiToken and a serviceId
     /// </summary>
