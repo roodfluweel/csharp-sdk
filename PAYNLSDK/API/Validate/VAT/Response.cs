@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+using PayNLSdk.Converters;
 using System;
 
-namespace PAYNLSDK.API.Validate.VAT
+namespace PayNLSdk.API.Validate.VAT
 {
 
     /// <summary>
-    /// Reponse of the <see cref="PAYNLSDK.API.Validate.VAT.Request"/>.
-    /// Implements the <see cref="PAYNLSDK.API.ResponseBase" />
+    /// Reponse of the <see cref="PayNLSdk.API.Validate.VAT.Request"/>.
+    /// Implements the <see cref="PayNLSdk.API.ResponseBase" />
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.ResponseBase" />
+    /// <seealso cref="PayNLSdk.API.ResponseBase" />
     public class Response : ResponseBase
     {
         /// <summary>

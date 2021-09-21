@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using PAYNLSDK.Net;
+using PayNLSdk.Net;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// This is a part of the alliance SDK
@@ -21,10 +21,10 @@ namespace PAYNLSDK
         }
 
         /// <inheritdoc />
-        public PAYNLSDK.API.Alliance.GetMerchant.GetMerchantResult GetMerchant(API.Alliance.GetMerchant.Request request)
+        public PayNLSdk.API.Alliance.GetMerchant.GetMerchantResult GetMerchant(API.Alliance.GetMerchant.Request request)
         {
             var response = _webClient.PerformRequest(request);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<PAYNLSDK.API.Alliance.GetMerchant.GetMerchantResult>(response);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<PayNLSdk.API.Alliance.GetMerchant.GetMerchantResult>(response);
         }
 
         /// <inheritdoc />

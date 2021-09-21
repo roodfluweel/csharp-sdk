@@ -1,7 +1,7 @@
 ﻿using PayNLSdk.ExtentionMethods;
-using PAYNLSDK.API;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.API;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;

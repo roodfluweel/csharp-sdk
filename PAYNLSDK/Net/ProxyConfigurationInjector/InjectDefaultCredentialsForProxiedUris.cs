@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace PAYNLSDK.Net.ProxyConfigurationInjector
+namespace PayNLSdk.Net.ProxyConfigurationInjector
 {
     public class InjectDefaultCredentialsForProxiedUris: InjectCredentialsForProxiedUris 
     {

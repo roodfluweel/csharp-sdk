@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API
+namespace PayNLSdk.API
 {
     /// <summary>
     /// A abstract base class for every response from the API

@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.API;
+using PayNLSdk.API;
 
-namespace PAYNLSDK.API.Alliance.AddInvoice
+namespace PayNLSdk.API.Alliance.AddInvoice
 {
     /// <summary>
     /// The result of the Alliance/GetMerchant call
-    /// Implements the <see cref="PAYNLSDK.API.ResponseBase" />
+    /// Implements the <see cref="PayNLSdk.API.ResponseBase" />
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.ResponseBase" />
+    /// <seealso cref="PayNLSdk.API.ResponseBase" />
     public class AddInvoiceResult : ResponseBase
     {
         /// <summary>

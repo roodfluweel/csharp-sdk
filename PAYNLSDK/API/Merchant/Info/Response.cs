@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Merchant.Get
+namespace PayNLSdk.API.Merchant.Get
 {
     public class Response : ResponseBase
     {

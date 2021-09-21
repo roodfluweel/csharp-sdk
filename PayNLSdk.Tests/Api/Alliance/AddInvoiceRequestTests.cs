@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PayNLSdk.Tests.Api.Alliance
 {
     [TestClass]
     public class AddInvoiceRequestTests
     {
-        private PAYNLSDK.API.Alliance.AddInvoice.Request _sut;
+        private PayNLSdk.API.Alliance.AddInvoice.Request _sut;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _sut = new PAYNLSDK.API.Alliance.AddInvoice.Request(
+            _sut = new PayNLSdk.API.Alliance.AddInvoice.Request(
                 "Dummy",
                 "Dummy",
                 "Dummy",

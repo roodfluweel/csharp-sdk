@@ -1,4 +1,4 @@
-﻿namespace PAYNLSDK.API
+﻿namespace PayNLSdk.API
 {
     /// <summary>
     /// An object containing all configuration for 

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAYNLSDK.Enums
+namespace PayNLSdk.Enums
 {
     /// <summary>
     /// Utility to convert Enum Values to EnumMember Values and vice versa.

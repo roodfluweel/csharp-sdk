@@ -1,14 +1,14 @@
-﻿using PAYNLSDK.Net;
+﻿using PayNLSdk.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PAYNLSDK.API.Alliance;
-using PAYNLSDK.API.Alliance.GetMerchant;
-using PAYNLSDK.API.Language;
+using PayNLSdk.API.Alliance;
+using PayNLSdk.API.Alliance.GetMerchant;
+using PayNLSdk.API.Language;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// This is a part of the alliance SDK

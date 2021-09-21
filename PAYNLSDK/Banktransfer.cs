@@ -1,11 +1,11 @@
-﻿using PAYNLSDK.Net;
+﻿using PayNLSdk.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// the Bank Transfer API
@@ -28,7 +28,7 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public API.Banktransfer.Add.Response Add(PAYNLSDK.API.Banktransfer.Add.Request request)
+        public API.Banktransfer.Add.Response Add(PayNLSdk.API.Banktransfer.Add.Request request)
         {
             _webClient.PerformRequest(request);
             return request.Response;

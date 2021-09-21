@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAYNLSDK.Utilities
+namespace PayNLSdk.Utilities
 {
     internal class Reflection
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAYNLSDK.Net
+namespace PayNLSdk.Net
 {
     // A more complete list of http status codes from http://httpstatus.es/
     enum HttpStatusCode

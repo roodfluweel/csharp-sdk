@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.API;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Net.ProxyConfigurationInjector;
-using PAYNLSDK.Utilities;
+using PayNLSdk.API;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Net.ProxyConfigurationInjector;
+using PayNLSdk.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -11,7 +11,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace PAYNLSDK.Net
+namespace PayNLSdk.Net
 {
     /// <inheritdoc />
     ///<summary>
@@ -80,7 +80,7 @@ namespace PAYNLSDK.Net
             //// download data
             //var rawResponse = webClient.DownloadString(request.Url);
 
-            return rawResponse;
+            //return rawResponse;
         }
 
         /// <summary>

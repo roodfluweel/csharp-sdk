@@ -2,10 +2,10 @@
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 
-namespace PAYNLSDK.API.Merchant.Add
+namespace PayNLSdk.API.Merchant.Add
 {
     public class Request : RequestBase
     {

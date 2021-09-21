@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Converters;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System;
 using System.Collections.Specialized;
 using System.Globalization;
 
-namespace PAYNLSDK.API.Transaction.Refund
+namespace PayNLSdk.API.Transaction.Refund
 {
     /// <summary>
     /// A normal refund from a previously placed transaction.
-    /// If you are doing a refund from Sofort or AfterPay, you'll need to use <seealso cref="PAYNLSDK.API.Refund.Transaction.Request"/>
+    /// If you are doing a refund from Sofort or AfterPay, you'll need to use <seealso cref="PayNLSdk.API.Refund.Transaction.Request"/>
     /// </summary>
     public class Request : RequestBase
     {

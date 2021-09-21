@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.Refund.Info
+namespace PayNLSdk.API.Refund.Info
 {
     public class Response : ResponseBase
     {

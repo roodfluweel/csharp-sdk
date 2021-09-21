@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.Transaction.GetLastTransactions
+namespace PayNLSdk.API.Transaction.GetLastTransactions
 {
     public class Response : ResponseBase
     {

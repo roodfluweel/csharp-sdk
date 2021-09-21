@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+using PayNLSdk.Converters;
 using System;
 
-namespace PAYNLSDK.API.SMS.PremiumMessage
+namespace PayNLSdk.API.SMS.PremiumMessage
 {
     public class Response : ResponseBase
     {

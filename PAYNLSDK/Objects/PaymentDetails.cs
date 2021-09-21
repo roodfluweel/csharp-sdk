@@ -1,9 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Enums;
-using PAYNLSDK.Converters;
+using PayNLSdk.Enums;
+using PayNLSdk.Converters;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects
 {
     /// <summary>
     /// General details regarding the payment

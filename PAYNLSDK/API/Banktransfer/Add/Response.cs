@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Banktransfer.Add
+namespace PayNLSdk.API.Banktransfer.Add
 {
     public class Response : ResponseBase
     {

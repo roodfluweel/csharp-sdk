@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.Transaction.Start
+namespace PayNLSdk.API.Transaction.Start
 {
     public class Response : ResponseBase
     {

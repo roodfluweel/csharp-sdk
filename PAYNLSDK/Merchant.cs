@@ -1,11 +1,11 @@
-﻿using PAYNLSDK.Net;
+﻿using PayNLSdk.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// This is a part of the alliance SDK

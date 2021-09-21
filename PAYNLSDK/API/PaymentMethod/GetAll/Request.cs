@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.PaymentMethod.GetAll
+namespace PayNLSdk.API.PaymentMethod.GetAll
 {
     /// <summary>
     /// This function returns an array containing all payment methods. 
@@ -35,7 +35,7 @@ namespace PAYNLSDK.API.PaymentMethod.GetAll
             {
                 throw new PayNlException("rawResponse is empty!");
             }
-            PAYNLSDK.Objects.PaymentMethod[] pm = JsonConvert.DeserializeObject<PAYNLSDK.Objects.PaymentMethod[]>(RawResponse);
+            PayNLSdk.Objects.PaymentMethod[] pm = JsonConvert.DeserializeObject<PayNLSdk.Objects.PaymentMethod[]>(RawResponse);
             Response r = new Response
             {
                 PaymentMethods = pm

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters
 {
     /// <summary>
     /// A boolean json converter for newtonsoft

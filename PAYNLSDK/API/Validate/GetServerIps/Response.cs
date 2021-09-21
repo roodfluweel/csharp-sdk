@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PAYNLSDK.API.Validate.GetServerIps
+namespace PayNLSdk.API.Validate.GetServerIps
 {
     /// <summary>
-    /// Response object for the <see cref="PAYNLSDK.API.Validate.GetServerIps.Request"/>.
-    /// Implements the <see cref="PAYNLSDK.API.ResponseBase" />
+    /// Response object for the <see cref="PayNLSdk.API.Validate.GetServerIps.Request"/>.
+    /// Implements the <see cref="PayNLSdk.API.ResponseBase" />
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.ResponseBase" />
+    /// <seealso cref="PayNLSdk.API.ResponseBase" />
     public class Response : ResponseBase
     {
         /// <summary>

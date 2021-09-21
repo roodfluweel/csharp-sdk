@@ -1,17 +1,17 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Collections.Specialized;
-using PAYNLSDK.Utilities;
-using PAYNLSDK.Objects;
-using PAYNLSDK.Enums;
-using PAYNLSDK.Exceptions;
+using PayNLSdk.Utilities;
+using PayNLSdk.Objects;
+using PayNLSdk.Enums;
+using PayNLSdk.Exceptions;
 
-namespace PAYNLSDK.API.Transaction.Start
+namespace PayNLSdk.API.Transaction.Start
 {
     /// <summary>
     /// The HTTP request to request the start of a new transaction
     /// </summary>
-    /// <seealso cref="T:PAYNLSDK.API.RequestBase" />
+    /// <seealso cref="T:PayNLSdk.API.RequestBase" />
     public class Request : RequestBase
     {
         /// <summary>

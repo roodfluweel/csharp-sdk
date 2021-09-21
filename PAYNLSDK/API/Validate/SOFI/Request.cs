@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Converters;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Validate.SOFI
+namespace PayNLSdk.API.Validate.SOFI
 {
     public class Request : RequestBase
     {

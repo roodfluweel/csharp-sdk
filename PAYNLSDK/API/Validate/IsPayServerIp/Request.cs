@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Validate.IsPayServerIp
+namespace PayNLSdk.API.Validate.IsPayServerIp
 {
     /// <inheritdoc />
     /// <summary>
     /// Request to validate whether the ipaddress is a PAY server ip
-    /// Implements the <see cref="PAYNLSDK.API.RequestBase" />
+    /// Implements the <see cref="PayNLSdk.API.RequestBase" />
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.RequestBase" />
+    /// <seealso cref="PayNLSdk.API.RequestBase" />
     public class Request : RequestBase
     {
         /// <summary>

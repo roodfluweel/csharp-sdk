@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAYNLSDK.API.Language
+namespace PayNLSdk.API.Language
 {
     public class GetAllRequest : RequestBase
     {

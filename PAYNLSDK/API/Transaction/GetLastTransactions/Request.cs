@@ -1,10 +1,10 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
-using PAYNLSDK.Exceptions;
+using PayNLSdk.Exceptions;
 
-namespace PAYNLSDK.API.Transaction.GetLastTransactions
+namespace PayNLSdk.API.Transaction.GetLastTransactions
 {
     public class Request : RequestBase
     {

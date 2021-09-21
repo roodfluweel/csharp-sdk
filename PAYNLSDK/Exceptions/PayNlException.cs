@@ -1,7 +1,7 @@
-﻿using PAYNLSDK.Objects;
+﻿using PayNLSdk.Objects;
 using System;
 
-namespace PAYNLSDK.Exceptions
+namespace PayNLSdk.Exceptions
 {
     /// <summary>
     /// PayNlException implementation

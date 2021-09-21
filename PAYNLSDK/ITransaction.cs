@@ -1,13 +1,13 @@
 ﻿using System;
-using PAYNLSDK.API.Transaction.Approve;
-using PAYNLSDK.API.Transaction.Decline;
-using PAYNLSDK.API.Transaction.GetService;
-using PAYNLSDK.API.Transaction.Info;
-using PAYNLSDK.API.Transaction.Refund;
-using PAYNLSDK.API.Transaction.Start;
-using PAYNLSDK.Enums;
+using PayNLSdk.API.Transaction.Approve;
+using PayNLSdk.API.Transaction.Decline;
+using PayNLSdk.API.Transaction.GetService;
+using PayNLSdk.API.Transaction.Info;
+using PayNLSdk.API.Transaction.Refund;
+using PayNLSdk.API.Transaction.Start;
+using PayNLSdk.Enums;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     public interface ITransaction
     {

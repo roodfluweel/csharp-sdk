@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
-using PAYNLSDK.Enums;
+using PayNLSdk.Converters;
+using PayNLSdk.Enums;
 using System;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects
 {
     /// <summary>
     /// 

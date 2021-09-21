@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAYNLSDK.API
+namespace PayNLSdk.API
 {
     /// <inheritdoc />
     public class PayNlConfiguration : IPayNlConfiguration

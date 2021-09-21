@@ -1,18 +1,18 @@
-﻿using PAYNLSDK.Enums;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Net;
+﻿using PayNLSdk.Enums;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Net;
 using System;
-using TransactionGetService = PAYNLSDK.API.Transaction.GetService.Request;
-using TransactionInfo = PAYNLSDK.API.Transaction.Info.Request;
-using TransactionRefund = PAYNLSDK.API.Transaction.Refund.Request;
-using TransactionApprove = PAYNLSDK.API.Transaction.Approve.Request;
-using TransactionDecline = PAYNLSDK.API.Transaction.Decline.Request;
+using TransactionGetService = PayNLSdk.API.Transaction.GetService.Request;
+using TransactionInfo = PayNLSdk.API.Transaction.Info.Request;
+using TransactionRefund = PayNLSdk.API.Transaction.Refund.Request;
+using TransactionApprove = PayNLSdk.API.Transaction.Approve.Request;
+using TransactionDecline = PayNLSdk.API.Transaction.Decline.Request;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// Generic Transaction service helper class.
-    /// Makes calling PAYNL Services easier and illiminates the need to fully initiate all Request objects.
+    /// Makes calling PAYNL Services easier and eliminates the need to fully initiate all Request objects.
     /// </summary>
     public class Transaction : ITransaction
     {
@@ -158,7 +158,7 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="transactionId">Transaction ID</param>
         /// <returns>Full response object with all information available</returns>
-        public PAYNLSDK.API.Transaction.Info.Response Info(string transactionId)
+        public PayNLSdk.API.Transaction.Info.Response Info(string transactionId)
         {
             TransactionInfo request = new TransactionInfo { TransactionId = transactionId };
 
@@ -173,7 +173,7 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="paymentMethodId">Paymentmethod ID</param>
         /// <returns>FUll response with all service information</returns>
-        public PAYNLSDK.API.Transaction.GetService.Response GetService(PaymentMethodId? paymentMethodId)
+        public PayNLSdk.API.Transaction.GetService.Response GetService(PaymentMethodId? paymentMethodId)
         {
             TransactionGetService request = new TransactionGetService();
             request.PaymentMethodId = paymentMethodId;
@@ -188,7 +188,7 @@ namespace PAYNLSDK
         /// This is an important API if you want to build your own payment screens.
         /// </summary>
         /// <returns>FUll response with all service information</returns>
-        public PAYNLSDK.API.Transaction.GetService.Response GetService()
+        public PayNLSdk.API.Transaction.GetService.Response GetService()
         {
             return GetService(null);
         }
@@ -201,7 +201,7 @@ namespace PAYNLSDK
         /// <param name="amount">Amount of the refund. If null is given, it will be the full amount of the transaction.</param>
         /// <param name="processDate">Date to process the refund. May be null.</param>
         /// <returns>Full response including the Refund ID</returns>
-        public PAYNLSDK.API.Transaction.Refund.Response Refund(string transactionId, string description = null, decimal? amount = null, DateTime? processDate = null)
+        public PayNLSdk.API.Transaction.Refund.Response Refund(string transactionId, string description = null, decimal? amount = null, DateTime? processDate = null)
         {
             var request = new TransactionRefund
             {
@@ -220,7 +220,7 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="transactionId">Transaction ID</param>
         /// <returns>Full response including the message about the approvement</returns>
-        public PAYNLSDK.API.Transaction.Approve.Response Approve(string transactionId)
+        public PayNLSdk.API.Transaction.Approve.Response Approve(string transactionId)
         {
             TransactionApprove request = new TransactionApprove();
             request.TransactionId = transactionId;
@@ -234,7 +234,7 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="transactionId">Transaction ID</param>
         /// <returns>Full response including the message about the decline</returns>
-        public PAYNLSDK.API.Transaction.Decline.Response Decline(string transactionId)
+        public PayNLSdk.API.Transaction.Decline.Response Decline(string transactionId)
         {
             TransactionDecline request = new TransactionDecline();
             request.TransactionId = transactionId;
@@ -256,7 +256,7 @@ namespace PAYNLSDK
         /// <param name="transferType">TransferType for this transaction (merchant/transaction)</param>
         /// <param name="transferValue">TransferValue eg MerchantId (M-xxxx-xxxx) or orderId</param>
         /// <returns>Transaction Start Request</returns>
-        public static PAYNLSDK.API.Transaction.Start.Request CreateTransactionRequest(decimal amount, string ipAddress, string returnUrl, int? paymentOptionId = null, int? paymentSubOptionId = null, bool testMode = false, string transferType = null, string transferValue = null)
+        public static PayNLSdk.API.Transaction.Start.Request CreateTransactionRequest(decimal amount, string ipAddress, string returnUrl, int? paymentOptionId = null, int? paymentSubOptionId = null, bool testMode = false, string transferType = null, string transferValue = null)
         {
             var request = new API.Transaction.Start.Request
             {
@@ -277,7 +277,7 @@ namespace PAYNLSDK
         /// Performs a request to start a transaction.
         /// </summary>
         /// <returns>Full response object including Transaction ID</returns>
-        public PAYNLSDK.API.Transaction.Start.Response Start(PAYNLSDK.API.Transaction.Start.Request request)
+        public PayNLSdk.API.Transaction.Start.Response Start(PayNLSdk.API.Transaction.Start.Request request)
         {
 
             _webClient.PerformRequest(request);

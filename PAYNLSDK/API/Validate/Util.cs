@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Net;
+using PayNLSdk.Net;
 using System;
 
-namespace PAYNLSDK.API.Validate
+namespace PayNLSdk.API.Validate
 {
     public class Util
     {

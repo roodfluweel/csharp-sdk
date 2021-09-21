@@ -1,17 +1,17 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
-using PAYNLSDK.Converters;
-using PAYNLSDK.Exceptions;
+using PayNLSdk.Converters;
+using PayNLSdk.Exceptions;
 
-namespace PAYNLSDK.API.PaymentProfile.GetAvailable
+namespace PayNLSdk.API.PaymentProfile.GetAvailable
 {
     public class Request : RequestBase
     {
         /// <summary>
         /// The ID of the category of the service the payment options are used for. 
-        /// For a list of available categories, see <see cref="PAYNLSDK.API.Service.GetCategories"/>
+        /// For a list of available categories, see <see cref="PayNLSdk.API.Service.GetCategories"/>
         /// </summary>
         [JsonProperty("categoryId")]
         public int CategoryId { get; set; }
@@ -78,7 +78,7 @@ namespace PAYNLSDK.API.PaymentProfile.GetAvailable
             {
                 throw new PayNlException("rawResponse is empty!");
             }
-            PAYNLSDK.Objects.PaymentProfile[] pm = JsonConvert.DeserializeObject<PAYNLSDK.Objects.PaymentProfile[]>(RawResponse);
+            PayNLSdk.Objects.PaymentProfile[] pm = JsonConvert.DeserializeObject<PayNLSdk.Objects.PaymentProfile[]>(RawResponse);
             Response r = new Response();
             r.PaymentProfiles = pm;
             response = r;

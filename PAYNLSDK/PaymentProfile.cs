@@ -1,9 +1,9 @@
-﻿using PAYNLSDK.Net;
-using PaymentProfileGet = PAYNLSDK.API.PaymentProfile.Get.Request;
-using PaymentProfileGetAll = PAYNLSDK.API.PaymentProfile.GetAll.Request;
-using PaymentProfileGetAvailable = PAYNLSDK.API.PaymentProfile.GetAvailable.Request;
+﻿using PayNLSdk.Net;
+using PaymentProfileGet = PayNLSdk.API.PaymentProfile.Get.Request;
+using PaymentProfileGetAll = PayNLSdk.API.PaymentProfile.GetAll.Request;
+using PaymentProfileGetAvailable = PayNLSdk.API.PaymentProfile.GetAvailable.Request;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// Provides retrieval for payment options 
@@ -26,7 +26,7 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="paymentProfileId">Payment profile ID</param>
         /// <returns>Payment profile response</returns>
-        public PAYNLSDK.API.PaymentProfile.Get.Response Get(int paymentProfileId)
+        public PayNLSdk.API.PaymentProfile.Get.Response Get(int paymentProfileId)
         {
             var request = new PaymentProfileGet
             {
@@ -41,7 +41,7 @@ namespace PAYNLSDK
         /// Get details for all payment profiles
         /// </summary>
         /// <returns>List of payment profile info</returns>
-        public PAYNLSDK.API.PaymentProfile.GetAll.Response GetAll()
+        public PayNLSdk.API.PaymentProfile.GetAll.Response GetAll()
         {
             PaymentProfileGetAll request = new PaymentProfileGetAll();
             
@@ -57,7 +57,7 @@ namespace PAYNLSDK
         /// <param name="paymentMethodId">Payment Method ID</param>
         /// <param name="showNotAllowedOnRegistration">Indicator wether to show profiles that are initially not allowed on registration. </param>
         /// <returns>Response containing the list of payment profile information</returns>
-        public PAYNLSDK.API.PaymentProfile.GetAvailable.Response GetAvailable(int categoryId, int? programId = null, int? paymentMethodId = null, bool? showNotAllowedOnRegistration = null)
+        public PayNLSdk.API.PaymentProfile.GetAvailable.Response GetAvailable(int categoryId, int? programId = null, int? paymentMethodId = null, bool? showNotAllowedOnRegistration = null)
         {
             var request = new PaymentProfileGetAvailable
             {

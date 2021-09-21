@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using PAYNLSDK.API;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.API;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 
 namespace PayNLSdk.API.Document.Add
 {

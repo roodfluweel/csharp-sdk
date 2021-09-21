@@ -1,9 +1,9 @@
-﻿using PAYNLSDK.Enums;
-using PAYNLSDK.Net;
+﻿using PayNLSdk.Enums;
+using PayNLSdk.Net;
 using System;
-using ServiceGetCategories = PAYNLSDK.API.Service.GetCategories.Request;
+using ServiceGetCategories = PayNLSdk.API.Service.GetCategories.Request;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// Generic Service service helper class.
@@ -23,7 +23,7 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="paymentOptionId">Payment Option ID, if null return all</param>
         /// <returns>Response object containing service categories</returns>
-        public PAYNLSDK.API.Service.GetCategories.Response GetCategories(int? paymentOptionId = null)
+        public PayNLSdk.API.Service.GetCategories.Response GetCategories(int? paymentOptionId = null)
         {
             ServiceGetCategories request = new ServiceGetCategories();
             request.PaymentOptionId = paymentOptionId;

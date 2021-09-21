@@ -1,11 +1,11 @@
 ﻿using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Alliance.AddService
+namespace PayNLSdk.API.Alliance.AddService
 {
     /// <summary>
     /// Class Request for a new Service.
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.RequestBase" />
+    /// <seealso cref="PayNLSdk.API.RequestBase" />
     public class Request : RequestBase
     {
         /// <inheritdoc />

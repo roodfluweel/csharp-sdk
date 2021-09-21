@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+using PayNLSdk.Converters;
 
-namespace PAYNLSDK.API.Alliance.AddMerchant
+namespace PayNLSdk.API.Alliance.AddMerchant
 {
     /// <summary>
     /// The result of the Alliance/AddMerchant call

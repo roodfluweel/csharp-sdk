@@ -1,4 +1,4 @@
-﻿namespace PAYNLSDK
+﻿namespace PayNLSdk
 {
     /// <summary>
     /// Alliance methods

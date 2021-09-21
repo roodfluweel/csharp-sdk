@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Service.GetCategories
+namespace PayNLSdk.API.Service.GetCategories
 {
     /// <summary>
     /// Returns a list of available service categories. 
@@ -46,7 +46,7 @@ namespace PAYNLSDK.API.Service.GetCategories
             {
                 throw new PayNlException("rawResponse is empty!");
             }
-            PAYNLSDK.Objects.ServiceCategory[] pm = JsonConvert.DeserializeObject<PAYNLSDK.Objects.ServiceCategory[]>(RawResponse);
+            PayNLSdk.Objects.ServiceCategory[] pm = JsonConvert.DeserializeObject<PayNLSdk.Objects.ServiceCategory[]>(RawResponse);
             Response r = new Response
             {
                 ServiceCategories = pm

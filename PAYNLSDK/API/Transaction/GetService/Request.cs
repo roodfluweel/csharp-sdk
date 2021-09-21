@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Transaction.GetService
+namespace PayNLSdk.API.Transaction.GetService
 {
     public class Request : RequestBase
     {
         public override bool RequiresServiceId => true;
 
         [JsonProperty("paymentMethodId")]
-        public PAYNLSDK.Enums.PaymentMethodId? PaymentMethodId { get; set; }
+        public PayNLSdk.Enums.PaymentMethodId? PaymentMethodId { get; set; }
 
         /// <inheritdoc />
         protected override int Version => 5;

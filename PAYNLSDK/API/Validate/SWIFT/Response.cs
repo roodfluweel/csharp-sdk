@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+using PayNLSdk.Converters;
 using System;
 
-namespace PAYNLSDK.API.Validate.SWIFT
+namespace PayNLSdk.API.Validate.SWIFT
 {
     /// <summary>
-    /// Response of the <see cref="PAYNLSDK.API.Validate.SWIFT.Request"/>.
-    /// Implements the <see cref="PAYNLSDK.API.ResponseBase" />
+    /// Response of the <see cref="PayNLSdk.API.Validate.SWIFT.Request"/>.
+    /// Implements the <see cref="PayNLSdk.API.ResponseBase" />
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.ResponseBase" />
+    /// <seealso cref="PayNLSdk.API.ResponseBase" />
     public class Response : ResponseBase
     {
         /// <summary>

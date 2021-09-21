@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters
 {
     internal class ProductTypeConverter : EnumConversionBase
     {

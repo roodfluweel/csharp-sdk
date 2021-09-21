@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters
 {
     internal class ErrorIdConverter : JsonConverter
     {

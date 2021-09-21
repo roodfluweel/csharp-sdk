@@ -1,17 +1,17 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PAYNLSDK.API.Validate.VAT
+namespace PayNLSdk.API.Validate.VAT
 {
     /// <summary>
     /// A request to validate a VAT number
-    /// Implements the <see cref="PAYNLSDK.API.RequestBase" />
+    /// Implements the <see cref="PayNLSdk.API.RequestBase" />
     /// </summary>
     /// <inheritdoc />
-    /// <seealso cref="PAYNLSDK.API.RequestBase" />
+    /// <seealso cref="PayNLSdk.API.RequestBase" />
     public class Request : RequestBase
     {
         /// <summary>

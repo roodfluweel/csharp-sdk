@@ -6,7 +6,7 @@
         <LangVersion>latest</LangVersion>
 
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageId>RoodFluweel.PAYNLSDK</PackageId>
+        <PackageId>RoodFluweel.PayNLSdk</PackageId>
         <Version>1.7.0</Version>
         <Authors>paynl, dampee, Sebsoft</Authors>
         <Company>dampee, paynl</Company>

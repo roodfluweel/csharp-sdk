@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Utilities;
 using System;
 using System.Collections.Specialized;
 using System.Text;
 
-namespace PAYNLSDK.API
+namespace PayNLSdk.API
 {
     /// <summary>
     /// The base class to perform a request to the Pay.NL api

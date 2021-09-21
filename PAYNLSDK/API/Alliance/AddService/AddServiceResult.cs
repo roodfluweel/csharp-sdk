@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Alliance.AddService
+namespace PayNLSdk.API.Alliance.AddService
 {
     /// <summary>
     ///     Class result class for a Add Service call

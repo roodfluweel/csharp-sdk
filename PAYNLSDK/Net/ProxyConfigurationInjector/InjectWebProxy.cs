@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace PAYNLSDK.Net.ProxyConfigurationInjector
+namespace PayNLSdk.Net.ProxyConfigurationInjector
 {
     /// <summary>
     /// Completely overwrites the web proxy so you can hard configure it. Example:

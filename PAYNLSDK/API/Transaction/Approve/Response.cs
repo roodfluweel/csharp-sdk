@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace PAYNLSDK.API.Transaction.Approve
+namespace PayNLSdk.API.Transaction.Approve
 {
     public class Response : ResponseBase
     {

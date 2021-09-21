@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Merchant.Add
+namespace PayNLSdk.API.Merchant.Add
 {
     /// <summary>
     /// Reponse from the Merchant add command

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects
 {
     /// <summary>
     /// Company information, used in the enduser.

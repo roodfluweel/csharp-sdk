@@ -1,9 +1,9 @@
-﻿using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+﻿using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PAYNLSDK.API.Alliance.AddInvoice
+namespace PayNLSdk.API.Alliance.AddInvoice
 {
     /// <inheritdoc />
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
@@ -139,7 +139,7 @@ namespace PAYNLSDK.API.Alliance.AddInvoice
         public string ServiceId { get; set; }
 
         /// <inheritdoc />
-        /// <exception cref="T:PAYNLSDK.Exceptions.PayNlException">rawResponse is empty!</exception>
+        /// <exception cref="T:PayNLSdk.Exceptions.PayNlException">rawResponse is empty!</exception>
         protected override void PrepareAndSetResponse()
         {
             if (ParameterValidator.IsEmpty(rawResponse))

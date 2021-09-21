@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 
-namespace PAYNLSDK.API.Merchant.Get
+namespace PayNLSdk.API.Merchant.Get
 {
     public class Request : RequestBase
     {

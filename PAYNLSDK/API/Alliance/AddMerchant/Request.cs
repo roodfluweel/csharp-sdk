@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace PAYNLSDK.API.Alliance.AddMerchant
+namespace PayNLSdk.API.Alliance.AddMerchant
 {
     public class Request : RequestBase
     {

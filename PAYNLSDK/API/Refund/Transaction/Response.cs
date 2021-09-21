@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Refund.Transaction
+namespace PayNLSdk.API.Refund.Transaction
 {
     public class Response : ResponseBase
     {

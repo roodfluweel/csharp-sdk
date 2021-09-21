@@ -1,10 +1,10 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Enums;
-using PAYNLSDK.Converters;
+using PayNLSdk.Enums;
+using PayNLSdk.Converters;
 using System.Collections.Generic;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects
 {
     /// <summary>
     /// Specification of sales data for a transaction
