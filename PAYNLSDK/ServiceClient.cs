@@ -5,15 +5,26 @@ using ServiceGetCategories = PayNLSdk.API.Service.GetCategories.Request;
 
 namespace PayNLSdk
 {
+    [Obsolete("use class ServiceClient()", true)]
+#pragma warning disable 1591
+    public class Service
+    {
+    }
+#pragma warning restore 1591
+
     /// <summary>
-    /// Generic Service service helper class.
-    /// Makes calling PAYNL Services easier and illiminates the need to fully initiate all Request objects.
+    /// Service endpoint helper class.
+    /// Makes calling PAYNL Services easier and eliminates the need to fully initiate all Request objects.
     /// </summary>
-    public class Service : IService
+    public class ServiceClient : IServiceClient
     {
         private readonly IClient _webClient;
 
-        public Service(IClient webClient)
+        /// <summary>
+        /// Creates a new instance for the ServiceClient
+        /// </summary>
+        /// <param name="webClient"></param>
+        public ServiceClient(IClient webClient)
         {
             _webClient = webClient;
         }
@@ -25,14 +36,13 @@ namespace PayNLSdk
         /// <returns>Response object containing service categories</returns>
         public PayNLSdk.API.Service.GetCategories.Response GetCategories(int? paymentOptionId = null)
         {
-            ServiceGetCategories request = new ServiceGetCategories();
-            request.PaymentOptionId = paymentOptionId;
-            
+            var request = new ServiceGetCategories
+            {
+                PaymentOptionId = paymentOptionId
+            };
+
             _webClient.PerformRequest(request);
             return request.Response;
         }
-
-       
     }
-
 }
