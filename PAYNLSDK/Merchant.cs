@@ -23,6 +23,17 @@ namespace PAYNLSDK
             _webClient = webClient;
         }
 
+        /// <summary>
+        /// Add a clearing for a particular merchant for a certain amount
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public PayNLSdk.API.Merchant.Clearing.Response AddClearing(PayNLSdk.API.Merchant.Clearing.Request request)
+        {
+            var response = _webClient.PerformRequest(request);
+            return PayNLSdk.API.Merchant.Clearing.Response.FromRawResponse(response);
+        }
+
         /// <summary>Create a new merchant</summary>
         /// <remarks></remarks>
         /// <returns>A new <see cref="API.Merchant.Add.Response"/> object</returns>
