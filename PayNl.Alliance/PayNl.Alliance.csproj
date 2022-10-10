@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
       <TargetFramework>netstandard2.0</TargetFramework>
@@ -15,6 +15,7 @@
       <RepositoryUrl>https://github.com/roodfluweel/csharp-sdk</RepositoryUrl>
       <RepositoryType>git</RepositoryType>
       <PackageTags>paynl payment gateway partner alliance</PackageTags>
+      <Version>2.0.0-alpha-002</Version>
   </PropertyGroup>
 
   <ItemGroup>

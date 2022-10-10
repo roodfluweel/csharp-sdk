@@ -13,7 +13,7 @@ namespace PayNLSdk.API.Merchant.Info
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        internal static Get.Response FromRawResponse(string response)
+        internal static Response FromRawResponse(string response)
         {
             return JsonConvert.DeserializeObject<Response>(response);
         }

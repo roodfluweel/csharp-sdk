@@ -30,8 +30,8 @@ namespace PayNLSdk
         {
             throw new NotImplementedException();
         }
-        
-         /// <inheritdoc />
+
+        /// <inheritdoc />
         public PayNLSdk.API.Merchant.Clearing.Response AddClearing(PayNLSdk.API.Merchant.Clearing.Request request)
         {
             var response = _webClient.PerformRequest(request);
@@ -39,7 +39,7 @@ namespace PayNLSdk
         }
 
         /// <inheritdoc />
-        public API.Merchant.Info.Response Get(string merchantId)
+        public PayNLSdk.API.Merchant.Info.Response Get(string merchantId)
         {
             //api = new Api\GetMerchant();
             //   if (!String.IsNullOrEmpty( options['merchantId']))
@@ -49,7 +49,7 @@ namespace PayNLSdk
 
             //result =  api->doRequest();
 
-            var request = new API.Merchant.Info.Request
+            var request = new PayNLSdk.API.Merchant.Info.Request
             {
                 MerchantId = merchantId
             };

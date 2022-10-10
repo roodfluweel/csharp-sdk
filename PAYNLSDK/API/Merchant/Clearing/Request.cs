@@ -1,7 +1,6 @@
-﻿using PAYNLSDK.API;
-using PAYNLSDK.Utilities;
-using System;
+﻿using System;
 using System.Collections.Specialized;
+using PayNLSdk.Utilities;
 
 namespace PayNLSdk.API.Merchant.Clearing
 {

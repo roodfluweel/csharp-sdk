@@ -5,7 +5,7 @@ using PayNLSdk.Utilities;
 namespace PayNLSdk.API.Alliance.GetMerchant
 {
     /// <summary>
-    /// The request data for a <see cref="IAlliance.GetMerchant"/> call
+    /// The request data for a <see cref="IAlliance.GetMerchant()"/> call
     /// </summary>
     public class Request : RequestBase
     {

@@ -11,7 +11,7 @@ namespace PayNLSdk.API.PaymentProfile.Get
         /// <summary>
         /// The result value
         /// </summary>
-        public PAYNLSDK.Objects.PaymentProfile PaymentProfile { get; set; }
+        public Objects.PaymentProfile PaymentProfile { get; set; }
 
     }
 }
