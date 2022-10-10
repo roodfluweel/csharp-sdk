@@ -3,6 +3,9 @@ using PAYNLSDK.API;
 
 namespace PayNLSdk.API.Merchant.Clearing
 {
+    /// <summary>
+    /// The response from a Merchant Clearing call
+    /// </summary>
     public class Response : ResponseBase
     {
         /// <summary>

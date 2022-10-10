@@ -3,6 +3,9 @@ using System;
 
 namespace PAYNLSDK.API.Transaction.Approve
 {
+    /// <summary>
+    /// Response of a Transaction Approve call
+    /// </summary>
     public class Response : ResponseBase
     {
 

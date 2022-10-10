@@ -418,8 +418,15 @@ namespace PAYNLSDK.API.Transaction.Start
             return nvc;
         }
 
-        public Response Response { get { return (Response)response; } }
+        /// <summary>
+        /// the response from the webservice
+        /// </summary>
+        public Response Response => (Response)response;
 
+        /// <summary>
+        /// the implementation of the request for a new transaction
+        /// </summary>
+        /// <exception cref="PayNlException"></exception>
         protected override void PrepareAndSetResponse()
         {
             if (ParameterValidator.IsEmpty(rawResponse))

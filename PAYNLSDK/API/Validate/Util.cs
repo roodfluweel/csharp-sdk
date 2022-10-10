@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PAYNLSDK.Net;
 using System;
+using System.Diagnostics.Contracts;
 
 namespace PAYNLSDK.API.Validate
 {
@@ -62,6 +63,11 @@ namespace PAYNLSDK.API.Validate
             }
         }
 
+        /// <summary>
+        /// Validates an iban number
+        /// </summary>
+        /// <param name="iban"></param>
+        /// <returns></returns>
         public bool ValidateIBAN(string iban)
         {
             IBAN.Request request = new IBAN.Request();

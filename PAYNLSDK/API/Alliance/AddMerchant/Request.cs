@@ -154,6 +154,9 @@ namespace PAYNLSDK.API.Alliance.AddMerchant
         }
     }
 
+    /// <summary>
+    /// The settings for a new merchant
+    /// </summary>
     public class MerchantSettings
     {
         /// <summary>
@@ -300,6 +303,9 @@ namespace PAYNLSDK.API.Alliance.AddMerchant
         }
     }
 
+    /// <summary>
+    /// The bank account linked to the new merchant
+    /// </summary>
     public class BankAccount
     {
         /// <summary>

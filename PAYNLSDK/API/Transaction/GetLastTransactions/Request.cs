@@ -41,7 +41,8 @@ namespace PAYNLSDK.API.Transaction.GetLastTransactions
         {
             get { return "getLastTransactions"; }
         }
-        
+
+        /// <inheritdoc />
         public override NameValueCollection GetParameters()
         {
             NameValueCollection nvc = new NameValueCollection();
@@ -59,8 +60,13 @@ namespace PAYNLSDK.API.Transaction.GetLastTransactions
             }
             return nvc;
         }
-        
-        public Response Response { get { return (Response)response; } }
+
+        /// <summary>
+        /// the response of the api call
+        /// </summary>
+        public Response Response => (Response)response;
+
+        /// <inheritdoc />
 
         protected override void PrepareAndSetResponse()
         {

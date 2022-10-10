@@ -4,6 +4,9 @@ using PAYNLSDK.Objects;
 
 namespace PAYNLSDK.API.PaymentMethod.GetAll
 {
+    /// <summary>
+    /// The response of a PaymentMethod GetAll call
+    /// </summary>
     public class Response : ResponseBase
     {
         /// <summary>

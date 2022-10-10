@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace PAYNLSDK.API.Refund.Add
 {
+    /// <summary>
+    /// The response of a Refund Add call
+    /// </summary>
     public class Response : ResponseBase
     {
         /// <summary>
