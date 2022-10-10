@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayNLSdk.ExtentionMethods;
+using PayNLSdk.ExtensionMethods;
 
 namespace PayNLSdk.Tests.ExtentionMethods
 {
