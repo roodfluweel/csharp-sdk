@@ -5,6 +5,9 @@ using System.Collections.Specialized;
 
 namespace PAYNLSDK.API.PaymentProfile.Get
 {
+    /// <summary>
+    /// The request data for the PaymentProfile Get call
+    /// </summary>
     public class Request : RequestBase
     {
         

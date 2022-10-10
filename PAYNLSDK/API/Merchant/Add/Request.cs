@@ -7,6 +7,9 @@ using PAYNLSDK.Utilities;
 
 namespace PAYNLSDK.API.Merchant.Add
 {
+    /// <summary>
+    /// The request data for the Merchant Add call
+    /// </summary>
     public class Request : RequestBase
     {
         /**

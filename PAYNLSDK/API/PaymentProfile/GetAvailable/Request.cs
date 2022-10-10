@@ -7,6 +7,9 @@ using PAYNLSDK.Exceptions;
 
 namespace PAYNLSDK.API.PaymentProfile.GetAvailable
 {
+    /// <summary>
+    /// The request data for the PaymentProfile GetAvailable call
+    /// </summary>
     public class Request : RequestBase
     {
         /// <summary>

@@ -7,6 +7,9 @@ namespace PAYNLSDK.API.Banktransfer.Add
     /// </summary>
     public class Response : ResponseBase
     {
+        /// <summary>
+        /// The result value
+        /// </summary>
         [JsonProperty("refundId")]
         public string RefundId { get; set; }
     }

@@ -5,6 +5,9 @@ using System.Collections.Specialized;
 
 namespace PAYNLSDK.API.SMS.PremiumMessage
 {
+    /// <summary>
+    /// The request data for the SMS PremiumMessage call
+    /// </summary>
     public class Request : RequestBase
     {
 

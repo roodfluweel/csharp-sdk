@@ -6,6 +6,9 @@ using PAYNLSDK.Exceptions;
 
 namespace PAYNLSDK.API.Transaction.GetLastTransactions
 {
+    /// <summary>
+    /// The request data for the transaction GetLastTransactions call
+    /// </summary>
     public class Request : RequestBase
     {
         [JsonProperty("merchantId")]
@@ -17,35 +20,22 @@ namespace PAYNLSDK.API.Transaction.GetLastTransactions
         [JsonProperty("limit")]
         public int? Limit { get; set; }
 
-        public override bool RequiresServiceId
-        {
-            get
-            {
-                return true;
-            }
-        }
         /// <inheritdoc />
-        protected override int Version
-        {
-            get { return 5; }
-        }
+        public override bool RequiresServiceId => true;
 
         /// <inheritdoc />
-        protected override string Controller
-        {
-            get { return "Transaction"; }
-        }
+        protected override int Version => 5;
 
         /// <inheritdoc />
-        protected override string Method
-        {
-            get { return "getLastTransactions"; }
-        }
+        protected override string Controller => "Transaction";
+
+        /// <inheritdoc />
+        protected override string Method => "getLastTransactions";
 
         /// <inheritdoc />
         public override NameValueCollection GetParameters()
         {
-            NameValueCollection nvc = new NameValueCollection();
+            var nvc = new NameValueCollection();
             if (!ParameterValidator.IsNull(MerchantId))
             {
                 nvc.Add("merchantId", MerchantId);

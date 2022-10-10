@@ -8,6 +8,9 @@ namespace PAYNLSDK.API.PaymentMethod.Get
     /// </summary>
     public class Response : ResponseBase
     {
+        /// <summary>
+        /// The result value
+        /// </summary>
         public PAYNLSDK.Objects.PaymentMethod PaymentMethod { get; set; }
 
     }

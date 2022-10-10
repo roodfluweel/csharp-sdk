@@ -7,6 +7,9 @@ using System.Collections.Specialized;
 
 namespace PAYNLSDK.API.Validate.SOFI
 {
+    /// <summary>
+    /// The request data for the Validate SOFI call
+    /// </summary>
     public class Request : RequestBase
     {
         [JsonProperty("sofi")]

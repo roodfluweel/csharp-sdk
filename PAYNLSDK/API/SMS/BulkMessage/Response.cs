@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace PAYNLSDK.API.SMS.BulkMessage
 {
+    /// <summary>
+    /// The request data for the SMS BulkMessage call
+    /// </summary>
     public class Response : ResponseBase
     {
         [JsonProperty("result"),JsonConverter(typeof(BooleanConverter))]

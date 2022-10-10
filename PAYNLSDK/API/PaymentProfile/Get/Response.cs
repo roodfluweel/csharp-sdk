@@ -8,6 +8,9 @@ namespace PAYNLSDK.API.PaymentProfile.Get
     /// </summary>
     public class Response : ResponseBase
     {
+        /// <summary>
+        /// The result value
+        /// </summary>
         public PAYNLSDK.Objects.PaymentProfile PaymentProfile { get; set; }
 
     }

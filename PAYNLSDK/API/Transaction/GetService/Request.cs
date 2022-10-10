@@ -5,6 +5,10 @@ using System.Collections.Specialized;
 
 namespace PAYNLSDK.API.Transaction.GetService
 {
+    /// <summary>
+    /// /// <summary>
+    /// The request data for the Transaction GetService call
+    /// </summary>
     public class Request : RequestBase
     {
         public override bool RequiresServiceId => true;

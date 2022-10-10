@@ -5,6 +5,9 @@ using System.Collections.Specialized;
 
 namespace PAYNLSDK.API.SMS.BulkMessage
 {
+    /// <summary>
+    /// The request data for the SMS BulkMessage call
+    /// </summary>
     public class Request : RequestBase
     {
         [JsonProperty("org")]

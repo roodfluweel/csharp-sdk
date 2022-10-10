@@ -7,6 +7,9 @@ using System.Text;
 
 namespace PayNLSdk.API.Merchant.Clearing
 {
+    /// <summary>
+    /// The request data for the Merchant Clearing call
+    /// </summary>
     public class Request : RequestBase
     {
         protected override int Version => 4;

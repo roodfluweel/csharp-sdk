@@ -3,6 +3,10 @@ using PAYNLSDK.API.Merchant.Get;
 
 namespace PAYNLSDK
 {
+    /// <summary>
+    /// The interface with the all the methods to be called on the merchant.
+    /// Register this interface in your DI container with the <see cref="Merchant"/> implementation
+    /// </summary>
     public interface IMerchant
     {
         API.Merchant.Add.Response Create(API.Merchant.Add.Request request);

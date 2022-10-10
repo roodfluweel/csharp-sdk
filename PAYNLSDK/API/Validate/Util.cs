@@ -5,6 +5,9 @@ using System.Diagnostics.Contracts;
 
 namespace PAYNLSDK.API.Validate
 {
+    /// <summary>
+    /// Internal utilities
+    /// </summary>
     public class Util
     {
         public IClient Client { get; set; }
