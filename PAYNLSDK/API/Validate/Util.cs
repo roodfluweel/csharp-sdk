@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PayNLSdk.Net;
 using System;
+using System.Diagnostics.Contracts;
 
 namespace PayNLSdk.API.Validate
 {

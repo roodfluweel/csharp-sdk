@@ -3,9 +3,17 @@ using Newtonsoft.Json;
 
 namespace PayNLSdk.API.Merchant.Info
 {
+    /// <summary>
+    /// The result from a <see cref="IMerchant.Get">Merchant Get</see> call
+    /// </summary>
     public class Response : ResponseBase
     {
-        public static Response FromRawResponse(string response)
+        /// <summary>
+        /// Factory method to create a new instance
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
+        internal static Get.Response FromRawResponse(string response)
         {
             return JsonConvert.DeserializeObject<Response>(response);
         }

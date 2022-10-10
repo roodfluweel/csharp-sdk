@@ -5,6 +5,9 @@ using System.Collections.Specialized;
 
 namespace PayNLSdk.API.Transaction.Info
 {
+    /// <summary>
+    /// The request data for the Transaction Info call
+    /// </summary>
     public class Request : RequestBase
     {
         /// <summary>

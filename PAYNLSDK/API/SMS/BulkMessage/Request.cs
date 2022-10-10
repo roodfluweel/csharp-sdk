@@ -5,14 +5,26 @@ using System.Collections.Specialized;
 
 namespace PayNLSdk.API.SMS.BulkMessage
 {
+    /// <summary>
+    /// The request data for the SMS BulkMessage call
+    /// </summary>
     public class Request : RequestBase
     {
+        /// <summary>
+        /// The sender organisation
+        /// </summary>
         [JsonProperty("org")]
         public string Sender { get; set; }
 
+        /// <summary>
+        /// the destination recipient
+        /// </summary>
         [JsonProperty("dest")]
         public string Recipient { get; set; }
 
+        /// <summary>
+        /// the body of the sms
+        /// </summary>
         [JsonProperty("body")]
         public string Message { get; set; }
 
@@ -31,7 +43,7 @@ namespace PayNLSdk.API.SMS.BulkMessage
         /// <inheritdoc />
         public override NameValueCollection GetParameters()
         {
-            NameValueCollection nvc = new NameValueCollection();
+            var nvc = new NameValueCollection();
 
             ParameterValidator.IsNotEmpty(Sender, "Sender");
             nvc.Add("org", Sender);
@@ -44,6 +56,9 @@ namespace PayNLSdk.API.SMS.BulkMessage
 
             return nvc;
         }
+        /// <summary>
+        /// the result of the call
+        /// </summary>
         public Response Response => (Response)response;
 
         /// <inheritdoc />

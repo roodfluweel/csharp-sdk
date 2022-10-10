@@ -4,7 +4,7 @@ using System;
 namespace PayNLSdk.API.Transaction.Refund
 {
     /// <summary>
-    /// The response of a refund call
+    /// Response of a transaction refund call
     /// </summary>
     public class Response : ResponseBase
     {

@@ -40,7 +40,7 @@ namespace PayNLSdk.Objects
         public string LocationLon { get; protected set; }
 
         /// <summary>
-        /// Details of the cusomers browser. Specified on transaction start 
+        /// Details of the customers browser. Specified on transaction start 
         /// </summary>
         [JsonProperty("browserData")]
         public string BrowserData { get; protected set; }
@@ -52,13 +52,13 @@ namespace PayNLSdk.Objects
         public string IP { get; protected set; }
 
         /// <summary>
-        /// Indicator whether or not the cusomer is blacklisted
+        /// Indicator whether or not the customer is blacklisted
         /// </summary>
         [JsonProperty("blacklist")]
         public Blacklist? Blacklist { get; protected set; }
 
         /// <summary>
-        /// Hostaddress of the customer
+        /// Host address of the customer
         /// </summary>
         [JsonProperty("host")]
         public string Host { get; protected set; }

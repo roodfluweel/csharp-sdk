@@ -1,4 +1,4 @@
-﻿using PayNLSdk.ExtentionMethods;
+﻿using PayNLSdk.ExtensionMethods;
 using PayNLSdk.API;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;

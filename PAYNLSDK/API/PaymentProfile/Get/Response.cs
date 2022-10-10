@@ -3,9 +3,15 @@ using Newtonsoft.Json;
 
 namespace PayNLSdk.API.PaymentProfile.Get
 {
+    /// <summary>
+    /// The response of a PaymentProfile Get call
+    /// </summary>
     public class Response : ResponseBase
     {
-        public PayNLSdk.Objects.PaymentProfile PaymentProfile { get; set; }
+        /// <summary>
+        /// The result value
+        /// </summary>
+        public PAYNLSDK.Objects.PaymentProfile PaymentProfile { get; set; }
 
     }
 }

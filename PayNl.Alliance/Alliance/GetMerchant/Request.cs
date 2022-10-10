@@ -4,6 +4,9 @@ using PayNLSdk.Utilities;
 
 namespace PayNLSdk.API.Alliance.GetMerchant
 {
+    /// <summary>
+    /// The request data for a <see cref="IAlliance.GetMerchant"/> call
+    /// </summary>
     public class Request : RequestBase
     {
         /// <inheritdoc />
@@ -17,11 +20,12 @@ namespace PayNLSdk.API.Alliance.GetMerchant
         /// the merchant Id to request
         /// </summary>
         public string MerchantId { get; set; }
-
+        
+        /// <inheritdoc />
         public override NameValueCollection GetParameters()
         {
-            var retval = new NameValueCollection { { "merchantId", MerchantId } };
-            return retval;
+            var retVal = new NameValueCollection { { "merchantId", MerchantId } };
+            return retVal;
         }
 
         /// <inheritdoc />

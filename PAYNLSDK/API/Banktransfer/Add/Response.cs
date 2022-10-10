@@ -3,7 +3,7 @@
 namespace PayNLSdk.API.BankTransfer.Add
 {
     /// <summary>
-    /// The response of a refund call
+    /// The response of a bank transfer add call
     /// </summary>
     public class Response : ResponseBase
     {

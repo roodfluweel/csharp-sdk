@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace PayNLSdk.ExtentionMethods
+namespace PayNLSdk.ExtensionMethods
 {
+    /// <summary>
+    /// Extension methods for <see cref="DateTime"/>
+    /// </summary>
     public static class DateTimeExtension
     {
         /// <summary>

@@ -4,6 +4,9 @@ using PayNLSdk.Objects;
 
 namespace PayNLSdk.API.Transaction.Start
 {
+    /// <summary>
+    /// The response of a Transaction Start Call
+    /// </summary>
     public class Response : ResponseBase
     {
         /// <summary>

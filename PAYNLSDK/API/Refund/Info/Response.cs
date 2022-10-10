@@ -4,6 +4,9 @@ using PayNLSdk.Objects;
 
 namespace PayNLSdk.API.Refund.Info
 {
+    /// <summary>
+    /// The response of a Refund info Call
+    /// </summary>
     public class Response : ResponseBase
     {
         /// <summary>

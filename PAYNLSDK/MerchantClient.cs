@@ -24,23 +24,21 @@ namespace PayNLSdk
             _webClient = webClient;
         }
 
-        /// <summary>
-        /// obsolete, use the alliance SDK
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <inheritdoc />
         [Obsolete("Use AllianceClient.AddMerchant()", true)]
         public object Create(object request)
         {
             throw new NotImplementedException();
         }
+        
+         /// <inheritdoc />
+        public PayNLSdk.API.Merchant.Clearing.Response AddClearing(PayNLSdk.API.Merchant.Clearing.Request request)
+        {
+            var response = _webClient.PerformRequest(request);
+            return PayNLSdk.API.Merchant.Clearing.Response.FromRawResponse(response);
+        }
 
-        /// <summary>
-        /// Get a specific merchant by id
-        /// </summary>
-        /// <param name="merchantId"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public API.Merchant.Info.Response Get(string merchantId)
         {
             //api = new Api\GetMerchant();
@@ -85,8 +83,14 @@ namespace PayNLSdk
             //return new object(); // Result\Merchant\GetList( result);
         }
 
+        /// <summary>
+        /// The state of the merchant
+        /// </summary>
         public enum MerchantState
         {
+            /// <summary>
+            /// a new merchant
+            /// </summary>
             NewMerchant,
 
         }

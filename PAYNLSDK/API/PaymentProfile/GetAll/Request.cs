@@ -5,6 +5,9 @@ using System.Collections.Specialized;
 
 namespace PayNLSdk.API.PaymentProfile.GetAll
 {
+    /// <summary>
+    /// The request data for the PaymentProfile GetAll call
+    /// </summary>
     public class Request : RequestBase
     {
         /// <inheritdoc />
