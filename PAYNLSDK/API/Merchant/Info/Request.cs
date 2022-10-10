@@ -10,15 +10,23 @@ using PAYNLSDK.Utilities;
 
 namespace PAYNLSDK.API.Merchant.Get
 {
+    /// <summary>
+    /// The request data for a <see cref="IMerchant.Get">Merchant Get</see> call
+    /// </summary>
     public class Request : RequestBase
     {
+        /// <summary>
+        /// the merchant to request data for
+        /// </summary>
         [JsonProperty("merchantId")]
         public string MerchantId { get; set; }
 
         /// <inheritdoc />
-        protected override int Version { get; }
+        protected override int Version { get; } // ToDo: which version are we using?
+
         /// <inheritdoc />
         protected override string Controller => "Merchant";
+
         /// <inheritdoc />
         protected override string Method => "info";
 
