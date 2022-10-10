@@ -9,9 +9,15 @@ namespace PAYNLSDK.API.Transaction.Info
     /// </summary>
     public class Response : ResponseBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("connection")]
         public Connection Connection { get; protected set; }
 
+        /// <summary>
+        /// information about the enduser
+        /// </summary>
         [JsonProperty("enduser")]
         public EndUser EndUser { get; protected set; }
 
@@ -30,6 +36,9 @@ namespace PAYNLSDK.API.Transaction.Info
         [JsonProperty("stornoDetails")]
         public StornoDetails StornoDetails { get; protected set; }
 
+        /// <summary>
+        /// details statistics
+        /// </summary>
         [JsonProperty("statsDetails")]
         public StatsDetails StatsDetails { get; protected set; }
 

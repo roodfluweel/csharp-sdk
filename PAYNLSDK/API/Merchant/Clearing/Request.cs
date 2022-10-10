@@ -1,9 +1,7 @@
 ﻿using PAYNLSDK.API;
 using PAYNLSDK.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text;
 
 namespace PayNLSdk.API.Merchant.Clearing
 {
@@ -12,10 +10,13 @@ namespace PayNLSdk.API.Merchant.Clearing
     /// </summary>
     public class Request : RequestBase
     {
+        /// <inheritdoc />
         protected override int Version => 4;
 
+        /// <inheritdoc />
         protected override string Controller => "merchant";
 
+        /// <inheritdoc />
         protected override string Method => "addClearing";
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace PayNLSdk.API.Merchant.Clearing
         /// <inheritdoc />
         public override NameValueCollection GetParameters()
         {
-            NameValueCollection nvc = new NameValueCollection();
+            var nvc = new NameValueCollection();
 
             ParameterValidator.IsNotNull(Amount, "Amount");
             nvc.Add("amount", Math.Round(Amount * 100).ToString());
