@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 namespace PayNLSdk.API.Transaction.GetService
 {
     /// <summary>
-    /// /// <summary>
     /// The request data for the Transaction GetService call
     /// </summary>
     public class Request : RequestBase

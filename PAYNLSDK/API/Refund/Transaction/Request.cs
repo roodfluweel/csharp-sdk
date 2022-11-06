@@ -48,7 +48,7 @@ namespace PayNLSdk.API.Refund.Transaction
         public DateTime? ProcessDate { get; set; }
 
         /// <summary>
-        /// Custom exchange URL overriding the defaultexchange URL.
+        /// Custom exchange URL overriding the default exchange URL.
         /// </summary>
         [JsonProperty("exchangeUrl")]
         public string ExchangeUrl { get; set; }
@@ -80,7 +80,6 @@ namespace PayNLSdk.API.Refund.Transaction
         protected override int Version => 2;
 
         /// <inheritdoc />
-
         protected override string Controller => "Refund";
 
         /// <inheritdoc />
@@ -100,10 +99,10 @@ namespace PayNLSdk.API.Refund.Transaction
         /// <inheritdoc />
         public override System.Collections.Specialized.NameValueCollection GetParameters()
         {
-            NameValueCollection nvc = new NameValueCollection();
+            var nvc = new NameValueCollection();
 
             ParameterValidator.IsNotNull(TransactionId, "TransactionId");
-            nvc.Add("transactionId", TransactionId.ToString());
+            nvc.Add("transactionId", TransactionId);
 
             if (ParameterValidator.IsNonEmptyInt(Amount))
             {
@@ -133,6 +132,7 @@ namespace PayNLSdk.API.Refund.Transaction
             return nvc;
         }
 
+        /// <inheritdoc />
         protected override void PrepareAndSetResponse()
         {
             if (ParameterValidator.IsEmpty(rawResponse))
@@ -148,34 +148,8 @@ namespace PayNLSdk.API.Refund.Transaction
         }
 
         /// <summary>
-        /// 
+        /// The response of the call
         /// </summary>
         public Response Response => (Response)response;
-
-        private static Dictionary<string, object> NvcToDictionary(NameValueCollection nvc, bool handleMultipleValuesPerKey)
-        {
-            var result = new Dictionary<string, object>();
-            foreach (string key in nvc.Keys)
-            {
-                if (handleMultipleValuesPerKey)
-                {
-                    string[] values = nvc.GetValues(key);
-                    if (values.Length == 1)
-                    {
-                        result.Add(key, values[0]);
-                    }
-                    else
-                    {
-                        result.Add(key, values);
-                    }
-                }
-                else
-                {
-                    result.Add(key, nvc[key]);
-                }
-            }
-
-            return result;
-        }
     }
 }
