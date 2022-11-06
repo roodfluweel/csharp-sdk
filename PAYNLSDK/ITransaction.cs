@@ -17,8 +17,7 @@ namespace PAYNLSDK
         /// <param name="transactionId">The transaction id</param>
         API.Transaction.Approve.Response Approve(string transactionId);
         API.Transaction.Decline.Response Decline(string transactionId);
-        API.Transaction.GetService.Response GetService();
-        API.Transaction.GetService.Response GetService(PaymentMethodId? paymentMethodId);
+        API.Transaction.GetService.Response GetService(PaymentMethodId? paymentMethodId = null);
         API.Transaction.Info.Response Info(string transactionId);
         bool IsCancelled(string transactionId);
         bool IsPaid(string transactionId);
