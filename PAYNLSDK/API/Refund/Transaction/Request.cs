@@ -9,7 +9,7 @@ using System.Collections.Specialized;
 namespace PAYNLSDK.API.Refund.Transaction
 {
     /// <summary>
-    /// A product specific refund for Products like Sofort & Afterpay
+    /// A product specific refund for Products like Sofort &amp; Afterpay
     /// For normal refunds, you should use <seealso cref="PAYNLSDK.API.Transaction.Refund.Request"/>
     /// </summary>
     public class Request : RequestBase
@@ -48,7 +48,7 @@ namespace PAYNLSDK.API.Refund.Transaction
         public DateTime? ProcessDate { get; set; }
 
         /// <summary>
-        /// Custom exchange URL overriding the defaultexchange URL.
+        /// Custom exchange URL overriding the default exchange URL.
         /// </summary>
         [JsonProperty("exchangeUrl")]
         public string ExchangeUrl { get; set; }
@@ -80,7 +80,6 @@ namespace PAYNLSDK.API.Refund.Transaction
         protected override int Version => 2;
 
         /// <inheritdoc />
-
         protected override string Controller => "Refund";
 
         /// <inheritdoc />
@@ -100,10 +99,10 @@ namespace PAYNLSDK.API.Refund.Transaction
         /// <inheritdoc />
         public override System.Collections.Specialized.NameValueCollection GetParameters()
         {
-            NameValueCollection nvc = new NameValueCollection();
+            var nvc = new NameValueCollection();
 
             ParameterValidator.IsNotNull(TransactionId, "TransactionId");
-            nvc.Add("transactionId", TransactionId.ToString());
+            nvc.Add("transactionId", TransactionId);
 
             if (ParameterValidator.IsNonEmptyInt(Amount))
             {
@@ -133,6 +132,7 @@ namespace PAYNLSDK.API.Refund.Transaction
             return nvc;
         }
 
+        /// <inheritdoc />
         protected override void PrepareAndSetResponse()
         {
             if (ParameterValidator.IsEmpty(rawResponse))
@@ -148,7 +148,7 @@ namespace PAYNLSDK.API.Refund.Transaction
         }
 
         /// <summary>
-        /// 
+        /// The response of the call
         /// </summary>
         public Response Response => (Response)response;
     }
