@@ -1,7 +1,9 @@
-﻿using PAYNLSDK.Enums;
+﻿using System;
+using PAYNLSDK.API.Transaction.Info;
+using PAYNLSDK.Enums;
 using PAYNLSDK.Exceptions;
 using PAYNLSDK.Net;
-using System;
+using Request = PAYNLSDK.API.Transaction.Start.Request;
 using TransactionGetService = PAYNLSDK.API.Transaction.GetService.Request;
 using TransactionInfo = PAYNLSDK.API.Transaction.Info.Request;
 using TransactionRefund = PAYNLSDK.API.Transaction.Refund.Request;
@@ -12,7 +14,7 @@ namespace PAYNLSDK
 {
     /// <summary>
     /// Generic Transaction service helper class.
-    /// Makes calling PAYNL Services easier and illiminates the need to fully initiate all Request objects.
+    /// Makes calling PAYNL Services easier and eliminates the need to fully initiate all Request objects.
     /// </summary>
     public class Transaction : ITransaction
     {
@@ -42,7 +44,7 @@ namespace PAYNLSDK
             };
 
             _webClient.PerformRequest(request);
-            return (request.Response.PaymentDetails.State == Enums.PaymentStatus.PAID);
+            return (request.Response.PaymentDetails.State == PaymentStatus.PAID);
         }
 
 
@@ -51,46 +53,36 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="transactionId">Transaction Id</param>
         /// <returns>True if CANCELLED, false otherwise</returns>
+        /// <exception cref="PayNlException"></exception>
         public bool IsCancelled(string transactionId)
         {
-            try
+            var request = new TransactionInfo
             {
-                TransactionInfo request = new TransactionInfo();
-                request.TransactionId = transactionId;
-                _webClient.PerformRequest(request);
-                return (request.Response.PaymentDetails.State == Enums.PaymentStatus.CANCEL);
-            }
-            catch (PayNlException e)
-            {
-                return false;
-            }
+                TransactionId = transactionId
+            };
+            _webClient.PerformRequest(request);
+            return (request.Response.PaymentDetails.State == PaymentStatus.CANCEL);
         }
-
-
 
         /// <summary>
         /// Checks whether a transaction has a status of PENDING
         /// </summary>
         /// <param name="transactionId">Transaction Id</param>
         /// <returns>True if PENDING, false otherwise</returns>
+        /// <exception cref="PayNlException"></exception>
         public bool IsPending(string transactionId)
         {
-            try
+            var request = new TransactionInfo
             {
-                TransactionInfo request = new TransactionInfo();
-                request.TransactionId = transactionId;
+                TransactionId = transactionId
+            };
 
-                _webClient.PerformRequest(request);
-                return ((request.Response.PaymentDetails.State == Enums.PaymentStatus.PENDING_1) ||
-                    (request.Response.PaymentDetails.State == Enums.PaymentStatus.PENDING_2) ||
-                    (request.Response.PaymentDetails.State == Enums.PaymentStatus.PENDING_3) ||
-                    (request.Response.PaymentDetails.State == Enums.PaymentStatus.VERIFY) ||
-                    (request.Response.PaymentDetails.StateName == "PENDING"));
-            }
-            catch (PayNlException e)
-            {
-                return false;
-            }
+            _webClient.PerformRequest(request);
+            return ((request.Response.PaymentDetails.State == PaymentStatus.PENDING_1) ||
+                (request.Response.PaymentDetails.State == PaymentStatus.PENDING_2) ||
+                (request.Response.PaymentDetails.State == PaymentStatus.PENDING_3) ||
+                (request.Response.PaymentDetails.State == PaymentStatus.VERIFY) ||
+                (request.Response.PaymentDetails.StateName == "PENDING"));
         }
 
 
@@ -100,21 +92,18 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="transactionId">Transaction Id</param>
         /// <returns>True if VERIFY, false otherwise</returns>
+        /// <exception cref="PayNlException"></exception>
         public bool IsVerify(string transactionId)
         {
-            try
+            var request = new TransactionInfo
             {
-                TransactionInfo request = new TransactionInfo();
-                request.TransactionId = transactionId;
+                TransactionId = transactionId
+            };
 
-                _webClient.PerformRequest(request);
-                return ((request.Response.PaymentDetails.State == Enums.PaymentStatus.VERIFY) ||
-                    (request.Response.PaymentDetails.StateName == "VERIFY"));
-            }
-            catch (PayNlException e)
-            {
-                return false;
-            }
+            _webClient.PerformRequest(request);
+            return ((request.Response.PaymentDetails.State == PaymentStatus.VERIFY) ||
+                (request.Response.PaymentDetails.StateName == "VERIFY"));
+
         }
 
 
@@ -124,16 +113,9 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="status">Transaction status</param>
         /// <returns>True if REFUND or REFUNDING, false otherwise</returns>
-        public static bool IsRefund(Enums.PaymentStatus status)
+        public static bool IsRefund(PaymentStatus status)
         {
-            try
-            {
-                return status == Enums.PaymentStatus.REFUND || status == Enums.PaymentStatus.REFUNDING;
-            }
-            catch (PayNlException e)
-            {
-                return false;
-            }
+            return status == PaymentStatus.REFUND || status == PaymentStatus.REFUNDING;
         }
 
         /// <summary>
@@ -141,16 +123,9 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="status">Transaction status</param>
         /// <returns>True if REFUNDING, false otherwise</returns>
-        public static bool IsRefunding(Enums.PaymentStatus status)
+        public static bool IsRefunding(PaymentStatus status)
         {
-            try
-            {
-                return status == Enums.PaymentStatus.REFUNDING;
-            }
-            catch (PayNlException e)
-            {
-                return false;
-            }
+            return status == PaymentStatus.REFUNDING;
         }
 
         /// <summary>
@@ -158,9 +133,10 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="transactionId">Transaction ID</param>
         /// <returns>Full response object with all information available</returns>
-        public PAYNLSDK.API.Transaction.Info.Response Info(string transactionId)
+        /// <exception cref="PayNlException"></exception>
+        public Response Info(string transactionId)
         {
-            TransactionInfo request = new TransactionInfo { TransactionId = transactionId };
+            var request = new TransactionInfo { TransactionId = transactionId };
 
             _webClient.PerformRequest(request);
             return request.Response;
@@ -171,26 +147,18 @@ namespace PAYNLSDK
         /// This API returns merchant info and all the available payment options per country for a given service.
         /// This is an important API if you want to build your own payment screens.
         /// </summary>
-        /// <param name="paymentMethodId">Paymentmethod ID</param>
-        /// <returns>FUll response with all service information</returns>
-        public PAYNLSDK.API.Transaction.GetService.Response GetService(PaymentMethodId? paymentMethodId)
+        /// <param name="paymentMethodId">Payment method ID, if left empty all payment methods are returned</param>
+        /// <returns>Full response with all service information</returns>
+        /// <exception cref="PayNlException"></exception>
+        public API.Transaction.GetService.Response GetService(PaymentMethodId? paymentMethodId = null)
         {
-            TransactionGetService request = new TransactionGetService();
-            request.PaymentMethodId = paymentMethodId;
+            var request = new TransactionGetService
+            {
+                PaymentMethodId = paymentMethodId
+            };
 
             _webClient.PerformRequest(request);
             return request.Response;
-        }
-
-        /// <summary>
-        /// Return service information.
-        /// This API returns merchant info and all the available payment options per country for a given service.
-        /// This is an important API if you want to build your own payment screens.
-        /// </summary>
-        /// <returns>FUll response with all service information</returns>
-        public PAYNLSDK.API.Transaction.GetService.Response GetService()
-        {
-            return GetService(null);
         }
 
         /// <summary>
@@ -201,7 +169,8 @@ namespace PAYNLSDK
         /// <param name="amount">Amount of the refund. If null is given, it will be the full amount of the transaction.</param>
         /// <param name="processDate">Date to process the refund. May be null.</param>
         /// <returns>Full response including the Refund ID</returns>
-        public PAYNLSDK.API.Transaction.Refund.Response Refund(string transactionId, string description = null, decimal? amount = null, DateTime? processDate = null)
+        /// <exception cref="PayNlException"></exception>
+        public API.Transaction.Refund.Response Refund(string transactionId, string description = null, decimal? amount = null, DateTime? processDate = null)
         {
             var request = new TransactionRefund
             {
@@ -220,10 +189,13 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="transactionId">Transaction ID</param>
         /// <returns>Full response including the message about the approvement</returns>
-        public PAYNLSDK.API.Transaction.Approve.Response Approve(string transactionId)
+        /// <exception cref="PayNlException"></exception>
+        public API.Transaction.Approve.Response Approve(string transactionId)
         {
-            TransactionApprove request = new TransactionApprove();
-            request.TransactionId = transactionId;
+            var request = new TransactionApprove
+            {
+                TransactionId = transactionId
+            };
 
             _webClient.PerformRequest(request);
             return request.Response;
@@ -234,10 +206,12 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="transactionId">Transaction ID</param>
         /// <returns>Full response including the message about the decline</returns>
-        public PAYNLSDK.API.Transaction.Decline.Response Decline(string transactionId)
+        public API.Transaction.Decline.Response Decline(string transactionId)
         {
-            TransactionDecline request = new TransactionDecline();
-            request.TransactionId = transactionId;
+            var request = new TransactionDecline
+            {
+                TransactionId = transactionId
+            };
 
             _webClient.PerformRequest(request);
             return request.Response;
@@ -256,9 +230,9 @@ namespace PAYNLSDK
         /// <param name="transferType">TransferType for this transaction (merchant/transaction)</param>
         /// <param name="transferValue">TransferValue eg MerchantId (M-xxxx-xxxx) or orderId</param>
         /// <returns>Transaction Start Request</returns>
-        public static PAYNLSDK.API.Transaction.Start.Request CreateTransactionRequest(decimal amount, string ipAddress, string returnUrl, int? paymentOptionId = null, int? paymentSubOptionId = null, bool testMode = false, string transferType = null, string transferValue = null)
+        public static Request CreateTransactionRequest(decimal amount, string ipAddress, string returnUrl, int? paymentOptionId = null, int? paymentSubOptionId = null, bool testMode = false, string transferType = null, string transferValue = null)
         {
-            var request = new API.Transaction.Start.Request
+            var request = new Request
             {
                 Amount = (int)Math.Round(amount * 100),
                 IPAddress = ipAddress,
@@ -277,7 +251,8 @@ namespace PAYNLSDK
         /// Performs a request to start a transaction.
         /// </summary>
         /// <returns>Full response object including Transaction ID</returns>
-        public PAYNLSDK.API.Transaction.Start.Response Start(PAYNLSDK.API.Transaction.Start.Request request)
+        /// <exception cref="PayNlException"></exception>
+        public API.Transaction.Start.Response Start(Request request)
         {
 
             _webClient.PerformRequest(request);
