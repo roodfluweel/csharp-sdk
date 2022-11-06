@@ -3,6 +3,9 @@ using PayNLSdk.Enums;
 
 namespace PayNLSdk
 {
+    /// <summary>
+    /// The transaction endpoint
+    /// </summary>
     public interface ITransaction
     {
         /// <summary>
