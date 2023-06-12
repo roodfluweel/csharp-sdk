@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.PaymentProfile.Get
+namespace PayNLSdk.API.PaymentProfile.Get
 {
     /// <summary>
     /// The response of a PaymentProfile Get call
@@ -11,7 +11,7 @@ namespace PAYNLSDK.API.PaymentProfile.Get
         /// <summary>
         /// The result value
         /// </summary>
-        public PAYNLSDK.Objects.PaymentProfile PaymentProfile { get; set; }
+        public Objects.PaymentProfile PaymentProfile { get; set; }
 
     }
 }

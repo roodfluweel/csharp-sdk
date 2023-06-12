@@ -6,11 +6,14 @@
         <LangVersion>latest</LangVersion>
 
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>RoodFluweel.PayNLSdk</PackageId>
         <PackageId>RoodFluweel.PAYNLSDK</PackageId>
+        <Version>2.0.0-alpha-001</Version>
         <Version>1.8.0-alpha-003</Version>
         <Authors>paynl, dampee, Sebsoft</Authors>
         <Company>dampee, paynl</Company>
         <PackageProjectUrl>https://github.com/roodfluweel/csharp-sdk</PackageProjectUrl>
+        <PackageReleaseNotes>Namespace consolidation (PAYNLSDK =&gt; PayNLSdk) -- BREAKING CHANGE</PackageReleaseNotes>
         <PackageReleaseNotes>Added Payment options on Alliance - addService</PackageReleaseNotes>
         <Description>Connector for Pay.NL, forked from the original and adding support for multiple tenants (merchants) in one application, dependency injection and the Alliance SDK.
 Targeting netstandard2.0
@@ -43,6 +46,11 @@ Targeting netstandard2.0
 
     <ItemGroup>
         <Folder Include="Properties\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PayNl.Alliance\PayNl.Alliance.csproj" />
+      <ProjectReference Include="..\PayNl.Core\PayNl.Core.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
-﻿using PAYNLSDK.Net;
-using PaymentMethodGet = PAYNLSDK.API.PaymentMethod.Get.Request;
-using PaymentMethodGetAll = PAYNLSDK.API.PaymentMethod.GetAll.Request;
+﻿using PayNLSdk.Net;
+using PaymentMethodGet = PayNLSdk.API.PaymentMethod.Get.Request;
+using PaymentMethodGetAll = PayNLSdk.API.PaymentMethod.GetAll.Request;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// Generic Payment Method service helper class.
@@ -26,7 +26,7 @@ namespace PAYNLSDK
         /// </summary>
         /// <param name="paymentMethodId">Payment Method ID</param>
         /// <returns>Response containing the payment method data</returns>
-        public PAYNLSDK.API.PaymentMethod.Get.Response Get(Enums.PaymentMethodId paymentMethodId)
+        public PayNLSdk.API.PaymentMethod.Get.Response Get(Enums.PaymentMethodId paymentMethodId)
         {
             var request = new PaymentMethodGet
             {
@@ -40,7 +40,7 @@ namespace PAYNLSDK
         /// Get information for all payment methods.
         /// </summary>
         /// <returns>Response containing a list of information for all payment methods</returns>
-        public PAYNLSDK.API.PaymentMethod.GetAll.Response GetAll()
+        public PayNLSdk.API.PaymentMethod.GetAll.Response GetAll()
         {
             var request = new PaymentMethodGetAll();
             _webClient.PerformRequest(request);

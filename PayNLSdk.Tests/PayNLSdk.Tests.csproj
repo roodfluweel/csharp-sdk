@@ -21,6 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\PayNl.Alliance\PayNl.Alliance.csproj" />
+        <ProjectReference Include="..\PayNl.Core\PayNl.Core.csproj" />
         <ProjectReference Include="..\PAYNLSDK\PayNLSdk.csproj" />
     </ItemGroup>
 

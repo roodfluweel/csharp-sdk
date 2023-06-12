@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters
 {
     internal class CountryOptionConverter : JsonConverter
     {

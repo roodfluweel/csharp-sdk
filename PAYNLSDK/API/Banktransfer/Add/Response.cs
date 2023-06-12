@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Banktransfer.Add
+namespace PayNLSdk.API.BankTransfer.Add
 {
     /// <summary>
     /// The response of a bank transfer add call
@@ -8,7 +8,7 @@ namespace PAYNLSDK.API.Banktransfer.Add
     public class Response : ResponseBase
     {
         /// <summary>
-        /// The result value
+        /// The ID of the refund transaction
         /// </summary>
         [JsonProperty("refundId")]
         public string RefundId { get; set; }

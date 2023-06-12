@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.PaymentMethod.Get
+namespace PayNLSdk.API.PaymentMethod.Get
 {
     /// <summary>
     /// The response of a PaymentMethod Get call
@@ -11,7 +11,7 @@ namespace PAYNLSDK.API.PaymentMethod.Get
         /// <summary>
         /// The result value
         /// </summary>
-        public PAYNLSDK.Objects.PaymentMethod PaymentMethod { get; set; }
+        public PayNLSdk.Objects.PaymentMethod PaymentMethod { get; set; }
 
     }
 }

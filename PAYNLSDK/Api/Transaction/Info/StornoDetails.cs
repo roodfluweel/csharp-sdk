@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects
 {
     /// <summary>
     /// Storno Details

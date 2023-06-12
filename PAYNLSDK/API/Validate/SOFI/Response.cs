@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+using PayNLSdk.Converters;
 using System;
 
-namespace PAYNLSDK.API.Validate.SOFI
+namespace PayNLSdk.API.Validate.SOFI
 {
     /// <summary>
     /// The response of a Validate SOFI Call

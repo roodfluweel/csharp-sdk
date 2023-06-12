@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Validate.BankAccountNumber
+namespace PayNLSdk.API.Validate.BankAccountNumber
 {
     /// <summary>
     /// The request object to validate a bank account number

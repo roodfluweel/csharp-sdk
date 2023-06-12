@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Validate.GetServerIps
+namespace PayNLSdk.API.Validate.GetServerIps
 {
     /// <inheritdoc />
     /// <summary>
     /// Request class for the SERVER IPs request.
-    /// Implements the <see cref="T:PAYNLSDK.API.RequestBase" />
+    /// Implements the <see cref="T:PayNLSdk.API.RequestBase" />
     /// </summary>
-    /// <seealso cref="T:PAYNLSDK.API.RequestBase" />
+    /// <seealso cref="T:PayNLSdk.API.RequestBase" />
     public class Request : RequestBase
     {
         /// <inheritdoc />

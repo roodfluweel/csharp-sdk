@@ -1,17 +1,17 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PAYNLSDK.API.Validate.SWIFT
+namespace PayNLSdk.API.Validate.SWIFT
 {
     /// <summary>
     /// Request to validate a swift number.
-    /// Implements the <see cref="PAYNLSDK.API.RequestBase" />
+    /// Implements the <see cref="PayNLSdk.API.RequestBase" />
     /// </summary>
     /// <inheritdoc />
-    /// <seealso cref="PAYNLSDK.API.RequestBase" />
+    /// <seealso cref="PayNLSdk.API.RequestBase" />
     public class Request : RequestBase
     {
         /// <summary>

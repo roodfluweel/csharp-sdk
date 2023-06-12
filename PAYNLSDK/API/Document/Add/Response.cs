@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PAYNLSDK.API;
+using PayNLSdk.API;
 
 namespace PayNLSdk.API.Document.Add
 {

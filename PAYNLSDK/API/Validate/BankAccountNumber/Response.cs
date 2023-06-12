@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+using PayNLSdk.Converters;
 
-namespace PAYNLSDK.API.Validate.BankAccountNumber
+namespace PayNLSdk.API.Validate.BankAccountNumber
 {
     /// <summary>
     /// The reponse object for the bank account number validation

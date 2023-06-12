@@ -1,16 +1,17 @@
 ﻿using System;
-using PAYNLSDK.API.Transaction.Info;
-using PAYNLSDK.Enums;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Net;
-using Request = PAYNLSDK.API.Transaction.Start.Request;
-using TransactionGetService = PAYNLSDK.API.Transaction.GetService.Request;
-using TransactionInfo = PAYNLSDK.API.Transaction.Info.Request;
-using TransactionRefund = PAYNLSDK.API.Transaction.Refund.Request;
-using TransactionApprove = PAYNLSDK.API.Transaction.Approve.Request;
-using TransactionDecline = PAYNLSDK.API.Transaction.Decline.Request;
+using Microsoft.Extensions.Logging;
+using PayNLSdk.API.Transaction.Info;
+using PayNLSdk.Enums;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Net;
+using Request = PayNLSdk.API.Transaction.Start.Request;
+using TransactionGetService = PayNLSdk.API.Transaction.GetService.Request;
+using TransactionInfo = PayNLSdk.API.Transaction.Info.Request;
+using TransactionRefund = PayNLSdk.API.Transaction.Refund.Request;
+using TransactionApprove = PayNLSdk.API.Transaction.Approve.Request;
+using TransactionDecline = PayNLSdk.API.Transaction.Decline.Request;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// Generic Transaction service helper class.

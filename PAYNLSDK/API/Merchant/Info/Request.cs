@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Specialized;
 using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 
-namespace PAYNLSDK.API.Merchant.Get
+namespace PayNLSdk.API.Merchant.Info
 {
     /// <summary>
     /// The request data for a <see cref="IMerchant.Get">Merchant Get</see> call
@@ -46,7 +41,7 @@ namespace PAYNLSDK.API.Merchant.Get
             {
                 throw new PayNlException("rawResponse is empty!");
             }
-            response = JsonConvert.DeserializeObject<API.Merchant.Get.Response>(RawResponse);
+            response = JsonConvert.DeserializeObject<Response>(RawResponse);
             if (!response.Request.Result)
             {
                 // toss

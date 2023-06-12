@@ -1,17 +1,17 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PAYNLSDK.API.Validate.IBAN
+namespace PayNLSdk.API.Validate.IBAN
 {
     /// <inheritdoc />
     /// <summary>
     /// Validate Iban Request
-    /// Implements the <see cref="T:PAYNLSDK.API.RequestBase" />
+    /// Implements the <see cref="T:PayNLSdk.API.RequestBase" />
     /// </summary>
-    /// <seealso cref="T:PAYNLSDK.API.RequestBase" />
+    /// <seealso cref="T:PayNLSdk.API.RequestBase" />
     public class Request : RequestBase
     {
         /// <summary>

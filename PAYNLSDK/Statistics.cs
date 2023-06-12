@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using PayNLSdk.API.Statistics.GetManagement;
-using PAYNLSDK.Net;
+using PayNLSdk.Net;
 using System.Collections.Generic;
 
-namespace PAYNLSDK
+namespace PayNLSdk
 {
     /// <summary>
     /// This is a part of the alliance SDK

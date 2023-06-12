@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+using PayNLSdk.Converters;
 using System;
 
-namespace PAYNLSDK.API.Validate.IBAN
+namespace PayNLSdk.API.Validate.IBAN
 {
     /// <summary>
-    /// The response of <see cref="PAYNLSDK.API.Validate.IBAN.Request"/>.
-    /// Implements the <see cref="PAYNLSDK.API.ResponseBase" />
+    /// The response of <see cref="PayNLSdk.API.Validate.IBAN.Request"/>.
+    /// Implements the <see cref="PayNLSdk.API.ResponseBase" />
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.ResponseBase" />
+    /// <seealso cref="PayNLSdk.API.ResponseBase" />
     public class Response : ResponseBase
     {
         /// <summary>

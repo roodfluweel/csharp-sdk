@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.API;
 
 namespace PayNLSdk.API.Merchant.Clearing
 {

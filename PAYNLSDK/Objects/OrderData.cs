@@ -1,9 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Converters;
-using PAYNLSDK.Enums;
+using PayNLSdk.Converters;
+using PayNLSdk.Enums;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects
 {
     /// <summary>
     /// Ordered product information

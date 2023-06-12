@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Transaction.Decline
+namespace PayNLSdk.API.Transaction.Decline
 {
     /// <summary>
     /// function to approve a suspicious transaction
@@ -16,13 +16,6 @@ namespace PAYNLSDK.API.Transaction.Decline
         [JsonProperty("transactionId")]
         public string TransactionId { get; set; }
 
-        ///// <summary>
-        ///// not implemented
-        ///// </summary>
-        //  [JsonProperty("entranceCode")]
-        //   public string EntranceCode { get; set; }
-
-        /* overrides */
         /// <inheritdoc />
         protected override int Version => 7;
 

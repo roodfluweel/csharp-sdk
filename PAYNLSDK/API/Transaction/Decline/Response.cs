@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Transaction.Decline
+namespace PayNLSdk.API.Transaction.Decline
 {
     /// <summary>
     /// Response of a Transaction Decline call

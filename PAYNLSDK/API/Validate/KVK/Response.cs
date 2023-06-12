@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+using PayNLSdk.Converters;
 using System;
 
-namespace PAYNLSDK.API.Validate.KVK
+namespace PayNLSdk.API.Validate.KVK
 {
     /// <summary>
-    /// The response object for <see cref="PAYNLSDK.API.Validate.KVK.Request"/>
-    /// Implements the <see cref="PAYNLSDK.API.ResponseBase" />
+    /// The response object for <see cref="PayNLSdk.API.Validate.KVK.Request"/>
+    /// Implements the <see cref="PayNLSdk.API.ResponseBase" />
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.ResponseBase" />
+    /// <seealso cref="PayNLSdk.API.ResponseBase" />
     /// <inheritdoc />
     public class Response : ResponseBase
     {

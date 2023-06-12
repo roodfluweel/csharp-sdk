@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Merchant.Get
+namespace PayNLSdk.API.Merchant.Info
 {
     /// <summary>
     /// The result from a <see cref="IMerchant.Get">Merchant Get</see> call
@@ -18,7 +13,7 @@ namespace PAYNLSDK.API.Merchant.Get
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        internal static Get.Response FromRawResponse(string response)
+        internal static Response FromRawResponse(string response)
         {
             return JsonConvert.DeserializeObject<Response>(response);
         }
@@ -36,7 +31,7 @@ namespace PAYNLSDK.API.Merchant.Get
         /// The different ways of contacting the merchant 
         /// </summary>
         [JsonProperty("contactData")]
-        public Contact contactData { get; set; }
+        public List<Contact> contactData { get; set; }
 
         #region Models (SubClasses)
         public class ResultInfo
@@ -81,7 +76,7 @@ namespace PAYNLSDK.API.Merchant.Get
             public string type { get; set; }
 
             public string typeName { get; set; }
-            [JsonRequired] [Required] public string cocNumber { get; set; }
+            public string cocNumber { get; set; }
             public string vatNumber { get; set; }
             public string iban { get; set; }
             public string bic { get; set; }

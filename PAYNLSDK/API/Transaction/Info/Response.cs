@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.Transaction.Info
+namespace PayNLSdk.API.Transaction.Info
 {
     /// <summary>
     /// The response of a Transaction Info Call

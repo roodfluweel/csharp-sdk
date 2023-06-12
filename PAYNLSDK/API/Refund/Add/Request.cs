@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Refund.Add
+namespace PayNLSdk.API.Refund.Add
 {
     /// <summary>
     /// A refund, not based on a previous transaction, but to another IBAN.
-    /// If you are looking for a normal refund, use <seealso cref="PAYNLSDK.API.Transaction.Refund.Request"/>
+    /// If you are looking for a normal refund, use <seealso cref="PayNLSdk.API.Transaction.Refund.Request"/>
     /// </summary>
     public class Request : RequestBase
     {

@@ -1,6 +1,6 @@
-﻿using PAYNLSDK.Enums;
+﻿using PayNLSdk.Enums;
 
-namespace PAYNLSDK.API.Transaction.Info
+namespace PayNLSdk.API.Transaction.Info
 {
     /// <summary>
     /// Extentions methods

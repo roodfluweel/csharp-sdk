@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.PaymentProfile.GetAll
+namespace PayNLSdk.API.PaymentProfile.GetAll
 {
     /// <summary>
     /// The request data for the PaymentProfile GetAll call
@@ -32,7 +32,7 @@ namespace PAYNLSDK.API.PaymentProfile.GetAll
             {
                 throw new PayNlException("rawResponse is empty!");
             }
-            PAYNLSDK.Objects.PaymentProfile[] pm = JsonConvert.DeserializeObject<PAYNLSDK.Objects.PaymentProfile[]>(RawResponse);
+            PayNLSdk.Objects.PaymentProfile[] pm = JsonConvert.DeserializeObject<PayNLSdk.Objects.PaymentProfile[]>(RawResponse);
             Response r = new Response
             {
                 PaymentProfiles = pm

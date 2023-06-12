@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Utilities;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters
 {
     internal class YMDHISConverter : JsonConverter
     {

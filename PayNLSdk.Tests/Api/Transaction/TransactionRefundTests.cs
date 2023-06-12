@@ -12,7 +12,7 @@ namespace PayNLSdk.Tests.Api.Transaction
         public void Request_AmountInCents_PassedInAsDecimal()
         {
             // Arrange
-            var sut = new PAYNLSDK.API.Transaction.Refund.Request
+            var sut = new PayNLSdk.API.Transaction.Refund.Request
             {
                 TransactionId = "DUMMY",
                 Amount = 3.50m
@@ -29,7 +29,7 @@ namespace PayNLSdk.Tests.Api.Transaction
         public void Request_NoAmountSupplied_NoParameterWithAmount()
         {
             // Arrange
-            var sut = new PAYNLSDK.API.Transaction.Refund.Request
+            var sut = new PayNLSdk.API.Transaction.Refund.Request
             {
                 TransactionId = "DUMMY",
                 Amount = null

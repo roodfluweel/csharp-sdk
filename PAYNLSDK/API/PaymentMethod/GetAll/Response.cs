@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.PaymentMethod.GetAll
+namespace PayNLSdk.API.PaymentMethod.GetAll
 {
     /// <summary>
     /// The response of a PaymentMethod GetAll call
@@ -12,6 +12,6 @@ namespace PAYNLSDK.API.PaymentMethod.GetAll
         /// <summary>
         /// 
         /// </summary>
-        public PAYNLSDK.Objects.PaymentMethod[] PaymentMethods { get; set; }
+        public PayNLSdk.Objects.PaymentMethod[] PaymentMethods { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Enums;
+using PayNLSdk.Enums;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects
 {
     /// <summary>
     /// Connection information

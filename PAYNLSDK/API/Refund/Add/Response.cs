@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Refund.Add
+namespace PayNLSdk.API.Refund.Add
 {
     /// <summary>
     /// The response of a Refund Add call

@@ -1,9 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Enums;
+using PayNLSdk.Enums;
 using System.Collections.Generic;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects
 {
     /// <summary>
     /// Payment Option information base

@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Banktransfer.Add
+namespace PayNLSdk.API.BankTransfer.Add
 {
     /// <summary>
-    /// A new ADD request for the banktransfer (payment option id 136)
+    /// A new ADD request for the bank transfer (payment option id 136)
     /// </summary>
     public class Request : RequestBase
     {

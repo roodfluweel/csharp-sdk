@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+using PayNLSdk.Converters;
 using System;
 
-namespace PAYNLSDK.API.Validate.IsPayServerIp
+namespace PayNLSdk.API.Validate.IsPayServerIp
 {
     /// <summary>
-    /// Response for the <see cref="PAYNLSDK.API.Validate.IsPayServerIp.Request"/>.
-    /// Implements the <see cref="PAYNLSDK.API.ResponseBase" />
+    /// Response for the <see cref="PayNLSdk.API.Validate.IsPayServerIp.Request"/>.
+    /// Implements the <see cref="PayNLSdk.API.ResponseBase" />
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.ResponseBase" />
+    /// <seealso cref="PayNLSdk.API.ResponseBase" />
     public class Response : ResponseBase
     {
         /// <summary>

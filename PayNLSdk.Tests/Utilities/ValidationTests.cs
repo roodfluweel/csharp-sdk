@@ -1,6 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Utilities;
 
 namespace PayNLSdk.Tests.Utilities
 {

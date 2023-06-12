@@ -1,9 +1,9 @@
 ﻿using System;
-using PAYNLSDK.API;
+using PayNLSdk.API;
 using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.Transaction.GetService
+namespace PayNLSdk.API.Transaction.GetService
 {
     /// <summary>
     /// The response data for the Transaction GetService call
@@ -20,7 +20,7 @@ namespace PAYNLSDK.API.Transaction.GetService
         /// The service
         /// </summary>
         [JsonProperty("service")]
-        public PAYNLSDK.Objects.Service Service { get; set; }
+        public PayNLSdk.Objects.Service Service { get; set; }
 
         /// <summary>
         /// the country options

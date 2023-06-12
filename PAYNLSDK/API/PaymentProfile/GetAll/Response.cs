@@ -1,14 +1,14 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.PaymentProfile.GetAll
+namespace PayNLSdk.API.PaymentProfile.GetAll
 {
     /// <summary>
     /// The response of a PaymentProfile GetAll call
     /// </summary>
     public class Response : ResponseBase
     {
-        public PAYNLSDK.Objects.PaymentProfile[] PaymentProfiles { get; set; }
+        public PayNLSdk.Objects.PaymentProfile[] PaymentProfiles { get; set; }
     }
 }

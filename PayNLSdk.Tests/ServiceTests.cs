@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using PAYNLSDK;
-using PAYNLSDK.Net;
+using PayNLSdk;
+using PayNLSdk.Net;
 
 namespace PayNLSdk.Tests
 {
@@ -9,13 +9,13 @@ namespace PayNLSdk.Tests
     public class ServiceTests
     {
         private Mock<IClient> _iClientMock;
-        private Service _sut;
+        private ServiceClient _sut;
 
         [TestInitialize]
         public void TestInitialize()
         {
             _iClientMock = new Mock<IClient>();
-            _sut = new Service(_iClientMock.Object);
+            _sut = new ServiceClient(_iClientMock.Object);
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace PayNLSdk.Tests
 
             // Assert
             _iClientMock.Verify(
-                o => o.PerformRequest(It.IsAny<PAYNLSDK.API.Service.GetCategories.Request>()),
+                o => o.PerformRequest(It.IsAny<PayNLSdk.API.Service.GetCategories.Request>()),
                 Times.Once);
             // Assert.IsNotNull(result); // UNTESTABLE CURRENTLY
         }
@@ -44,7 +44,7 @@ namespace PayNLSdk.Tests
 
             // Assert
             _iClientMock.Verify(
-                o => o.PerformRequest(It.IsAny<PAYNLSDK.API.Service.GetCategories.Request>()),
+                o => o.PerformRequest(It.IsAny<PayNLSdk.API.Service.GetCategories.Request>()),
                 Times.Once);
             // Assert.IsNotNull(result); // UNTESTABLE CURRENTLY
         }

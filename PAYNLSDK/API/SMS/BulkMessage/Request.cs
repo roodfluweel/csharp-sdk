@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.SMS.BulkMessage
+namespace PayNLSdk.API.SMS.BulkMessage
 {
     /// <summary>
     /// The request data for the SMS BulkMessage call

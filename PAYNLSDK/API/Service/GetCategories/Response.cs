@@ -1,8 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+﻿using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.Service.GetCategories
+namespace PayNLSdk.API.Service.GetCategories
 {
     /// <summary>
     /// The response of a Service GetCategories Call
@@ -12,6 +10,6 @@ namespace PAYNLSDK.API.Service.GetCategories
         /// <summary>
         /// All the service categories
         /// </summary>
-        public PAYNLSDK.Objects.ServiceCategory[] ServiceCategories { get; set; }
+        public ServiceCategory[] ServiceCategories { get; set; }
     }
 }
