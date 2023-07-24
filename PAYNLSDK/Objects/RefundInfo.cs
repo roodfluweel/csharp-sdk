@@ -12,19 +12,19 @@ namespace PAYNLSDK.Objects
         /// payment session ID
         /// </summary>
         [JsonProperty("paymentSessionId")]
-        public int PaymentSessionId { get; protected set; }
+        public long PaymentSessionId { get; set; }
 
         /// <summary>
         /// Refund amount
         /// </summary>
         [JsonProperty("amount")]
-        public int Amount { get; protected set; }
+        public int Amount { get; set; }
 
         /// <summary>
         /// description
         /// </summary>
         [JsonProperty("description")]
-        public string Description { get; protected set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// The name of the customer.
@@ -48,13 +48,13 @@ namespace PAYNLSDK.Objects
         /// status code
         /// </summary>
         [JsonProperty("statusCode")]
-        public int StatusCode { get; protected set; }
+        public int StatusCode { get; set; }
 
         /// <summary>
         /// status description
         /// </summary>
         [JsonProperty("statusName")]
-        public string StatusName { get; protected set; }
+        public string StatusName { get; set; }
 
         /// <summary>
         /// The currency of the amount, default is EUR.
