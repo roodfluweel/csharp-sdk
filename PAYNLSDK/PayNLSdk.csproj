@@ -8,11 +8,13 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>RoodFluweel.PAYNLSDK</PackageId>
         <Version>1.7.2</Version>
+        <Version>1.8.1</Version>
         <Authors>paynl, dampee, Sebsoft</Authors>
         <Company>dampee, paynl</Company>
         <PackageLicenseUrl></PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/roodfluweel/csharp-sdk</PackageProjectUrl>
         <PackageReleaseNotes>Security patch with new newtonsoft json.net</PackageReleaseNotes>
+        <PackageReleaseNotes>Changed paymentSessionId to long</PackageReleaseNotes>
         <Description>Connector for Pay.NL, forked from the original and adding support for multiple tenants (merchants) in one application, dependency injection and the Alliance SDK.
 Targeting netstandard2.0
 </Description>
