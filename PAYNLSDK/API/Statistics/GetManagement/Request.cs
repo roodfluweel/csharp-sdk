@@ -124,6 +124,11 @@ namespace PayNLSdk.API.Statistics.GetManagement
         /// </summary>
         public bool ExcludeSandbox { get; set; }
 
+        /// <summary>
+        /// Show turnover for: Own merchant, submerchants or all
+        /// </summary>
+        public CompanySelectEnum CompanySelect { get; set; }
+
         /// <inheritdocs />
         public override NameValueCollection GetParameters()
         {
@@ -133,6 +138,7 @@ namespace PayNLSdk.API.Statistics.GetManagement
                 { "endDate", EndDate.ToString("yyyy-MM-dd")},
                 { "staffels", Staffels.ToString()},
                 { "CurrencyId", CurrencyId?.ToString()},
+                { "company_select", CompanySelect.ToString().ToLower()}
             };
 
             retval.Add(GenerateFiltersNameValueCollection());
@@ -245,5 +251,24 @@ namespace PayNLSdk.API.Statistics.GetManagement
             Like
         }
 
+    }
+
+    /// <summary>
+    /// Filter the turnover on the Statistics export
+    /// </summary>
+    public enum CompanySelectEnum
+    {
+        /// <summary>
+        /// Own merchant and sub merchants
+        /// </summary>
+        All,
+        /// <summary>
+        /// Only the current merchant
+        /// </summary>
+        Self,
+        /// <summary>
+        /// Only sub merchants
+        /// </summary>
+        Other
     }
 }
