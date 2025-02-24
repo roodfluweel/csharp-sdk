@@ -69,7 +69,7 @@ namespace PAYNLSDK.API.Alliance.AddService
         public string Name { get; set; }
 
         /// <summary>
-        /// An array of payment options (id & settings) you want to use for this service.
+        /// An array of payment options (id &amp; settings) you want to use for this service.
         /// For a list of available payment option ids, see API_PaymentProfile_v1::getAvailable() 
         /// </summary>
         public List<PaymentProfile> PaymentOptions = new List<PaymentProfile>();
