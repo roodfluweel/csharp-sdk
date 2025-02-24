@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace PAYNLSDK.API.Alliance.AddService
 {
@@ -23,6 +24,15 @@ namespace PAYNLSDK.API.Alliance.AddService
             retval.Add("description", Description);
             retval.Add("categoryId", CategoryId);
             retval.Add("publication", Publication);
+
+            if (PaymentOptions.Count > 0)
+            {
+                for (int i = 0; i < PaymentOptions.Count; i++)
+                {
+                    retval.Add("paymentOptions[" + i + "][id]", PaymentOptions[i].Id.ToString());
+                    retval.Add("paymentOptions[" + i + "][settings]", PaymentOptions[i].Settings);
+                }
+            }
 
             return retval;
         }
@@ -58,6 +68,11 @@ namespace PAYNLSDK.API.Alliance.AddService
         /// <value>The name.</value>
         public string Name { get; set; }
 
+        /// <summary>
+        /// An array of payment options (id & settings) you want to use for this service.
+        /// For a list of available payment option ids, see API_PaymentProfile_v1::getAvailable() 
+        /// </summary>
+        public List<PaymentProfile> PaymentOptions = new List<PaymentProfile>();
 
         /// <summary>
         /// Load the raw response and perform any actions along with it.
@@ -66,5 +81,21 @@ namespace PAYNLSDK.API.Alliance.AddService
         {
             // do nothing   
         }
+    }
+
+    /// <summary>
+    /// Payment profile
+    /// For a list of available payment option ids, see API_PaymentProfile_v1::getAvailable() 
+    /// </summary>
+    public class PaymentProfile
+    {
+        /// <summary>
+        /// ID of the payment profile
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// Array of settings that belong to this payment profile. 
+        /// </summary>
+        public string Settings { get; set; }
     }
 }
