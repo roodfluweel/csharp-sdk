@@ -18,7 +18,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release
     - name: Pack
-      run: dotnet pack --no-build --configuration Release PAYNLSDK/PlayNLSdk.csproj --output .
+      run: dotnet pack --no-build --configuration Release PAYNLSDK/PayNLSdk.csproj --output .
     - name: Push Nuget
       if: ${{ github.ref == 'refs/heads/main' }}
       run: |
