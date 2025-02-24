@@ -32,8 +32,8 @@ namespace PAYNLSDK
             request.GroupByFieldNames.Add(groupByFieldName);
 
             var response = _webClient.PerformRequest(request);
-            var settings = new List<JsonConverter> { new DecimalConverter() };
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<GetStatsResult>(response, settings.ToArray());
+            var jsonConverters = new List<JsonConverter> { new DecimalConverter() };
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<GetStatsResult>(response, jsonConverters.ToArray());
         }
 
         /// <summary>
