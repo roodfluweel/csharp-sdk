@@ -1,10 +1,10 @@
-﻿using System;
-using Newtonsoft.Json;
-using System.Collections.Specialized;
-using PAYNLSDK.Utilities;
-using PAYNLSDK.Objects;
+﻿using Newtonsoft.Json;
 using PAYNLSDK.Enums;
 using PAYNLSDK.Exceptions;
+using PAYNLSDK.Objects;
+using PAYNLSDK.Utilities;
+using System;
+using System.Collections.Specialized;
 
 namespace PAYNLSDK.API.Transaction.Start
 {
@@ -157,10 +157,9 @@ namespace PAYNLSDK.API.Transaction.Start
                     nvc.Add("transaction[enduserId]", TransactionData.EnduserId.ToString());
                 }
 
-
-                if (!ParameterValidator.IsNull(TransactionData.ExpireDate))
+                if (TransactionData.ExpireDate != null)
                 {
-                    nvc.Add("transaction[expireDate]", ((DateTime)TransactionData.ExpireDate).ToString("dd-MM-yyyy hh:mm:ss"));
+                    nvc.Add("transaction[expireDate]", ((DateTime)TransactionData.ExpireDate).ToString("dd-MM-yyyy HH:mm:ss"));
                 }
                 // TODO: Are these right? Shouldn't this be BOOL / INT?
                 /*
