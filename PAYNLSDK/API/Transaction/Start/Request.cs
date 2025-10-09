@@ -157,10 +157,6 @@ namespace PAYNLSDK.API.Transaction.Start
                     nvc.Add("transaction[enduserId]", TransactionData.EnduserId.ToString());
                 }
 
-                if (!ParameterValidator.IsNull(TransactionData.OrderNumber))
-                {
-                    nvc.Add("transaction[orderNumber]", TransactionData.OrderNumber);
-                }
 
                 if (!ParameterValidator.IsNull(TransactionData.ExpireDate))
                 {
