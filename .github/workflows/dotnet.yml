@@ -1,4 +1,4 @@
-name: .NET
+name: Build and deploy
 
 on:
   push:
@@ -24,6 +24,6 @@ jobs:
       run: dotnet pack --no-build --configuration Release PAYNLSDK/PayNLSdk.csproj --output .
     - name: Push Nuget
       if: ${{ github.ref == 'refs/heads/main' }}
-      run: |
-        dotnet nuget push *.snupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --skip-duplicate
+      run: |        
         dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --skip-duplicate
+        dotnet nuget push *.snupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --skip-duplicate
