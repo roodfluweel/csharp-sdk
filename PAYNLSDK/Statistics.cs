@@ -34,8 +34,7 @@ public class Statistics : IStatistics
         request.GroupByFieldNames.Add(groupByFieldName);
 
         var response = _webClient.PerformRequest(request);
-        var jsonConverters = new List<JsonConverter> { new DecimalConverter() };
-        return JsonSerialization.Deserialize<GetStatsResult>(response, jsonConverters.ToArray());
+        return JsonSerialization.Deserialize<GetStatsResult>(response);
     }
 
     /// <summary>

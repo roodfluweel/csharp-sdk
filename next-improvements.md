@@ -1,0 +1,1 @@
+1.	Migrate the existing custom converters (BooleanConverter, DMYConverter, ErrorIdConverter, CountryOptionConverter, etc.) to the generic JsonConverter<T> signatures (or implement a JsonConverterFactory where appropriate). This is the recommended long-term fix.*

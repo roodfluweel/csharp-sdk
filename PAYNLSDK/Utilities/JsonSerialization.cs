@@ -68,6 +68,7 @@ internal static class JsonSerialization
         options.Converters.Add(new ErrorIdConverter());
         options.Converters.Add(new CountryOptionConverter());
         options.Converters.Add(new JsonStringEnumConverter());
+        options.Converters.Add(new DecimalConverterFactory());
 
         return options;
     }
