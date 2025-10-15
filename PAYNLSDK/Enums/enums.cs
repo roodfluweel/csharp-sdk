@@ -251,6 +251,7 @@ public enum Blacklist
 /// </summary>
 public enum PaymentStatus
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     [EnumMember(Value = "-90")]
     CANCEL = -90,
     [EnumMember(Value = "-60")]
@@ -295,6 +296,7 @@ public enum PaymentStatus
     AUTHORIZE = 95,
     [EnumMember(Value = "-63")]
     DENIED = -63,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
 
 /// <summary>
@@ -302,6 +304,7 @@ public enum PaymentStatus
 /// </summary>
 public enum ProductType
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     [EnumMember(Value = "ARTICLE")]
     ARTICLE,
     [EnumMember(Value = "SHIPPING")]
@@ -338,4 +341,5 @@ public enum ProductType
     PAYMENT,
     [EnumMember(Value = "ROUNDING")]
     ROUNDING,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

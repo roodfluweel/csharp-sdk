@@ -185,17 +185,6 @@ public class Transaction : ITransaction
     }
 
     /// <summary>
-    /// Return service information.
-    /// This API returns merchant info and all the available payment options per country for a given service.
-    /// This is an important API if you want to build your own payment screens.
-    /// </summary>
-    /// <returns>FUll response with all service information</returns>
-    public Api.Transaction.GetService.Response GetService()
-    {
-        return GetService(null);
-    }
-
-    /// <summary>
     /// Performs a (partial) refund call on an existing transaction
     /// </summary>
     /// <param name="transactionId">Transaction ID</param>
