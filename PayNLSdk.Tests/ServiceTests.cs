@@ -1,51 +1,45 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NSubstitute;
 using PAYNLSDK;
 using PAYNLSDK.Net;
+using Xunit;
 
 namespace PayNLSdk.Tests
 {
-    [TestClass]
     public class ServiceTests
     {
-        private Mock<IClient> _iClientMock;
-        private Service _sut;
+        private readonly IClient _client;
+        private readonly Service _sut;
 
-        [TestInitialize]
-        public void TestInitialize()
+        public ServiceTests()
         {
-            _iClientMock = new Mock<IClient>();
-            _sut = new Service(_iClientMock.Object);
+            _client = Substitute.For<IClient>();
+            _sut = new Service(_client);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetCategories_withoutParams()
         {
             // Arrange
 
             // Act
-            var result = _sut.GetCategories();
+            _sut.GetCategories();
 
             // Assert
-            _iClientMock.Verify(
-                o => o.PerformRequest(It.IsAny<PAYNLSDK.API.Service.GetCategories.Request>()),
-                Times.Once);
+            _client.Received(1).PerformRequest(Arg.Any<PAYNLSDK.API.Service.GetCategories.Request>());
             // Assert.IsNotNull(result); // UNTESTABLE CURRENTLY
         }
 
-        [TestMethod]
+        [Fact]
         public void GetCategories_withParams()
         {
             // Arrange
-            int paymentOptionId = 1;
+            const int paymentOptionId = 1;
 
             // Act
-            var result = _sut.GetCategories(paymentOptionId);
+            _sut.GetCategories(paymentOptionId);
 
             // Assert
-            _iClientMock.Verify(
-                o => o.PerformRequest(It.IsAny<PAYNLSDK.API.Service.GetCategories.Request>()),
-                Times.Once);
+            _client.Received(1).PerformRequest(Arg.Any<PAYNLSDK.API.Service.GetCategories.Request>());
             // Assert.IsNotNull(result); // UNTESTABLE CURRENTLY
         }
     }

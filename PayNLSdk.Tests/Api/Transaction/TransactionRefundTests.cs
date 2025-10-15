@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
+using Xunit;
 
 namespace PayNLSdk.Tests.Api.Transaction
 {
-    [TestClass]
     public class TransactionRefundTests
     {
-        [TestMethod]
+        [Fact]
         public void Request_AmountInCents_PassedInAsDecimal()
         {
             // Arrange
@@ -22,10 +19,10 @@ namespace PayNLSdk.Tests.Api.Transaction
             var result = sut.GetParameters();
 
             // Assert
-            Assert.AreEqual("350", result["amount"]);
+            result["amount"].ShouldBe("350");
         }
 
-        [TestMethod]
+        [Fact]
         public void Request_NoAmountSupplied_NoParameterWithAmount()
         {
             // Arrange
@@ -39,9 +36,7 @@ namespace PayNLSdk.Tests.Api.Transaction
             var result = sut.GetParameters();
 
             // Assert
-            Assert.IsNull(result["amount"]);
+            result["amount"].ShouldBeNull();
         }
-
-
     }
 }

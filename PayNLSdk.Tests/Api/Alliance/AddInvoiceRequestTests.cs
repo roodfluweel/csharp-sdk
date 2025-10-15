@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
+using Xunit;
 
 namespace PayNLSdk.Tests.Api.Alliance
 {
-    [TestClass]
     public class AddInvoiceRequestTests
     {
-        private PAYNLSDK.API.Alliance.AddInvoice.Request _sut;
+        private readonly PAYNLSDK.API.Alliance.AddInvoice.Request _sut;
 
-        [TestInitialize]
-        public void TestInitialize()
+        public AddInvoiceRequestTests()
         {
             _sut = new PAYNLSDK.API.Alliance.AddInvoice.Request(
                 "Dummy",
@@ -19,27 +15,27 @@ namespace PayNLSdk.Tests.Api.Alliance
                 "Dummy",
                 "Dummy",
                 12345
-                );
+            );
         }
-        
-        [TestMethod]
+
+        [Fact]
         public void GetParameters_ReturnMandatoryProperties_OnCalled()
         {
             // Arrange
-            
+
             // Act
             var parameters = _sut.GetParameters();
 
             // Assert
-            Assert.IsNotNull(parameters["serviceId"]);
-            Assert.IsNotNull(parameters["merchantId"]);
-            Assert.IsNotNull(parameters["invoiceId"]);
-            Assert.IsNotNull(parameters["amount"]);
-            Assert.IsNotNull(parameters["description"]);
+            parameters["serviceId"].ShouldNotBeNull();
+            parameters["merchantId"].ShouldNotBeNull();
+            parameters["invoiceId"].ShouldNotBeNull();
+            parameters["amount"].ShouldNotBeNull();
+            parameters["description"].ShouldNotBeNull();
         }
 
         #region Optional parameters
-        [TestMethod]
+        [Fact]
         public void MakeYesterday_internalPropertySet_True()
         {
             // Arrange
@@ -48,10 +44,10 @@ namespace PayNLSdk.Tests.Api.Alliance
             _sut.MakeYesterday = true;
 
             // Assert
-            Assert.AreEqual("true", _sut.GetParameters()["makeYesterday"]);
+            _sut.GetParameters()["makeYesterday"].ShouldBe("true");
         }
 
-        [TestMethod]
+        [Fact]
         public void MakeYesterday_propertyNotAvailableInInParameters_PropertyIsNotSet()
         {
             // Arrange
@@ -61,10 +57,10 @@ namespace PayNLSdk.Tests.Api.Alliance
             var parameter = _sut.GetParameters()["makeYesterday"];
 
             // Assert
-            Assert.IsNull(parameter);
+            parameter.ShouldBeNull();
         }
 
-        [TestMethod]
+        [Fact]
         public void InvoiceUrl_internalPropertySet_True()
         {
             // Arrange
@@ -74,10 +70,10 @@ namespace PayNLSdk.Tests.Api.Alliance
             _sut.InvoiceUrl = httpUrlToInvoice;
 
             // Assert
-            Assert.AreEqual(httpUrlToInvoice, _sut.GetParameters()["invoiceUrl"]);
+            _sut.GetParameters()["invoiceUrl"].ShouldBe(httpUrlToInvoice);
         }
 
-        [TestMethod]
+        [Fact]
         public void InvoiceUrl_propertyNotAvailableInInParameters_PropertyIsNotSet()
         {
             // Arrange
@@ -85,9 +81,8 @@ namespace PayNLSdk.Tests.Api.Alliance
 
             // Act
             var parameter = _sut.GetParameters()["invoiceUrl"];
-
             // Assert
-            Assert.IsNull(parameter);
+            parameter.ShouldBeNull();
         }
         #endregion
     }

@@ -1,36 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using PayNLSdk.ExtentionMethods;
+using Shouldly;
+using Xunit;
 
 namespace PayNLSdk.Tests.ExtentionMethods
 {
-    [TestClass]
     public class DateTimeTests
     {
-        [TestInitialize]
-        public void TestInitialize()
-        {
-
-        }
-
-        [TestMethod]
+        [Fact]
         public void LastMonthFirstDay_February_CurrentlyMarch()
         {
             // Arrange
-            var initialDate = new DateTime(2018,2,5);
+            var initialDate = new DateTime(2018, 2, 5);
 
             // Act
             var result = initialDate.LastMonthFirstDay();
 
             // Assert
-            Assert.AreEqual(2018, result.Year);
-            Assert.AreEqual(1, result.Month);
-            Assert.AreEqual(1, result.Day);
+            result.Year.ShouldBe(2018);
+            result.Month.ShouldBe(1);
+            result.Day.ShouldBe(1);
         }
 
-        [TestMethod]
+        [Fact]
         public void LastMonthFirstDay_DecemberPreviousYear_CurrentlyFirstJanuary()
         {
             // Arrange
@@ -40,12 +32,12 @@ namespace PayNLSdk.Tests.ExtentionMethods
             var result = initialDate.LastMonthFirstDay();
 
             // Assert
-            Assert.AreEqual(2017, result.Year);
-            Assert.AreEqual(12, result.Month);
-            Assert.AreEqual(1, result.Day);
+            result.Year.ShouldBe(2017);
+            result.Month.ShouldBe(12);
+            result.Day.ShouldBe(1);
         }
 
-        [TestMethod]
+        [Fact]
         public void LastMonthFirstDay_PreviousMonth_LastDayOfTheMonth()
         {
             // Arrange
@@ -55,26 +47,26 @@ namespace PayNLSdk.Tests.ExtentionMethods
             var result = initialDate.LastMonthFirstDay();
 
             // Assert
-            Assert.AreEqual(2017, result.Year);
-            Assert.AreEqual(12, result.Month);
-            Assert.AreEqual(1, result.Day);
+            result.Year.ShouldBe(2017);
+            result.Month.ShouldBe(12);
+            result.Day.ShouldBe(1);
         }
 
-        [TestMethod]
+        [Fact]
         public void LastWeek_PreviousMonday_TodaySaturday()
         {
             // Arrange
-            var initialDate = new DateTime(2018,10,13);
+            var initialDate = new DateTime(2018, 10, 13);
 
             // Act
             var result = initialDate.LastWeek(DayOfWeek.Monday);
 
             // Assert
-            Assert.AreEqual(new DateTime(2018,10,1), result);
-            Assert.AreEqual(DayOfWeek.Monday, result.DayOfWeek);
+            result.ShouldBe(new DateTime(2018, 10, 1));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
         }
 
-        [TestMethod]
+        [Fact]
         public void LastWeek_PreviousMonday_TodayMonday()
         {
             // Arrange
@@ -84,11 +76,11 @@ namespace PayNLSdk.Tests.ExtentionMethods
             var result = initialDate.LastWeek(DayOfWeek.Monday);
 
             // Assert
-            Assert.AreEqual(new DateTime(2018, 12, 3), result);
-            Assert.AreEqual(DayOfWeek.Monday, result.DayOfWeek);
+            result.ShouldBe(new DateTime(2018, 12, 3));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
         }
 
-        [TestMethod]
+        [Fact]
         public void LastWeek_PreviousMonday_TodaySunday()
         {
             // Arrange
@@ -98,11 +90,11 @@ namespace PayNLSdk.Tests.ExtentionMethods
             var result = initialDate.LastWeek(DayOfWeek.Monday);
 
             // Assert
-            Assert.AreEqual(new DateTime(2018, 11, 26), result);
-            Assert.AreEqual(DayOfWeek.Monday, result.DayOfWeek);
+            result.ShouldBe(new DateTime(2018, 11, 26));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
         }
 
-        [TestMethod]
+        [Fact]
         public void LastMonthLastDay_Lastday_normalconditions()
         {
             // Arrange
@@ -112,13 +104,12 @@ namespace PayNLSdk.Tests.ExtentionMethods
             var result = initialDate.LastMonthLastDay();
 
             // Assert
-            Assert.AreEqual(2018, result.Year);
-            Assert.AreEqual(6, result.Month);
-            Assert.AreEqual(30, result.Day);
+            result.Year.ShouldBe(2018);
+            result.Month.ShouldBe(6);
+            result.Day.ShouldBe(30);
         }
 
-
-        [TestMethod]
+        [Fact]
         public void LastMonthLastDay_31DecemberPreviousYear_CurrentlyFirstJanuary()
         {
             // Arrange
@@ -128,12 +119,12 @@ namespace PayNLSdk.Tests.ExtentionMethods
             var result = initialDate.LastMonthLastDay();
 
             // Assert
-            Assert.AreEqual(2017, result.Year);
-            Assert.AreEqual(12, result.Month);
-            Assert.AreEqual(31, result.Day);
+            result.Year.ShouldBe(2017);
+            result.Month.ShouldBe(12);
+            result.Day.ShouldBe(31);
         }
 
-        [TestMethod]
+        [Fact]
         public void LastMonthLastDay_1March_LeapYear()
         {
             // Arrange
@@ -143,9 +134,9 @@ namespace PayNLSdk.Tests.ExtentionMethods
             var result = initialDate.LastMonthLastDay();
 
             // Assert
-            Assert.AreEqual(2004, result.Year);
-            Assert.AreEqual(2, result.Month);
-            Assert.AreEqual(29, result.Day);
+            result.Year.ShouldBe(2004);
+            result.Month.ShouldBe(2);
+            result.Day.ShouldBe(29);
         }
     }
 }

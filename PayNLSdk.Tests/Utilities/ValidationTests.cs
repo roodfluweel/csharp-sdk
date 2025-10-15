@@ -1,45 +1,33 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PAYNLSDK.Utilities;
+using Shouldly;
+using Xunit;
 
 namespace PayNLSdk.Tests.Utilities
 {
-    [TestClass]
     public class ValidationTests
     {
-        [TestMethod]
+        [Fact]
         public void IsNotEmpty_DoesNotThrow_AbcInput()
         {
             // Arrange
             var input = "abc";
 
-            // Act
-            try
-            {
-                ParameterValidator.IsNotEmpty(input, "someParamName");
-            }
-            catch (ArgumentException)
-            {
-                Assert.Fail("should not throw");
-            }
-
-            // Assert
+            // Act & Assert
+            Should.NotThrow(() => ParameterValidator.IsNotEmpty(input, "someParamName"));
         }
 
-        [ExpectedException(typeof(ArgumentException), "We expected an exception")]
-        [TestMethod]
+        [Fact]
         public void IsNotEmpty_ThrowsException_EmptyString()
         {
             // Arrange
-            var input = "";
+            var input = string.Empty;
 
-            // Act
-            ParameterValidator.IsNotEmpty(input, "someParamName");
-            
-            // Assert
+            // Act & Assert
+            Should.Throw<ArgumentException>(() => ParameterValidator.IsNotEmpty(input, "someParamName"));
         }
 
-        [TestMethod]
+        [Fact]
         public void IsEmpty_False_AbcInput()
         {
             // Arrange
@@ -47,22 +35,22 @@ namespace PayNLSdk.Tests.Utilities
 
             // Act
             var result = ParameterValidator.IsEmpty(input);
-            
+
             // Assert
-            Assert.IsFalse(result);
+            result.ShouldBeFalse();
         }
 
-         [TestMethod]
+        [Fact]
         public void IsEmpty_True_EmptyString()
         {
             // Arrange
-            var input = "";
+            var input = string.Empty;
 
             // Act
             var result = ParameterValidator.IsEmpty(input);
 
             // Assert
-            Assert.IsTrue(result);
+            result.ShouldBeTrue();
         }
     }
 }
