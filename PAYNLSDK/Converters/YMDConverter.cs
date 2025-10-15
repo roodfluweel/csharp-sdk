@@ -1,83 +1,86 @@
-﻿using Newtonsoft.Json;
-using PayNLSdk.Utilities;
 using System;
+using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Utilities;
 
 namespace PayNLSdk.Converters;
 
 internal class YMDConverter : JsonConverter
 {
     private const string Format = "yyyy-MM-dd";
-    private static string[] ParseFormats = {
-        // - argument.
+    private static readonly string[] ParseFormats =
+    {
         "yyyy-M-d", "yyyy-MM-dd",
-        // Slash argument.
         "yyyy/M/d", "yyyy/MM/dd"
     };
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+
+    public override bool CanConvert(Type typeToConvert)
     {
-        if (value is DateTime)
-        {
-            var dateTime = (DateTime)value;
-            if (dateTime.Kind == DateTimeKind.Unspecified)
-            {
-                throw new JsonSerializationException("Cannot convert date time with an unspecified kind");
-            }
-            string convertedDateTime = dateTime.ToString(Format);
-            writer.WriteValue(convertedDateTime);
-        }
-        else
-        {
-            throw new JsonSerializationException("Expected value of type 'DateTime'.");
-        }
+        var targetType = Nullable.GetUnderlyingType(typeToConvert) ?? typeToConvert;
+        return targetType == typeof(DateTime);
     }
 
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        if (reader.TokenType == JsonToken.Null)
+        if (reader.TokenType == JsonTokenType.Null)
         {
+            if (Nullable.GetUnderlyingType(typeToConvert) != null)
+            {
+                return null;
+            }
+
+            throw new JsonException("Cannot convert null to DateTime.");
+        }
+
+        if (reader.TokenType == JsonTokenType.String)
+        {
+            if (reader.TryGetDateTime(out var parsed))
+            {
+                EnsureSpecified(parsed);
+                return parsed;
+            }
+
+            var raw = reader.GetString();
+            if (ParameterValidator.IsEmpty(raw))
+            {
+                return null;
+            }
+
+            if (DateTime.TryParseExact(raw, ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateTime))
+            {
+                return dateTime;
+            }
+
             return null;
         }
 
-        if (reader.TokenType == JsonToken.Date)
-        {
-            var dateTime = (DateTime)reader.Value;
-            if (dateTime.Kind == DateTimeKind.Unspecified)
-            {
-                throw new JsonSerializationException("Parsed date time is not in the expected RFC3339 format");
-            }
-            return dateTime;
-        }
-
-        if (reader.TokenType == JsonToken.String)
-        {
-            DateTime dateTime;
-            /*string[] formats = { "yyyy/M/d", "yyyy/MM/dd", "yyyy-M-d", "yyyy-MM-dd" };*/
-            string timeString = (string)reader.Value;
-            if (!ParameterValidator.IsEmpty(timeString))
-            {
-                if (DateTime.TryParseExact(timeString, ParseFormats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dateTime))
-                {
-                    // Gelukt we kunnen doorgaan
-                    return dateTime;
-                }
-                else
-                {
-                    // De opgegeven timeString is niet juist.
-                    return null;
-                }
-
-            }
-            return null;
-        }
-        throw new JsonSerializationException(String.Format("Unexpected token '{0}' when parsing date.", reader.TokenType));
+        throw new JsonException($"Unexpected token '{reader.TokenType}' when parsing date.");
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
     {
-        Type t = (Reflection.IsNullable(objectType))
-            ? Nullable.GetUnderlyingType(objectType)
-            : objectType;
+        if (value == null)
+        {
+            writer.WriteNullValue();
+            return;
+        }
 
-        return t == typeof(DateTime);
+        if (value is DateTime dateTime)
+        {
+            EnsureSpecified(dateTime);
+            writer.WriteStringValue(dateTime.ToString(Format, CultureInfo.InvariantCulture));
+            return;
+        }
+
+        throw new JsonException("Expected value of type 'DateTime'.");
+    }
+
+    private static void EnsureSpecified(DateTime dateTime)
+    {
+        if (dateTime.Kind == DateTimeKind.Unspecified)
+        {
+            throw new JsonException("Cannot convert date time with an unspecified kind");
+        }
     }
 }

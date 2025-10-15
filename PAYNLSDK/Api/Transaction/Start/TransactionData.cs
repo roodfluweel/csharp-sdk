@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 using System;
 
@@ -12,59 +13,59 @@ public class TransactionData
     /// <summary>
     /// The currency of the transaction. If omitted, EUR is used.
     /// </summary>
-    [JsonProperty("currency")]
+    [JsonPropertyName("currency")]
     public string Currency { get; set; }
 
     /// <summary>
     /// Cost for VAT
     /// </summary>
-    [JsonProperty("costsVat")]
+    [JsonPropertyName("costsVat")]
     public int? CostsVat { get; set; }
 
     // No documentation is available to implement this
-    //[JsonProperty("excludeCosts")]
+    //[JsonPropertyName("excludeCosts")]
     //public Array ExcludeCosts { get; set; }
 
     /// <summary>
     /// The URL of the exchange file that needs to be called
     /// </summary>
-    [JsonProperty("orderExchangeUrl")]
+    [JsonPropertyName("orderExchangeUrl")]
     public string OrderExchangeUrl { get; set; }
 
     /// <summary>
     /// Description belonging to the order
     /// </summary>
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
     /// <summary>
     /// Expire date of the transaction
     /// </summary>
-    [JsonProperty("expireDate")]
+    [JsonPropertyName("expireDate")]
     public DateTime? ExpireDate { get; set; }
 
     /// <summary>
     /// The number belonging to the order
     /// </summary>
-    [JsonProperty("orderNumber")]
+    [JsonPropertyName("orderNumber")]
     public string OrderNumber { get; set; }
 
     /// <summary>
     ///  	Unique id of the enduser
     /// </summary>
-    [JsonProperty("enduserId")]
+    [JsonPropertyName("enduserId")]
     public int? EnduserId { get; set; }
 
     /// <summary>
     /// Whether to sent a confimation email
     /// </summary>
-    [JsonProperty("sendReminderEmail"), JsonConverter(typeof(BooleanConverter))]
+    [JsonPropertyName("sendReminderEmail"), JsonConverter(typeof(BooleanConverter))]
     public bool SendReminderEmail { get; set; }
 
     /// <summary>
     /// The id of mailtemplate in case a confirmation mail needs to be sent
     /// </summary>
-    [JsonProperty("reminderMailTemplateId")]
+    [JsonPropertyName("reminderMailTemplateId")]
     public int? ReminderMailTemplateId { get; set; }
 
 

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PayNLSdk.Objects;
 
@@ -10,12 +11,12 @@ public class ServiceCategory
     /// <summary>
     /// ID of the Service Category
     /// </summary>
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; }
 
     /// <summary>
     /// Name of the Service Category
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 }

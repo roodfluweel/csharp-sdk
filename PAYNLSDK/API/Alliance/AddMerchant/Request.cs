@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
@@ -125,13 +125,13 @@ public class Request : RequestBase
     /// Chamber of Commerce number of the company
     /// </summary>
     /// 
-    [JsonProperty("coc")]
+    [JsonPropertyName("coc")]
     public string Coc { get; set; }
 
     /// <summary>
     /// Name of the company
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string FullName { get; set; }
 
     /// <summary>
@@ -185,21 +185,21 @@ public class Account
     /// <summary>
     /// Email address
     /// </summary>
-    [JsonProperty("email")]
+    [JsonPropertyName("email")]
     [Required]
     public string Email { get; set; }
 
     /// <summary>
     /// Given name
     /// </summary>
-    [JsonProperty("firstname")]
+    [JsonPropertyName("firstname")]
     [Required]
     public string FirstName { get; set; }
 
     /// <summary>
     /// Family name
     /// </summary>
-    [JsonProperty("lastname")]
+    [JsonPropertyName("lastname")]
     [Required]
     public string LastName { get; set; }
 
@@ -208,8 +208,8 @@ public class Account
     /// M: male
     /// F: female
     /// </summary>
-    [JsonProperty("gender")]
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonPropertyName("gender")]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     [Required]
     public GenderEnum Gender { get; set; }
 
@@ -217,7 +217,7 @@ public class Account
     /// Indicates if the user is authorised to sign
     /// 0 not authorised, 1 authorised independently, 2  shared authorized to sign
     /// </summary>
-    [JsonProperty("authorisedToSign")]
+    [JsonPropertyName("authorisedToSign")]
     [Required]
     public AuthorizedToSignEnum AuthorizedToSign { get; set; }
 
@@ -225,14 +225,14 @@ public class Account
     /// Indicates if the user is ubo
     /// Ultimate beneficial owner (25% of more shares)
     /// </summary>
-    [JsonProperty("ubo")]
+    [JsonPropertyName("ubo")]
     [Required]
     public bool UltimateBeneficialOwner { get; set; }
 
     /// <summary>
     /// If the user is UBO, use this parameter to set the percentage of UBO. Eg. 25 for 25%
     /// </summary>
-    [JsonProperty("uboPercentage")]
+    [JsonPropertyName("uboPercentage")]
     [Required]
     public int UboPercentage { get; set; }
 
@@ -240,7 +240,7 @@ public class Account
     /// Indicates if the user has company rights. Available options are 0 and 1
     /// </summary>
     [Required]
-    [JsonProperty("useCompanyAuth")]
+    [JsonPropertyName("useCompanyAuth")]
     public bool UseCompanyAuth { get; set; }
 
     /// <summary>
@@ -249,14 +249,14 @@ public class Account
     /// 0: No.Use this setting to add accounts that are only added to define the UBO's
     /// </summary>
     [Required]
-    [JsonProperty("hasAccess")]
+    [JsonPropertyName("hasAccess")]
     public bool HasAccess { get; set; }
 
     /// <summary>
     /// Preferred language of the registrant. See API_Langauge_v2::getAll()
     /// </summary>
     [Required]
-    [JsonProperty("language")]
+    [JsonPropertyName("language")]
     public string Language { get; set; }
 
 

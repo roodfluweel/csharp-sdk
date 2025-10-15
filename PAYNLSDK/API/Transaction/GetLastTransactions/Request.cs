@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 using System.Collections.Specialized;
@@ -7,13 +8,13 @@ namespace PayNLSdk.Api.Transaction.GetLastTransactions;
 
 public class Request : RequestBase
 {
-    [JsonProperty("merchantId")]
+    [JsonPropertyName("merchantId")]
     public string MerchantId { get; set; }
 
-    [JsonProperty("paid")]
+    [JsonPropertyName("paid")]
     public bool? Paid { get; set; }
 
-    [JsonProperty("limit")]
+    [JsonPropertyName("limit")]
     public int? Limit { get; set; }
 
     public override bool RequiresServiceId
@@ -67,6 +68,6 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = JsonConvert.DeserializeObject<Response>(RawResponse);
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 
 namespace PayNLSdk.Objects;
@@ -11,18 +12,18 @@ public class Error
     /// <summary>
     /// Result of a call. In case of a real error, this SHOULD always be false.
     /// </summary>
-    [JsonProperty("result"), JsonConverter(typeof(BooleanConverter))]
+    [JsonPropertyName("result"), JsonConverter(typeof(BooleanConverter))]
     public bool Result { get; protected set; }
 
     /// <summary>
     /// Error code
     /// </summary>
-    [JsonProperty("errorId")]
+    [JsonPropertyName("errorId")]
     public string Code { get; protected set; }
 
     /// <summary>
     /// Error message
     /// </summary>
-    [JsonProperty("errorMessage")]
+    [JsonPropertyName("errorMessage")]
     public string Message { get; protected set; }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Enums;
 
 namespace PayNLSdk.Objects;
@@ -11,25 +12,25 @@ public class Merchant
     /// <summary>
     /// Merchant ID
     /// </summary>
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string ID { get; set; }
 
     /// <summary>
     /// Merchant Name
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
     /// <summary>
     /// Merchant Public Name
     /// </summary>
-    [JsonProperty("publicName")]
+    [JsonPropertyName("publicName")]
     public string PublicName { get; set; }
 
     /// <summary>
     /// Active State of the merchant
     /// </summary>
-    [JsonProperty("state")]
+    [JsonPropertyName("state")]
     public ActiveState State { get; set; }
 
 }

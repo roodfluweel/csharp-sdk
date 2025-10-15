@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Enums;
 
 namespace PayNLSdk.Objects;
@@ -11,78 +12,78 @@ public class Connection
     /// <summary>
     /// Trust indicator, from -10 to 10
     /// </summary>
-    [JsonProperty("trust")]
+    [JsonPropertyName("trust")]
     public int? Trust { get; protected set; }
 
     /// <summary>
     /// Country code fo the customer
     /// </summary>
-    [JsonProperty("country")]
+    [JsonPropertyName("country")]
     public string Country { get; protected set; }
 
     /// <summary>
     /// name of the city of the customer 
     /// </summary>
-    [JsonProperty("city")]
+    [JsonPropertyName("city")]
     public string City { get; protected set; }
 
     /// <summary>
     /// Customer location, latitude
     /// </summary>
-    [JsonProperty("locationLat")]
+    [JsonPropertyName("locationLat")]
     public string LocationLat { get; protected set; }
 
     /// <summary>
     /// Customer location, longitude
     /// </summary>
-    [JsonProperty("locationLon")]
+    [JsonPropertyName("locationLon")]
     public string LocationLon { get; protected set; }
 
     /// <summary>
     /// Details of the cusomers browser. Specified on transaction start 
     /// </summary>
-    [JsonProperty("browserData")]
+    [JsonPropertyName("browserData")]
     public string BrowserData { get; protected set; }
 
     /// <summary>
     /// IP address of the customer (during payment) 
     /// </summary>
-    [JsonProperty("ipAddress")]
+    [JsonPropertyName("ipAddress")]
     public string IP { get; protected set; }
 
     /// <summary>
     /// Indicator whether or not the cusomer is blacklisted
     /// </summary>
-    [JsonProperty("blacklist")]
+    [JsonPropertyName("blacklist")]
     public Blacklist? Blacklist { get; protected set; }
 
     /// <summary>
     /// Hostaddress of the customer
     /// </summary>
-    [JsonProperty("host")]
+    [JsonPropertyName("host")]
     public string Host { get; protected set; }
 
     /// <summary>
     /// Ip used in the order
     /// </summary>
-    [JsonProperty("orderIpAddress")]
+    [JsonPropertyName("orderIpAddress")]
     public string OrderIP { get; protected set; }
 
     /// <summary>
     /// Used return URl in request
     /// </summary>
-    [JsonProperty("orderReturnUrl")]
+    [JsonPropertyName("orderReturnUrl")]
     public string OrderReturnUrl { get; protected set; }
 
     /// <summary>
     /// The corresponding merchant-code of the merchant
     /// </summary>
-    [JsonProperty("merchantCode")]
+    [JsonPropertyName("merchantCode")]
     public string MerchantCode { get; protected set; }
 
     /// <summary>
     /// The corresponding name of the merchant
     /// </summary>
-    [JsonProperty("merchantName")]
+    [JsonPropertyName("merchantName")]
     public string MerchantName { get; protected set; }
 }

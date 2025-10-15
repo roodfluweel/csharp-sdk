@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 using System.Collections.Specialized;
@@ -8,7 +9,7 @@ namespace PayNLSdk.Api.PaymentProfile.Get;
 public class Request : RequestBase
 {
 
-    [JsonProperty("paymentProfileId")]
+    [JsonPropertyName("paymentProfileId")]
     public int PaymentProfileId { get; set; }
 
     /// <inheritdoc />
@@ -40,7 +41,7 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        Objects.PaymentProfile pm = JsonConvert.DeserializeObject<Objects.PaymentProfile>(RawResponse);
+        Objects.PaymentProfile pm = JsonSerialization.Deserialize<Objects.PaymentProfile>(RawResponse);
         Response r = new Response
         {
             PaymentProfile = pm

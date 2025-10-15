@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Utilities;
 
 namespace PayNLSdk.Api.Merchant.Add;
 
@@ -7,29 +9,29 @@ namespace PayNLSdk.Api.Merchant.Add;
 /// </summary>
 public class Response : ResponseBase
 {
-    [JsonProperty("merchantId")]
+    [JsonPropertyName("merchantId")]
     public string MerchantId { get; set; }
 
     /// <summary>
     /// The merchant name
     /// </summary>
-    [JsonProperty("merchantName")] public string MerchantName { get; set; }
+    [JsonPropertyName("merchantName")] public string MerchantName { get; set; }
     /// <summary>
     /// Alliance or AlliancePlus
     /// </summary>
-    [JsonProperty("packageName")] public string PackageName { get; set; }
-    [JsonProperty("invoiceAllowed")] public bool GetInvoiceAllowed { get; set; }
-    [JsonProperty("payoutInterval")] public string PayoutInterval { get; set; }
+    [JsonPropertyName("packageName")] public string PackageName { get; set; }
+    [JsonPropertyName("invoiceAllowed")] public bool GetInvoiceAllowed { get; set; }
+    [JsonPropertyName("payoutInterval")] public string PayoutInterval { get; set; }
     /// <summary>
     /// The date the contract has been created.  
     /// </summary>
-    [JsonProperty("createdDate")] public string CreatedDate { get; set; }
+    [JsonPropertyName("createdDate")] public string CreatedDate { get; set; }
     /// <summary>
     /// The date when you can start using the services from PAY
     /// </summary>
-    [JsonProperty("acceptedDate")] public string AcceptedDate { get; set; }
-    [JsonProperty("deletedDate")] public string DeletedDate { get; set; }
-    [JsonProperty("services")] public string Services { get; set; }
+    [JsonPropertyName("acceptedDate")] public string AcceptedDate { get; set; }
+    [JsonPropertyName("deletedDate")] public string DeletedDate { get; set; }
+    [JsonPropertyName("services")] public string Services { get; set; }
 
     /// <summary>
     /// Convert a raw response to an object
@@ -38,6 +40,6 @@ public class Response : ResponseBase
     /// <returns></returns>
     public static Response FromRawResponse(string response)
     {
-        return JsonConvert.DeserializeObject<Response>(response);
+        return JsonSerialization.Deserialize<Response>(response);
     }
 }

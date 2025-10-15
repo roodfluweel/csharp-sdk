@@ -1,30 +1,48 @@
-﻿using Newtonsoft.Json;
-using PayNLSdk.Objects;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Objects;
 
 namespace PayNLSdk.Converters;
 
 internal class CountryOptionConverter : JsonConverter
 {
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override bool CanConvert(Type typeToConvert)
     {
-        if (reader.TokenType == JsonToken.StartObject)
+        return typeof(CountryOptions).IsAssignableFrom(typeToConvert);
+    }
+
+    public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        if (reader.TokenType != JsonTokenType.StartObject)
         {
-            var dict = serializer.Deserialize<Dictionary<string, CountryOption>>(reader);
-            return dict;
+            throw new JsonException($"Unexpected token '{reader.TokenType}' when parsing country options.");
         }
-        throw new JsonSerializationException(String.Format("Unexpected token '{0}' when parsing country options.", reader.TokenType));
 
+        var data = JsonSerializer.Deserialize<Dictionary<string, CountryOption>>(ref reader, options);
+        if (data == null)
+        {
+            return new CountryOptions();
+        }
+
+        var result = new CountryOptions();
+        foreach (var pair in data)
+        {
+            result[pair.Key] = pair.Value;
+        }
+
+        return result;
     }
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
     {
-        //throw new NotImplementedException();
-    }
+        if (value is CountryOptions countryOptions)
+        {
+            JsonSerializer.Serialize(writer, new Dictionary<string, CountryOption>(countryOptions), options);
+            return;
+        }
 
-    public override bool CanConvert(Type objectType)
-    {
-        return typeof(CountryOptions).IsAssignableFrom(objectType);
+        writer.WriteNullValue();
     }
 }

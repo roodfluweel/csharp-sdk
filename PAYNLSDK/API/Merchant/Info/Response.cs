@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Utilities;
 using System.ComponentModel.DataAnnotations;
 
 namespace PayNLSdk.Api.Merchant.Info;
@@ -7,22 +9,22 @@ public class Response : ResponseBase
 {
     public static Response FromRawResponse(string response)
     {
-        return JsonConvert.DeserializeObject<Response>(response);
+        return JsonSerialization.Deserialize<Response>(response);
     }
 
     /// <summary>
     /// This array contains information whether the request was succesfull yes or no 
     /// </summary>
-    [JsonProperty("request")]
+    [JsonPropertyName("request")]
     public ResultInfo request { get; set; }
 
-    [JsonProperty("merchant")]
+    [JsonPropertyName("merchant")]
     public Merchant merchant { get; set; }
 
     /// <summary>
     /// The different ways of contacting the merchant 
     /// </summary>
-    [JsonProperty("contactData")]
+    [JsonPropertyName("contactData")]
     public Contact contactData { get; set; }
 
     #region Models (SubClasses)

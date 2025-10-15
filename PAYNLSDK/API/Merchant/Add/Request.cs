@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 using System.Collections.Generic;
@@ -82,28 +83,28 @@ public class Request : RequestBase
     ///      1 - The default registration email is sent
     ///      2 - The shortened alliance registration email is sent
     /// </summary>
-    [JsonProperty("sendEmail")]
+    [JsonPropertyName("sendEmail")]
     public int? SendEmail { get; set; }
 
-    [JsonProperty("countryCode")]
+    [JsonPropertyName("countryCode")]
     public string TwoLetterCountryCode { get; set; }
 
-    [JsonProperty("bankAccountOwner")]
+    [JsonPropertyName("bankAccountOwner")]
     public string BankAccountOwner { get; set; }
 
-    [JsonProperty("bankAccountNumber")]
+    [JsonPropertyName("bankAccountNumber")]
     public string BankAccountNumber { get; set; }
 
-    [JsonProperty("bankAccountBIC")]
+    [JsonPropertyName("bankAccountBIC")]
     public string BankAccountBic { get; set; }
 
-    [JsonProperty("vatNumber")]
+    [JsonPropertyName("vatNumber")]
     public string VatNumber { get; set; }
 
     /// <summary>
     /// Alliance or AlliancePlus
     /// </summary>
-    [JsonProperty("packageName")]
+    [JsonPropertyName("packageName")]
     public string PackageName { get; set; }
     /// <summary>
     /// settleBalance
@@ -111,45 +112,45 @@ public class Request : RequestBase
     /// Your invoice will be subtracted from the merchants account.
     /// You will need to ask the merchant for permission before you can set this value to true
     /// </summary>
-    [JsonProperty("settleBalance")]
+    [JsonPropertyName("settleBalance")]
     public bool SettleBalance { get; set; }
 
     /// <summary>
     /// options are day, week or month
     /// </summary>
-    [JsonProperty("payoutInterval")]
+    [JsonPropertyName("payoutInterval")]
     public string PayoutInterval { get; set; }
 
     public class Account
     {
-        [JsonProperty("primary")]
+        [JsonPropertyName("primary")]
         public bool Primary { get; set; }
 
-        [JsonProperty("email")]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
 
-        [JsonProperty("firstname")]
+        [JsonPropertyName("firstname")]
         public string FirstName { get; set; }
 
-        [JsonProperty("lastname")]
+        [JsonPropertyName("lastname")]
         public string LastName { get; set; }
 
         /// <summary>
         /// "male" or "female"
         /// </summary>
-        [JsonProperty("gender")]
+        [JsonPropertyName("gender")]
         public string Gender { get; set; }
 
         /// <summary>
         /// 0 not authorised, 1 authorised independently, 2  shared authorized to sign
         /// </summary>
-        [JsonProperty("authorisedToSign")]
+        [JsonPropertyName("authorisedToSign")]
         public int AuthorizedToSign { get; set; }
 
         /// <summary>
         /// Ultimate beneficial owner (25% of more shares)
         /// </summary>
-        [JsonProperty("ubo")]
+        [JsonPropertyName("ubo")]
         public bool UltimateBeneficialOwner { get; set; }
     }
 
@@ -187,7 +188,7 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = JsonConvert.DeserializeObject<Response>(RawResponse);
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
         if (!response.Request.Result)
         {
             // toss

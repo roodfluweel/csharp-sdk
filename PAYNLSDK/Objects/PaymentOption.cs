@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Enums;
 using System.Collections.Generic;
 
@@ -12,37 +13,37 @@ abstract public class PaymentOptionBase
     /// <summary>
     /// ID for this payment (sub)option
     /// </summary>
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public int ID { get; set; }
 
     /// <summary>
     /// Name for this payment (sub)option
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
     /// <summary>
     /// Visible name for this payment (sub)option
     /// </summary>
-    [JsonProperty("visibleName")]
+    [JsonPropertyName("visibleName")]
     public string VisibleName { get; set; }
 
     /// <summary>
     /// Image for this payment (sub)option
     /// </summary>
-    [JsonProperty("img")]
+    [JsonPropertyName("img")]
     public string Image { get; set; }
 
     /// <summary>
     /// Path for the (sub)option icon. The full icon URL is a concatenation of $basePath, $path and $img. 
     /// </summary>
-    [JsonProperty("path")]
+    [JsonPropertyName("path")]
     public string IconPath { get; set; }
 
     /// <summary>
     /// Indicator whether or not the sub option is available
     /// </summary>
-    [JsonProperty("state")]
+    [JsonPropertyName("state")]
     public Availability State { get; set; }
 
 }
@@ -69,13 +70,13 @@ public class PaymentOption : PaymentOptionBase
     /// <summary>
     /// ID of the Payment Method this option belongs to
     /// </summary>
-    [JsonProperty("paymentMethodId")]
+    [JsonPropertyName("paymentMethodId")]
     public PaymentMethodId PaymentMethodId { get; set; }
 
     /// <summary>
     /// Dictionary of payment sub options
     /// </summary>
-    [JsonProperty("paymentOptionSubList")]
+    [JsonPropertyName("paymentOptionSubList")]
     public PaymentSubOptions PaymentSubOptions { get; set; }
 }
 

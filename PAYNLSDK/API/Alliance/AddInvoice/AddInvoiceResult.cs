@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PayNLSdk.Api.Alliance.AddInvoice;
 
@@ -13,7 +14,7 @@ public class AddInvoiceResult : ResponseBase
     /// Gets or sets the reference id for the payment.
     /// </summary>
     /// <value>The reference identifier.</value>
-    [JsonProperty("referenceId")]
+    [JsonPropertyName("referenceId")]
     public string ReferenceId { get; set; }
 
     /// <summary>

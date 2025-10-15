@@ -31,7 +31,7 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        // response = JsonConvert.DeserializeObject<GetMerchantResult>(RawResponse);
+        // response = JsonSerialization.Deserialize<GetMerchantResult>(RawResponse);
 
     }
 }

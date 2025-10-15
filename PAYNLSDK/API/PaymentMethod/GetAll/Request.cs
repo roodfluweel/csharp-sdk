@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 using System.Collections.Specialized;
@@ -35,7 +36,7 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        Objects.PaymentMethod[] pm = JsonConvert.DeserializeObject<Objects.PaymentMethod[]>(RawResponse);
+        Objects.PaymentMethod[] pm = JsonSerialization.Deserialize<Objects.PaymentMethod[]>(RawResponse);
         Response r = new Response
         {
             PaymentMethods = pm

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Api;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Net.ProxyConfigurationInjector;
@@ -252,7 +253,7 @@ public class Client : IClient
                     // Try JSON parsing.
                     try
                     {
-                        Dictionary<string, string> errors = JsonConvert.DeserializeObject<Dictionary<string, string>>(rawResponse);
+                        Dictionary<string, string> errors = JsonSerialization.Deserialize<Dictionary<string, string>>(rawResponse);
                         string errMessage = "";
                         if (errors.ContainsKey("error"))
                         {

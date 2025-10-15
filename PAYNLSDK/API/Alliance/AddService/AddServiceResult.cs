@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PayNLSdk.Api.Alliance.AddService;
 
@@ -10,6 +11,6 @@ public class AddServiceResult : ResponseBase
     /// <summary>
     /// The newly created service identifier (SL-****-****)
     /// </summary>
-    [JsonProperty("serviceId")]
+    [JsonPropertyName("serviceId")]
     public string ServiceId { get; set; }
 }

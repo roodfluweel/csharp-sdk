@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
@@ -26,37 +27,37 @@ public class Request : RequestBase
     /// <summary>
     /// The order ID or EX code of the transaction.
     /// </summary>
-    [JsonProperty("transactionId")]
+    [JsonPropertyName("transactionId")]
     public string TransactionId { get; set; }
 
     /// <summary>
     /// The amount to be paid should be given in cents. For example € 3.50 becomes 350.
     /// </summary>
-    [JsonProperty("amount")]
+    [JsonPropertyName("amount")]
     public int? Amount { get; set; }
 
     /// <summary>
     /// The description to include with the payment.
     /// </summary>
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
     /// <summary>
     /// The description to include with the payment.
     /// </summary>
-    [JsonProperty("processDate"), JsonConverter(typeof(DMYConverter))]
+    [JsonPropertyName("processDate"), JsonConverter(typeof(DMYConverter))]
     public DateTime? ProcessDate { get; set; }
 
     /// <summary>
     /// Custom exchange URL overriding the defaultexchange URL.
     /// </summary>
-    [JsonProperty("exchangeUrl")]
+    [JsonPropertyName("exchangeUrl")]
     public string ExchangeUrl { get; set; }
 
     /// <summary>
     /// Product items that are refunded (key: product ID, value: quantity).
     /// </summary>
-    [JsonProperty("products")]
+    [JsonPropertyName("products")]
     public Dictionary<string, int> Products { get; set; }
 
     /// <summary>
@@ -122,7 +123,7 @@ public class Request : RequestBase
 
         if (Products.Count > 0)
         {
-            nvc.Add("products", JsonConvert.SerializeObject(Products));
+            nvc.Add("products", JsonSerialization.Serialize(Products));
         }
 
         if (!ParameterValidator.IsEmpty(ExchangeUrl))
@@ -139,7 +140,7 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = JsonConvert.DeserializeObject<Response>(RawResponse);
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
         if (!Response.Request.Result)
         {
             // toss

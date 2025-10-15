@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PayNLSdk.Objects;
 
@@ -10,24 +11,24 @@ public class Company
     /// <summary>
     /// The name of the company
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
     /// <summary>
     /// The COC number of the company
     /// </summary>
-    [JsonProperty("cocNumber")]
+    [JsonPropertyName("cocNumber")]
     public string CocNumber { get; set; }
 
     /// <summary>
     /// The VAT number of the company
     /// </summary>
-    [JsonProperty("vatNumber")]
+    [JsonPropertyName("vatNumber")]
     public string VatNumber { get; set; }
 
     /// <summary>
     /// ID of the country (2 char country code)
     /// </summary>
-    [JsonProperty("countryCode")]
+    [JsonPropertyName("countryCode")]
     public string CountryCode { get; set; }
 }

@@ -1,16 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Objects;
 
 namespace PayNLSdk.Api.Transaction.GetService;
 
 public class Response : ResponseBase
 {
-    [JsonProperty("merchant")]
+    [JsonPropertyName("merchant")]
     public Objects.Merchant Merchant { get; set; }
 
-    [JsonProperty("service")]
+    [JsonPropertyName("service")]
     public Objects.Service Service { get; set; }
 
-    [JsonProperty("countryOptionList")]
+    [JsonPropertyName("countryOptionList")]
     public CountryOptions CountryOptions { get; set; }
 }

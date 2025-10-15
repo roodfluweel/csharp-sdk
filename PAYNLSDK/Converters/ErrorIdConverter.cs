@@ -1,43 +1,61 @@
-﻿using Newtonsoft.Json;
 using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PayNLSdk.Converters;
 
 internal class ErrorIdConverter : JsonConverter
 {
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override bool CanConvert(Type typeToConvert)
     {
-        string result = serializer.Deserialize<string>(reader);
-        if (result == String.Empty)
-        {
-            return 0;
-        }
-        try
-        {
-            return Int32.Parse(result);
-        }
-        catch (Exception e)
-        {
-            throw new JsonSerializationException(String.Format("Unexpected conversion '{0}' when parsing errorId.", result), e);
-        }
+        var targetType = Nullable.GetUnderlyingType(typeToConvert) ?? typeToConvert;
+        return targetType == typeof(int);
     }
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        if (reader.TokenType == JsonTokenType.Null)
+        {
+            if (Nullable.GetUnderlyingType(typeToConvert) != null)
+            {
+                return null;
+            }
+
+            throw new JsonException("Cannot convert null to Int32.");
+        }
+
+        if (reader.TokenType == JsonTokenType.Number)
+        {
+            return reader.GetInt32();
+        }
+
+        if (reader.TokenType == JsonTokenType.String)
+        {
+            var value = reader.GetString();
+            if (string.IsNullOrEmpty(value))
+            {
+                return 0;
+            }
+
+            if (int.TryParse(value, out var parsed))
+            {
+                return parsed;
+            }
+
+            throw new JsonException($"Unexpected conversion '{value}' when parsing errorId.");
+        }
+
+        throw new JsonException($"Unexpected token '{reader.TokenType}' when parsing errorId.");
+    }
+
+    public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
     {
         if (value == null)
         {
-            writer.WriteNull();
+            writer.WriteNullValue();
             return;
         }
-        //if (CanConvert(value.GetType()))
-        //{
-        serializer.Serialize(writer, value);
-        //}
-        //throw new JsonSerializationException(String.Format("Can't serialize type {0} to Integer.", value.GetType()));
-    }
 
-    public override bool CanConvert(Type objectType)
-    {
-        return typeof(int).IsAssignableFrom(objectType);
+        writer.WriteNumberValue(Convert.ToInt32(value));
     }
 }

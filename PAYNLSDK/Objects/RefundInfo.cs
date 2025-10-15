@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using System;
 
 namespace PayNLSdk.Objects;
@@ -11,55 +12,55 @@ public class RefundInfo
     /// <summary>
     /// payment session ID
     /// </summary>
-    [JsonProperty("paymentSessionId")]
+    [JsonPropertyName("paymentSessionId")]
     public long PaymentSessionId { get; set; }
 
     /// <summary>
     /// Refund amount
     /// </summary>
-    [JsonProperty("amount")]
+    [JsonPropertyName("amount")]
     public int Amount { get; set; }
 
     /// <summary>
     /// description
     /// </summary>
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
     /// <summary>
     /// The name of the customer.
     /// </summary>
-    [JsonProperty("bankAccountHolder")]
+    [JsonPropertyName("bankAccountHolder")]
     public string BankAccountHolder { get; set; }
 
     /// <summary>
     /// The bankaccount number of the customer.
     /// </summary>
-    [JsonProperty("bankAccountNumber")]
+    [JsonPropertyName("bankAccountNumber")]
     public string BankAccountNumber { get; set; }
 
     /// <summary>
     /// The BIC of the bank.
     /// </summary>
-    [JsonProperty("bankAccountBic")]
+    [JsonPropertyName("bankAccountBic")]
     public string BankAccountBic { get; set; }
 
     /// <summary>
     /// status code
     /// </summary>
-    [JsonProperty("statusCode")]
+    [JsonPropertyName("statusCode")]
     public int StatusCode { get; set; }
 
     /// <summary>
     /// status description
     /// </summary>
-    [JsonProperty("statusName")]
+    [JsonPropertyName("statusName")]
     public string StatusName { get; set; }
 
     /// <summary>
     /// The currency of the amount, default is EUR.
     /// </summary>
-    [JsonProperty("processDate")]
+    [JsonPropertyName("processDate")]
     public DateTime? ProcessDate { get; set; }
 
 }
