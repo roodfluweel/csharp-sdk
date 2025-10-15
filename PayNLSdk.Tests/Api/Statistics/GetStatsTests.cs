@@ -1,27 +1,26 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using PayNLSdk.API.Statistics.GetManagement;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using NSubstitute;
+using PayNLSdk.API.Statistics.GetManagement;
+using Shouldly;
+using Xunit;
 
 namespace PayNLSdk.Tests.Api.Statistics
 {
-    [TestClass]
     [SuppressMessage("ReSharper", "RedundantNameQualifier", Justification = "We need to be sure the correct object is called in the tests")]
     public class GetStatsRequestTests
     {
-        private PayNLSdk.API.Statistics.GetManagement.Request _sut;
+        private readonly PayNLSdk.API.Statistics.GetManagement.Request _sut;
 
-        [TestInitialize]
-        public void TestInitialize()
+        public GetStatsRequestTests()
         {
             _sut = new PayNLSdk.API.Statistics.GetManagement.Request();
         }
 
-        [TestMethod]
+        [Fact]
         public void Ctor_FilterPropertyNotTempty_Always()
         {
             // Arrange
@@ -30,11 +29,11 @@ namespace PayNLSdk.Tests.Api.Statistics
             // Act
 
             // Assert
-            Assert.IsNotNull(_sut.Filters);
-            Assert.AreEqual(0, _sut.Filters.Count);
+            _sut.Filters.ShouldNotBeNull();
+            _sut.Filters.Count.ShouldBe(0);
         }
 
-        [TestMethod]
+        [Fact]
         public void Ctor_GroupByPropertyNotTempty_Always()
         {
             // Arrange
@@ -43,11 +42,11 @@ namespace PayNLSdk.Tests.Api.Statistics
             // Act
 
             // Assert
-            Assert.IsNotNull(_sut.GroupByFieldNames);
-            Assert.AreEqual(0, _sut.GroupByFieldNames.Count);
+            _sut.GroupByFieldNames.ShouldNotBeNull();
+            _sut.GroupByFieldNames.Count.ShouldBe(0);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetParameters_ContainsGroupBy_IfSortByFieldNamesPropertyIsUsed()
         {
             // Arrange
@@ -57,11 +56,10 @@ namespace PayNLSdk.Tests.Api.Statistics
             var result = _sut.GetParameters();
 
             // Assert
-            Assert.AreEqual("ABC", result.Get("groupBy[0]"));
-
+            result.Get("groupBy[0]").ShouldBe("ABC");
         }
 
-        [TestMethod]
+        [Fact]
         public void GetParameters_ContainsFilters_MultipleFiltersAdded()
         {
             // Arrange
@@ -72,70 +70,70 @@ namespace PayNLSdk.Tests.Api.Statistics
             var result = _sut.GetParameters();
 
             // Assert
-            Assert.IsTrue(GetWithPartialKey(result, "filterType[").Contains("KEY1"));
-            Assert.IsTrue(GetWithPartialKey(result, "filterType[").Contains("KEY2"));
-            Assert.IsTrue(GetWithPartialKey(result, "filterValue[").Contains("VAL1"));
-            Assert.IsTrue(GetWithPartialKey(result, "filterValue[").Contains("VAL2"));
+            GetWithPartialKey(result, "filterType[").ShouldContain("KEY1");
+            GetWithPartialKey(result, "filterType[").ShouldContain("KEY2");
+            GetWithPartialKey(result, "filterValue[").ShouldContain("VAL1");
+            GetWithPartialKey(result, "filterValue[").ShouldContain("VAL2");
         }
 
-        [TestMethod]
+        [Fact]
         public void Create_CorrectStartEndDate_LastWeek()
         {
             // Arrange
-            var dateTime = new Mock<IDateTime>();
-            dateTime.SetupGet(p => p.Now).Returns(new DateTime(2018, 12, 11));
+            var dateTime = Substitute.For<IDateTime>();
+            dateTime.Now.Returns(new DateTime(2018, 12, 11));
 
             // Act
-            var result = Request.Create(dateTime.Object, Request.StatsPeriod.LastWeek);
+            var result = Request.Create(dateTime, Request.StatsPeriod.LastWeek);
 
             // Assert
-            Assert.AreEqual(new DateTime(2018,12,3), result.StartDate);
-            Assert.AreEqual(new DateTime(2018,12,9), result.EndDate);
+            result.StartDate.ShouldBe(new DateTime(2018, 12, 3));
+            result.EndDate.ShouldBe(new DateTime(2018, 12, 9));
         }
 
-        [TestMethod]
+        [Fact]
         public void Create_CorrectStartEndDate_LastMonth()
         {
             // Arrange
-            var dateTime = new Mock<IDateTime>();
-            dateTime.SetupGet(p => p.Now).Returns(new DateTime(2018, 12, 11));
+            var dateTime = Substitute.For<IDateTime>();
+            dateTime.Now.Returns(new DateTime(2018, 12, 11));
 
             // Act
-            var result = Request.Create(dateTime.Object, Request.StatsPeriod.LastMonth);
+            var result = Request.Create(dateTime, Request.StatsPeriod.LastMonth);
 
             // Assert
-            Assert.AreEqual(new DateTime(2018, 11, 1), result.StartDate);
-            Assert.AreEqual(new DateTime(2018, 11, 30), result.EndDate);
+            result.StartDate.ShouldBe(new DateTime(2018, 11, 1));
+            result.EndDate.ShouldBe(new DateTime(2018, 11, 30));
         }
 
-        [TestMethod]
+        [Fact]
         public void Create_CorrectStartEndDate_ThisWeek()
         {
             // Arrange
-            var dateTime = new Mock<IDateTime>();
-            dateTime.SetupGet(p => p.Now).Returns(new DateTime(2018, 12, 11));
+            var dateTime = Substitute.For<IDateTime>();
+            dateTime.Now.Returns(new DateTime(2018, 12, 11));
 
             // Act
-            var result = Request.Create(dateTime.Object, Request.StatsPeriod.ThisWeek);
+            var result = Request.Create(dateTime, Request.StatsPeriod.ThisWeek);
 
             // Assert
-            Assert.AreEqual(new DateTime(2018, 12, 10), result.StartDate);
-            Assert.AreEqual(new DateTime(2018, 12, 16), result.EndDate);
+            result.StartDate.ShouldBe(new DateTime(2018, 12, 10));
+            result.EndDate.ShouldBe(new DateTime(2018, 12, 16));
         }
 
-        [TestMethod]
+        [Fact]
         public void Create_CorrectStartEndDate_ThisMonth()
         {
             // Arrange
-            var dateTime = new Mock<IDateTime>();
-            dateTime.SetupGet(p => p.Now).Returns(new DateTime(2018, 12, 11));
+            var dateTime = Substitute.For<IDateTime>();
+            dateTime.Now.Returns(new DateTime(2018, 12, 11));
 
             // Act
-            var result = Request.Create(dateTime.Object, Request.StatsPeriod.ThisMonth);
+            var result = Request.Create(dateTime, Request.StatsPeriod.ThisMonth);
 
             // Assert
-            Assert.AreEqual(new DateTime(2018, 12, 1), result.StartDate);
-            Assert.AreEqual(new DateTime(2018, 12, 11), result.EndDate);
+            result.StartDate.ShouldBe(new DateTime(2018, 12, 1));
+            result.EndDate.ShouldBe(new DateTime(2018, 12, 11));
         }
 
         /// <summary>

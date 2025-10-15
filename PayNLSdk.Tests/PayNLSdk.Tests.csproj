@@ -5,14 +5,15 @@
     <Configurations>Debug;Release;AppVeyor</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
-    <PackageReference Include="coverlet.collector" Version="3.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Shouldly" Version="4.2.1" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
+    <PackageReference Include="xunit.v3" Version="0.1.0-pre.12" />
+    <PackageReference Include="xunit.v3.runner.visualstudio" Version="0.1.0-pre.12" />
+    <PackageReference Include="coverlet.collector" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Appveyor.TestLogger" Version="2.0.0" />
-    <PackageReference Include="Moq" Version="4.10.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PAYNLSDK\PayNLSdk.csproj" />
