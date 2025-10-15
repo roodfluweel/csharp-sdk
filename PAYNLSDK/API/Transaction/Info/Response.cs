@@ -1,32 +1,33 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Objects;
 
 namespace PayNLSdk.Api.Transaction.Info;
 
 public class Response : ResponseBase
 {
-    [JsonProperty("connection")]
+    [JsonPropertyName("connection")]
     public Connection Connection { get; protected set; }
 
-    [JsonProperty("enduser")]
+    [JsonPropertyName("enduser")]
     public EndUser EndUser { get; protected set; }
 
-    //[JsonProperty("saledata")]
+    //[JsonPropertyName("saledata")]
     //public SalesData SalesData { get; protected set; }
 
     /// <summary>
     /// All details from the payment
     /// </summary>
-    [JsonProperty("paymentDetails")]
+    [JsonPropertyName("paymentDetails")]
     public PaymentDetails PaymentDetails { get; protected set; }
 
     /// <summary>
     /// Details regarding the refund (if any)
     /// </summary>
-    [JsonProperty("stornoDetails")]
+    [JsonPropertyName("stornoDetails")]
     public StornoDetails StornoDetails { get; protected set; }
 
-    [JsonProperty("statsDetails")]
+    [JsonPropertyName("statsDetails")]
     public StatsDetails StatsDetails { get; protected set; }
 
 }

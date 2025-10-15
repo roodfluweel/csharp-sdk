@@ -5,6 +5,7 @@ using PayNLSdk.Api.Alliance.GetMerchant;
 using PayNLSdk.Net;
 using System.Diagnostics.CodeAnalysis;
 using Request = PayNLSdk.Api.Alliance.GetMerchant.Request;
+using PayNLSdk.Utilities;
 
 namespace PayNLSdk;
 
@@ -29,27 +30,27 @@ public class Alliance : IAlliance
     public GetMerchantResult GetMerchant(Request request)
     {
         var response = _webClient.PerformRequest(request);
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<GetMerchantResult>(response);
+        return JsonSerialization.Deserialize<GetMerchantResult>(response);
     }
 
     /// <inheritdoc />
     public AddMerchantResult AddMerchant(Api.Alliance.AddMerchant.Request request)
     {
         var response = _webClient.PerformRequest(request);
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<AddMerchantResult>(response);
+        return JsonSerialization.Deserialize<AddMerchantResult>(response);
     }
 
     /// <inheritdoc />
     public AddServiceResult AddService(Api.Alliance.AddService.Request request)
     {
         var response = _webClient.PerformRequest(request);
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<AddServiceResult>(response);
+        return JsonSerialization.Deserialize<AddServiceResult>(response);
     }
 
     /// <inheritdoc />
     public AddInvoiceResult AddInvoice(Api.Alliance.AddInvoice.Request request)
     {
         var response = _webClient.PerformRequest(request);
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<AddInvoiceResult>(response);
+        return JsonSerialization.Deserialize<AddInvoiceResult>(response);
     }
 }

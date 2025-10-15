@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Api.Statistics.GetManagement;
 using PayNLSdk.Net;
 using System.Collections.Generic;
+using PayNLSdk.Utilities;
 
 namespace PayNLSdk;
 
@@ -33,7 +35,7 @@ public class Statistics : IStatistics
 
         var response = _webClient.PerformRequest(request);
         var jsonConverters = new List<JsonConverter> { new DecimalConverter() };
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<GetStatsResult>(response, jsonConverters.ToArray());
+        return JsonSerialization.Deserialize<GetStatsResult>(response, jsonConverters.ToArray());
     }
 
     /// <summary>
@@ -53,7 +55,7 @@ public class Statistics : IStatistics
         request.GroupByFieldNames.Add(groupByFieldName2);
 
         var response = _webClient.PerformRequest(request);
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<GetStatsMultiLevel>(response);
+        return JsonSerialization.Deserialize<GetStatsMultiLevel>(response);
     }
 }
 

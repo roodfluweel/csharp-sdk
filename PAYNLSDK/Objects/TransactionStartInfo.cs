@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 
 namespace PayNLSdk.Objects;
@@ -13,25 +14,25 @@ public class TransactionStartInfo
     /// <summary>
     /// Transaction ID
     /// </summary>
-    [JsonProperty("transactionId")]
+    [JsonPropertyName("transactionId")]
     public string TransactionId { get; protected set; }
 
     /// <summary>
     /// The URL where the customer can be send to in order to finish the transaction. 
     /// </summary>
-    [JsonProperty("paymentURL")]
+    [JsonPropertyName("paymentURL")]
     public string PaymentURL { get; protected set; }
 
     /// <summary>
     /// Indicates whether the payment screen may be loaded in popup window
     /// </summary>
-    [JsonProperty("popupAllowed"), JsonConverter(typeof(BooleanConverter))]
+    [JsonPropertyName("popupAllowed"), JsonConverter(typeof(BooleanConverter))]
     public bool? PopupAllowed { get; protected set; }
 
     /// <summary>
     /// Payment reference used to identify manual bank transfers
     /// </summary>
-    [JsonProperty("paymentReference")]
+    [JsonPropertyName("paymentReference")]
     public string PaymentReference { get; protected set; }
 
 }

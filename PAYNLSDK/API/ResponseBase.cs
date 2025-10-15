@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Utilities;
 using PayNLSdk.Objects;
 
 namespace PayNLSdk.Api;
@@ -11,7 +13,7 @@ public abstract class ResponseBase
     /// <summary>
     /// The Error if the request led to a failed response
     /// </summary>
-    [JsonProperty("request")]
+    [JsonPropertyName("request")]
     public Error Request { get; protected set; }
 
     /// <summary>
@@ -21,6 +23,6 @@ public abstract class ResponseBase
     public override string ToString()
     {
         //return base.ToString();
-        return JsonConvert.SerializeObject(this, Formatting.Indented);
+        return JsonSerialization.Serialize(this, JsonSerialization.CreateIndentedOptions());
     }
 }

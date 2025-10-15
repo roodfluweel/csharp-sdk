@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Diagnostics.CodeAnalysis;
 
 namespace PayNLSdk.Api.Statistics.GetManagement;
@@ -10,6 +11,6 @@ namespace PayNLSdk.Api.Statistics.GetManagement;
 [SuppressMessage("ReSharper", "InconsistentNaming")]
 public class GetStatsResult : GetStatsResultBase
 {
-    [JsonProperty("arrStatsData")]
+    [JsonPropertyName("arrStatsData")]
     public StatsData[] ArrStatsData { get; set; }
 }

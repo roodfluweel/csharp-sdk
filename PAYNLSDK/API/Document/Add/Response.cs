@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PayNLSdk.Api.Document.Add;
 
@@ -10,15 +11,15 @@ public class Response : ResponseBase
     /// <summary>
     /// If true the call was successful
     /// </summary>
-    [JsonProperty("result")] public bool Result { get; set; }
+    [JsonPropertyName("result")] public bool Result { get; set; }
 
     /// <summary>
     /// ID of the error (if an error occurred)
     /// </summary>
-    [JsonProperty("errorId")] public string ErrorId { get; set; }
+    [JsonPropertyName("errorId")] public string ErrorId { get; set; }
 
     /// <summary>
     /// Description of the error (if an error occurred)
     /// </summary>
-    [JsonProperty("errorMessage")] public string ErrorMessage { get; set; }
+    [JsonPropertyName("errorMessage")] public string ErrorMessage { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Enums;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
@@ -10,7 +11,7 @@ public class Request : RequestBase
 {
     public override bool RequiresServiceId => true;
 
-    [JsonProperty("paymentMethodId")]
+    [JsonPropertyName("paymentMethodId")]
     public PaymentMethodId? PaymentMethodId { get; set; }
 
     /// <inheritdoc />
@@ -42,6 +43,6 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = JsonConvert.DeserializeObject<Response>(RawResponse);
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
     }
 }

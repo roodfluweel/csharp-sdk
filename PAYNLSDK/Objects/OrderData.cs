@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 using PayNLSdk.Enums;
 
@@ -12,37 +13,37 @@ public class OrderData
     /// <summary>
     /// Your systems product ID
     /// </summary>
-    [JsonProperty("productId")]
+    [JsonPropertyName("productId")]
     public string ProductId { get; set; }
 
     /// <summary>
     /// Description of the product (max 45 characters)
     /// </summary>
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
     /// <summary>
     /// Amount in cents of the product (amount incl. vat)
     /// </summary>
-    [JsonProperty("price")]
+    [JsonPropertyName("price")]
     public int Price { get; set; }
 
     /// <summary>
     /// Quantity of products with this product id
     /// </summary>
-    [JsonProperty("quantity")]
+    [JsonPropertyName("quantity")]
     public int Quantity { get; set; }
 
     /// <summary>
     /// The vat code
     /// </summary>
-    [JsonProperty("vatCode"), JsonConverter(typeof(TaxClassConverter))]
+    [JsonPropertyName("vatCode"), JsonConverter(typeof(TaxClassConverter))]
     public TaxClass VatCode { get; set; }
 
     /// <summary>
     /// Type of the order line. Possible values: ARTICLE, SHIPPING, HANDLING, DISCOUNT
     /// </summary>
-    [JsonProperty("productType"), JsonConverter(typeof(ProductTypeConverter))]
+    [JsonPropertyName("productType"), JsonConverter(typeof(ProductTypeConverter))]
     public ProductType ProductType { get; set; }
 
     /// <summary>

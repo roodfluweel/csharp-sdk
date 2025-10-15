@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,18 @@ public class SalesData
     /// <summary>
     /// Invoice date
     /// </summary>
-    [JsonProperty("invoiceDate"), JsonConverter(typeof(DMYConverter))]
+    [JsonPropertyName("invoiceDate"), JsonConverter(typeof(DMYConverter))]
     public DateTime? InvoiceDate { get; set; }
 
     /// <summary>
     /// Delivery date
     /// </summary>
-    [JsonProperty("deliveryDate"), JsonConverter(typeof(DMYConverter))]
+    [JsonPropertyName("deliveryDate"), JsonConverter(typeof(DMYConverter))]
     public DateTime? DeliveryDate { get; set; }
 
     /// <summary>
     /// Ordered products specification
     /// </summary>
-    [JsonProperty("orderData")]
+    [JsonPropertyName("orderData")]
     public List<OrderData> OrderData { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PayNLSdk.Api.Transaction.Info;
 
@@ -10,55 +11,55 @@ public class StornoDetails
     /// <summary>
     /// ID of the refund
     /// </summary>
-    [JsonProperty("stornoId")]
+    [JsonPropertyName("stornoId")]
     public int? StornoId { get; protected set; }
 
     /// <summary>
     /// Refund amount
     /// </summary>
-    [JsonProperty("stornoAmount")]
+    [JsonPropertyName("stornoAmount")]
     public int? StornoAmount { get; protected set; }
 
     /// <summary>
     /// Number of the bankaccount the refund is deposited to
     /// </summary>
-    [JsonProperty("bankAccount")]
+    [JsonPropertyName("bankAccount")]
     public string BankAccount { get; protected set; }
 
     /// <summary>
     /// IBAN of the bankaccount the refund is deposited to
     /// </summary>
-    [JsonProperty("iban")]
+    [JsonPropertyName("iban")]
     public string IBAN { get; protected set; }
 
     /// <summary>
     /// BIC of the bankaccount the refund is deposited to 
     /// </summary>
-    [JsonProperty("bic")]
+    [JsonPropertyName("bic")]
     public string bic { get; protected set; }
 
     /// <summary>
     /// City of the bankaccount owner 
     /// </summary>
-    [JsonProperty("city")]
+    [JsonPropertyName("city")]
     public string City { get; protected set; }
 
     /// <summary>
     /// Date and time the payment is refunded 
     /// </summary>
-    [JsonProperty("datetime")]
+    [JsonPropertyName("datetime")]
     public string Date { get; protected set; }
 
     /// <summary>
     /// Reason of the refund
     /// </summary>
-    [JsonProperty("reason")]
+    [JsonPropertyName("reason")]
     public string Reason { get; protected set; }
 
     /// <summary>
     /// The email address the refund confirmation is sent to
     /// </summary>
-    [JsonProperty("emailAdress")]
+    [JsonPropertyName("emailAdress")]
     public string EmailAddress { get; protected set; }
 
 }

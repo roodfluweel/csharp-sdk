@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 using System;
@@ -30,7 +31,7 @@ public class Request : RequestBase
     /// <summary>
     /// The amount to be paid should be given in cents. For example € 3.50 becomes 350.
     /// </summary>
-    [JsonProperty("amount")]
+    [JsonPropertyName("amount")]
     public int AmountInCents { get; set; }
 
     /// <summary>
@@ -202,7 +203,7 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = JsonConvert.DeserializeObject<Response>(RawResponse);
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
         if (!Response.Request.Result)
         {
             // toss

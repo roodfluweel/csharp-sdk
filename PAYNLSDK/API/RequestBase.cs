@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
 namespace PayNLSdk.Api;
@@ -25,7 +27,7 @@ public abstract class RequestBase
     public override string ToString()
     {
         //return base.ToString();
-        return JsonConvert.SerializeObject(this, Formatting.Indented);
+        return JsonSerialization.Serialize(this, JsonSerialization.CreateIndentedOptions());
     }
 
     /// <summary>

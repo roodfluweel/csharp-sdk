@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 using System.Collections.Specialized;
@@ -18,7 +19,7 @@ public class Request : RequestBase
     /// Gets or sets the "kamer van koophandel" number.
     /// </summary>
     /// <value>The KVK.</value>
-    [JsonProperty("kvk")]
+    [JsonPropertyName("kvk")]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public string KVK { get; set; }
 
@@ -58,6 +59,6 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = JsonConvert.DeserializeObject<Response>(RawResponse);
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
     }
 }

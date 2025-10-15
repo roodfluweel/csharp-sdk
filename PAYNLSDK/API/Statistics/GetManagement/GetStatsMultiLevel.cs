@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PayNLSdk.Api.Statistics.GetManagement;
 
@@ -8,7 +9,7 @@ namespace PayNLSdk.Api.Statistics.GetManagement;
 /// </summary>
 public class GetStatsMultiLevel : GetStatsResultBase
 {
-    [JsonProperty("arrStatsData")]
+    [JsonPropertyName("arrStatsData")]
     public TopLevelStatsData[] TopLevelGroup { get; set; }
 }
 

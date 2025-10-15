@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Utilities;
 
 namespace PayNLSdk.Api.Merchant.Clearing;
 
@@ -16,6 +18,6 @@ public class Response : ResponseBase
     /// <returns></returns>
     internal static Response FromRawResponse(string response)
     {
-        return JsonConvert.DeserializeObject<Response>(response);
+        return JsonSerialization.Deserialize<Response>(response);
     }
 }

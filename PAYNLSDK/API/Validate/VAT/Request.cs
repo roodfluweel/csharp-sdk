@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 using System.Collections.Specialized;
@@ -18,7 +19,7 @@ public class Request : RequestBase
     /// Gets or sets the vat.
     /// </summary>
     /// <value>The vat.</value>
-    [JsonProperty("vat")]
+    [JsonPropertyName("vat")]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public string VAT { get; set; }
 
@@ -58,6 +59,6 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = JsonConvert.DeserializeObject<Response>(RawResponse);
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
     }
 }

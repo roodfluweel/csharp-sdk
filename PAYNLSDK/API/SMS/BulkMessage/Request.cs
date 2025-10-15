@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 using System.Collections.Specialized;
@@ -7,16 +8,16 @@ namespace PayNLSdk.Api.SMS.BulkMessage;
 
 public class Request : RequestBase
 {
-    [JsonProperty("org")]
+    [JsonPropertyName("org")]
     public string Sender { get; set; }
 
-    [JsonProperty("dest")]
+    [JsonPropertyName("dest")]
     public string Recipient { get; set; }
 
-    [JsonProperty("body")]
+    [JsonPropertyName("body")]
     public string Message { get; set; }
 
-    //[JsonProperty("starttime")]
+    //[JsonPropertyName("starttime")]
     //public int SendTime { get; set; }
 
     /// <inheritdoc />
@@ -53,6 +54,6 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = JsonConvert.DeserializeObject<Response>(RawResponse);
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
     }
 }

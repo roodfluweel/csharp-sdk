@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 using PayNLSdk.Enums;
 
@@ -12,54 +13,54 @@ public class Address
     /// <summary>
     /// Initials for Address
     /// </summary>
-    [JsonProperty("initials")]
+    [JsonPropertyName("initials")]
     public string Initials { get; set; }
 
     /// <summary>
     /// Lastname of receiver
     /// </summary>
-    [JsonProperty("lastName")]
+    [JsonPropertyName("lastName")]
     public string LastName { get; set; }
 
     /// <summary>
     /// Gender of receiver
     /// </summary>
-    [JsonProperty("gender"), JsonConverter(typeof(GenderConverter))]
+    [JsonPropertyName("gender"), JsonConverter(typeof(GenderConverter))]
     public Gender? Gender { get; set; }
 
     /// <summary>
     /// Street name
     /// </summary>
-    [JsonProperty("streetName")]
+    [JsonPropertyName("streetName")]
     public string StreetName { get; set; }
 
     /// <summary>
     /// Street number
     /// </summary>
-    [JsonProperty("streetNumber")]
+    [JsonPropertyName("streetNumber")]
     public string StreetNumber { get; set; }
 
     /// <summary>
     /// Street number
     /// </summary>
-    [JsonProperty("streetNumberExtension")]
+    [JsonPropertyName("streetNumberExtension")]
     public string StreetNumberExtension { get; set; }
 
     /// <summary>
     /// Zipcode
     /// </summary>
-    [JsonProperty("zipCode")]
+    [JsonPropertyName("zipCode")]
     public string ZipCode { get; set; }
 
     /// <summary>
     /// City
     /// </summary>
-    [JsonProperty("city")]
+    [JsonPropertyName("city")]
     public string City { get; set; }
 
     /// <summary>
     /// ISO2 Country code
     /// </summary>
-    [JsonProperty("countryCode")]
+    [JsonPropertyName("countryCode")]
     public string CountryCode { get; set; }
 }

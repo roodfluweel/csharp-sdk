@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
@@ -12,25 +13,25 @@ public class Request : RequestBase
     /// The ID of the category of the service the payment options are used for. 
     /// For a list of available categories, see <see cref="PAYNLSDK.API.Service.GetCategories"/>
     /// </summary>
-    [JsonProperty("categoryId")]
+    [JsonPropertyName("categoryId")]
     public int CategoryId { get; set; }
 
     /// <summary>
     /// ID of the program for which the payment options are used. (Only available if the program option is enabled!)
     /// </summary>
-    [JsonProperty("programId")]
+    [JsonPropertyName("programId")]
     public int? ProgramId { get; set; }
 
     /// <summary>
     /// Optional ID of the payment method
     /// </summary>
-    [JsonProperty("paymentMethodId")]
+    [JsonPropertyName("paymentMethodId")]
     public int? PaymentMethodId { get; set; }
 
     /// <summary>
     /// Indicator wether to show profiles that are initially not allowed on registration. 
     /// </summary>
-    [JsonProperty("showNotAllowedOnRegistration"), JsonConverter(typeof(BooleanConverter))]
+    [JsonPropertyName("showNotAllowedOnRegistration"), JsonConverter(typeof(BooleanConverter))]
     public bool? ShowNotAllowedOnRegistration { get; set; }
 
     /// <inheritdoc />
@@ -77,7 +78,7 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        Objects.PaymentProfile[] pm = JsonConvert.DeserializeObject<Objects.PaymentProfile[]>(RawResponse);
+        Objects.PaymentProfile[] pm = JsonSerialization.Deserialize<Objects.PaymentProfile[]>(RawResponse);
         Response r = new Response();
         r.PaymentProfiles = pm;
         response = r;

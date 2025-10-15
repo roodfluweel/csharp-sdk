@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 
 namespace PayNLSdk.Api.Validate.VAT;
@@ -14,6 +15,6 @@ public class Response : ResponseBase
     /// Gets or sets a value indicating whether this <see cref="Response"/> is succesful.
     /// </summary>
     /// <value><c>true</c> if succesful; otherwise, <c>false</c>.</value>
-    [JsonProperty("result"), JsonConverter(typeof(BooleanConverter))]
+    [JsonPropertyName("result"), JsonConverter(typeof(BooleanConverter))]
     public bool result { get; protected set; }
 }

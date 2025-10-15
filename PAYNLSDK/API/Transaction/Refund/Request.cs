@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Converters;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
@@ -17,7 +18,7 @@ public class Request : RequestBase
     /// <summary>
     /// The order ID or EX code of the transaction.
     /// </summary>
-    [JsonProperty("transactionId")]
+    [JsonPropertyName("transactionId")]
     public string TransactionId { get; set; }
 
     /// <summary>
@@ -25,20 +26,20 @@ public class Request : RequestBase
     /// For example € 3.50 becomes 350.
     /// If no amount is specified, the full amount is refunded and currency is not used. 
     /// </summary>
-    [JsonProperty("amount")]
+    [JsonPropertyName("amount")]
     public decimal? Amount { get; set; }
 
     /// <summary>
     /// description to include with the payment.
     /// </summary>
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
     /// <summary>
     /// The date on which the refund needs to be processed. Only works for IBAN refunds.
     /// </summary>
     /// <remarks>Internal format should be dd-mm-yyyy(eg. 25-09-2016)</remarks>
-    [JsonProperty("processDate"), JsonConverter(typeof(DMYConverter))]
+    [JsonPropertyName("processDate"), JsonConverter(typeof(DMYConverter))]
     public DateTime? ProcessDate { get; set; }
 
     /// <inheritdoc />
@@ -84,13 +85,13 @@ public class Request : RequestBase
     /// <summary>
     /// the vat percentage this refund applies to (AfterPay/Focum only)
     /// </summary>
-    [JsonProperty("vatPercentage")]
+    [JsonPropertyName("vatPercentage")]
     public decimal? VatPercentage { get; set; }
 
     /// <summary>
     /// Optional field. The currency in which the amount is specified. Standard in euro.
     /// </summary>
-    [JsonProperty("currency")]
+    [JsonPropertyName("currency")]
     public string Currency { get; set; }
 
     /// <summary>
@@ -105,6 +106,6 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = JsonConvert.DeserializeObject<Response>(RawResponse);
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
     }
 }

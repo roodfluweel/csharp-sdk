@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using PayNLSdk.Exceptions;
 using PayNLSdk.Utilities;
 using System.Collections.Specialized;
@@ -41,7 +42,7 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        string[] ips = JsonConvert.DeserializeObject<string[]>(RawResponse);
+        string[] ips = JsonSerialization.Deserialize<string[]>(RawResponse);
         Response r = new Response
         {
             IPAddresses = ips
