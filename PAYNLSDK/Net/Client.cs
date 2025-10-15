@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using PayNLSdk.Api;
 using PayNLSdk.Exceptions;
@@ -30,18 +31,23 @@ public class Client : IClient
     /// </summary>
     protected readonly IPayNlConfiguration SecurityConfiguration;
 
+    private readonly ILogger<Client> _logger;
+
     /// <inheritdoc />
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global")]
-    public Client(IPayNlConfiguration securityConfiguration, IProxyConfigurationInjector proxyConfigurationInjector = null)
+    public Client(IPayNlConfiguration securityConfiguration,
+        ILogger<Client> logger,
+        IProxyConfigurationInjector proxyConfigurationInjector)
     {
         SecurityConfiguration = securityConfiguration;
+        _logger = logger;
         ProxyConfigurationInjector = proxyConfigurationInjector;
     }
 
     private const string Endpoint = "https://rest-api.pay.nl";
 
     /// <inheritdoc />
-    public string ClientVersion => "1.1.0.0";
+    public string ClientVersion => "2";
 
     /// <inheritdoc />
     public string UserAgent => $"PAYNL/SDK/{ClientVersion} DotNet/{Environment.Version.Major}";
@@ -53,34 +59,17 @@ public class Client : IClient
     /// <returns>raw response string</returns>
     public string PerformRequest(RequestBase request)
     {
+        _logger.LogInformation("Preparing request to {Url} with {@Parameters}", request.Url, request.GetParameters());
         var webRequest = PrepareRequest(request.Url, "POST");
         var rawResponse = PerformRoundTrip2(webRequest, HttpStatusCode.OK, () =>
             {
-                using (var requestWriter = new StreamWriter(webRequest.GetRequestStream()))
-                {
-                    //string serializedResource = resource.Serialize();
-                    string serializedResource = ToQueryString(request);
-                    requestWriter.Write(serializedResource);
-                }
+                using var requestWriter = new StreamWriter(webRequest.GetRequestStream());
+
+                var serializedResource = ToQueryString(request);
+                requestWriter.Write(serializedResource);
             }
         );
         request.RawResponse = rawResponse;
-        return rawResponse;
-
-
-        //var webClient = new WebClient();
-        //// we are not using the client.Credentials for the reason stated here: https://stackoverflow.com/a/26016919/97615
-        ////string credentials = Convert.ToBase64String(
-        ////    Encoding.ASCII.GetBytes("token:" + _securityConfiguration.ApiToken));
-        ////webClient.Headers[HttpRequestHeader.Authorization] = $"Basic {credentials}";
-        //webClient.Credentials = new NetworkCredential("token", _securityConfiguration.ApiToken);
-        //webClient.Headers[HttpRequestHeader.UserAgent] = this.UserAgent;
-        //webClient.QueryString = GetParameters(request);
-        //webClient.BaseAddress = Endpoint;
-
-        //// download data
-        //var rawResponse = webClient.DownloadString(request.Url);
-
         return rawResponse;
     }
 
