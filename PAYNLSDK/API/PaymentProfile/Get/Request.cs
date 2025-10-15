@@ -1,51 +1,50 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.PaymentProfile.Get
+namespace PayNLSdk.Api.PaymentProfile.Get;
+
+public class Request : RequestBase
 {
-    public class Request : RequestBase
+
+    [JsonProperty("paymentProfileId")]
+    public int PaymentProfileId { get; set; }
+
+    /// <inheritdoc />
+    protected override int Version => 1;
+
+    /// <inheritdoc />
+    protected override string Controller => "PaymentProfile";
+
+    /// <inheritdoc />
+    protected override string Method => "get";
+
+    /// <inheritdoc />
+    public override System.Collections.Specialized.NameValueCollection GetParameters()
     {
-        
-        [JsonProperty("paymentProfileId")]
-        public int PaymentProfileId { get; set; }
+        NameValueCollection nvc = new NameValueCollection();
 
-        /// <inheritdoc />
-        protected override int Version => 1;
+        ParameterValidator.IsNotNull(PaymentProfileId, "PaymentProfileId");
+        nvc.Add("paymentProfileId", PaymentProfileId.ToString());
 
-        /// <inheritdoc />
-        protected override string Controller => "PaymentProfile";
+        return nvc;
+    }
 
-        /// <inheritdoc />
-        protected override string Method => "get";
+    public Response Response => (Response)response;
 
-        /// <inheritdoc />
-        public override System.Collections.Specialized.NameValueCollection GetParameters()
+
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
         {
-            NameValueCollection nvc = new NameValueCollection();
-
-            ParameterValidator.IsNotNull(PaymentProfileId, "PaymentProfileId");
-            nvc.Add("paymentProfileId", PaymentProfileId.ToString());
-
-            return nvc;
+            throw new PayNlException("rawResponse is empty!");
         }
-
-        public Response Response => (Response)response;
-
-
-        protected override void PrepareAndSetResponse()
+        Objects.PaymentProfile pm = JsonConvert.DeserializeObject<Objects.PaymentProfile>(RawResponse);
+        Response r = new Response
         {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            PAYNLSDK.Objects.PaymentProfile pm = JsonConvert.DeserializeObject<PAYNLSDK.Objects.PaymentProfile>(RawResponse);
-            Response r = new Response
-            {
-                PaymentProfile = pm
-            };
-            response = r;
-        }
+            PaymentProfile = pm
+        };
+        response = r;
     }
 }

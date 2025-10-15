@@ -1,11 +1,9 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace PAYNLSDK.API.Transaction.Decline
+namespace PayNLSdk.Api.Transaction.Decline;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
-        [JsonProperty("message")]
-        public string Message { get; protected set; }
-    }
+    [JsonProperty("message")]
+    public string Message { get; protected set; }
 }

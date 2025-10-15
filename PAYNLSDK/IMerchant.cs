@@ -1,12 +1,10 @@
-﻿using PAYNLSDK.API.Merchant.Add;
-using PAYNLSDK.API.Merchant.Get;
+﻿using PayNLSdk.Api.Merchant.Add;
 
-namespace PAYNLSDK
+namespace PayNLSdk;
+
+public interface IMerchant
 {
-    public interface IMerchant
-    {
-        API.Merchant.Add.Response Create(API.Merchant.Add.Request request);
-        API.Merchant.Get.Response Get(string merchantId);
-        PayNLSdk.API.Merchant.Clearing.Response AddClearing(PayNLSdk.API.Merchant.Clearing.Request request);
-    }
+    Response Create(Request request);
+    Api.Merchant.Info.Response Get(string merchantId);
+    Api.Merchant.Clearing.Response AddClearing(Api.Merchant.Clearing.Request request);
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+﻿using Newtonsoft.Json;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.Transaction.GetLastTransactions
+namespace PayNLSdk.Api.Transaction.GetLastTransactions;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
-        [JsonProperty("arrStatsData")]
-        public TransactionStatsList TransactionStats { get; set; }
-    }
+    [JsonProperty("arrStatsData")]
+    public TransactionStatsList TransactionStats { get; set; }
 }

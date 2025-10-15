@@ -1,45 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using PAYNLSDK.API.Transaction.Info;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
 
-namespace PAYNLSDK.API.Alliance.GetMerchant
+namespace PayNLSdk.Api.Alliance.GetMerchant;
+
+public class Request : RequestBase
 {
-    public class Request : RequestBase
+    /// <inheritdoc />
+    protected override int Version => 4;
+    /// <inheritdoc />
+    protected override string Controller => "Alliance";
+    /// <inheritdoc />
+    protected override string Method => "getMerchant";
+
+    /// <summary>
+    /// the merchant Id to request
+    /// </summary>
+    public string MerchantId { get; set; }
+
+    public override NameValueCollection GetParameters()
     {
-        /// <inheritdoc />
-        protected override int Version => 4;
-        /// <inheritdoc />
-        protected override string Controller => "Alliance";
-        /// <inheritdoc />
-        protected override string Method => "getMerchant";
+        var retval = new NameValueCollection { { "merchantId", MerchantId } };
+        return retval;
+    }
 
-        /// <summary>
-        /// the merchant Id to request
-        /// </summary>
-        public string MerchantId { get; set; }
-
-        public override NameValueCollection GetParameters()
+    /// <inheritdoc />
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
         {
-            var retval = new NameValueCollection { { "merchantId", MerchantId } };
-            return retval;
+            throw new PayNlException("rawResponse is empty!");
         }
+        // response = JsonConvert.DeserializeObject<GetMerchantResult>(RawResponse);
 
-        /// <inheritdoc />
-        protected override void PrepareAndSetResponse()
-        {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            // response = JsonConvert.DeserializeObject<GetMerchantResult>(RawResponse);
-
-        }
     }
 }

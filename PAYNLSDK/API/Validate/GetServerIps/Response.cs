@@ -1,20 +1,18 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
-namespace PAYNLSDK.API.Validate.GetServerIps
+namespace PayNLSdk.Api.Validate.GetServerIps;
+
+/// <summary>
+/// Response object for the <see cref="Request"/>.
+/// Implements the <see cref="ResponseBase" />
+/// </summary>
+/// <seealso cref="ResponseBase" />
+public class Response : ResponseBase
 {
     /// <summary>
-    /// Response object for the <see cref="PAYNLSDK.API.Validate.GetServerIps.Request"/>.
-    /// Implements the <see cref="PAYNLSDK.API.ResponseBase" />
+    /// Gets or sets the ip addresses.
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.ResponseBase" />
-    public class Response : ResponseBase
-    {
-        /// <summary>
-        /// Gets or sets the ip addresses.
-        /// </summary>
-        /// <value>The ip addresses.</value>
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public string[] IPAddresses { get; set; }
-    }
+    /// <value>The ip addresses.</value>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public string[] IPAddresses { get; set; }
 }

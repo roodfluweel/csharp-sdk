@@ -1,11 +1,8 @@
-﻿using System;
-using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+﻿using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.Service.GetCategories
+namespace PayNLSdk.Api.Service.GetCategories;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
-        public PAYNLSDK.Objects.ServiceCategory[] ServiceCategories { get; set; }
-    }
+    public ServiceCategory[] ServiceCategories { get; set; }
 }

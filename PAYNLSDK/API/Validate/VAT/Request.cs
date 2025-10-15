@@ -1,64 +1,63 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PAYNLSDK.API.Validate.VAT
+namespace PayNLSdk.Api.Validate.VAT;
+
+/// <summary>
+/// A request to validate a VAT number
+/// Implements the <see cref="RequestBase" />
+/// </summary>
+/// <inheritdoc />
+/// <seealso cref="RequestBase" />
+public class Request : RequestBase
 {
     /// <summary>
-    /// A request to validate a VAT number
-    /// Implements the <see cref="PAYNLSDK.API.RequestBase" />
+    /// Gets or sets the vat.
     /// </summary>
+    /// <value>The vat.</value>
+    [JsonProperty("vat")]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public string VAT { get; set; }
+
     /// <inheritdoc />
-    /// <seealso cref="PAYNLSDK.API.RequestBase" />
-    public class Request : RequestBase
+    public override bool RequiresApiToken => false;// base.RequiresApiToken;
+
+    /// <inheritdoc />
+    protected override int Version => 1;
+
+    /// <inheritdoc />
+    protected override string Controller => "Validate";
+
+    /// <inheritdoc />
+    protected override string Method => "VAT";
+
+    /// <inheritdoc />
+    public override System.Collections.Specialized.NameValueCollection GetParameters()
     {
-        /// <summary>
-        /// Gets or sets the vat.
-        /// </summary>
-        /// <value>The vat.</value>
-        [JsonProperty("vat")]
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public string VAT { get; set; }
+        var nvc = new NameValueCollection();
 
-        /// <inheritdoc />
-        public override bool RequiresApiToken => false;// base.RequiresApiToken;
+        ParameterValidator.IsNotEmpty(VAT, "vat");
+        nvc.Add("vat", VAT);
 
-        /// <inheritdoc />
-        protected override int Version => 1;
+        return nvc;
+    }
 
-        /// <inheritdoc />
-        protected override string Controller => "Validate";
+    /// <summary>
+    /// Gets the response.
+    /// </summary>
+    /// <value>The response.</value>
+    public Response Response => (Response)response;
 
-        /// <inheritdoc />
-        protected override string Method => "VAT";
-
-        /// <inheritdoc />
-        public override System.Collections.Specialized.NameValueCollection GetParameters()
+    /// <inheritdoc />
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
         {
-            var nvc = new NameValueCollection();
-
-            ParameterValidator.IsNotEmpty(VAT, "vat");
-            nvc.Add("vat", VAT);
-
-            return nvc;
+            throw new PayNlException("rawResponse is empty!");
         }
-
-        /// <summary>
-        /// Gets the response.
-        /// </summary>
-        /// <value>The response.</value>
-        public Response Response => (Response)response;
-
-        /// <inheritdoc />
-        protected override void PrepareAndSetResponse()
-        {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            response = JsonConvert.DeserializeObject<Response>(RawResponse);
-        }
+        response = JsonConvert.DeserializeObject<Response>(RawResponse);
     }
 }

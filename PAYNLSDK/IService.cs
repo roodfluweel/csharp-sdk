@@ -1,12 +1,11 @@
-﻿using PAYNLSDK.API.Service.GetCategories;
+﻿using PayNLSdk.Api.Service.GetCategories;
 
-namespace PAYNLSDK
+namespace PayNLSdk;
+
+/// <summary>
+/// A 
+/// </summary>
+public interface IService
 {
-    /// <summary>
-    /// A 
-    /// </summary>
-    public interface IService
-    {
-        Response GetCategories(int? paymentOptionId = null);
-    }
+    Response GetCategories(int? paymentOptionId = null);
 }

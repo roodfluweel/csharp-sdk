@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
 
-namespace PAYNLSDK.API.Transaction.Refund
+namespace PayNLSdk.Api.Transaction.Refund;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
-        [JsonProperty("refundId")]
-        public string RefundId { get; protected set; }
-    }
+    [JsonProperty("refundId")]
+    public string RefundId { get; protected set; }
 }

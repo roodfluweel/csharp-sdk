@@ -1,87 +1,85 @@
-﻿using System;
-using Newtonsoft.Json;
-using PAYNLSDK.Utilities;
+﻿using Newtonsoft.Json;
+using PayNLSdk.Converters;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
-using PAYNLSDK.Converters;
-using PAYNLSDK.Exceptions;
 
-namespace PAYNLSDK.API.PaymentProfile.GetAvailable
+namespace PayNLSdk.Api.PaymentProfile.GetAvailable;
+
+public class Request : RequestBase
 {
-    public class Request : RequestBase
+    /// <summary>
+    /// The ID of the category of the service the payment options are used for. 
+    /// For a list of available categories, see <see cref="PAYNLSDK.API.Service.GetCategories"/>
+    /// </summary>
+    [JsonProperty("categoryId")]
+    public int CategoryId { get; set; }
+
+    /// <summary>
+    /// ID of the program for which the payment options are used. (Only available if the program option is enabled!)
+    /// </summary>
+    [JsonProperty("programId")]
+    public int? ProgramId { get; set; }
+
+    /// <summary>
+    /// Optional ID of the payment method
+    /// </summary>
+    [JsonProperty("paymentMethodId")]
+    public int? PaymentMethodId { get; set; }
+
+    /// <summary>
+    /// Indicator wether to show profiles that are initially not allowed on registration. 
+    /// </summary>
+    [JsonProperty("showNotAllowedOnRegistration"), JsonConverter(typeof(BooleanConverter))]
+    public bool? ShowNotAllowedOnRegistration { get; set; }
+
+    /// <inheritdoc />
+    protected override int Version => 1;
+
+    /// <inheritdoc />
+    protected override string Controller => "PaymentProfile";
+
+    /// <inheritdoc />
+    protected override string Method => "getAvailable";
+
+    /// <inheritdoc />
+    public override NameValueCollection GetParameters()
     {
-        /// <summary>
-        /// The ID of the category of the service the payment options are used for. 
-        /// For a list of available categories, see <see cref="PAYNLSDK.API.Service.GetCategories"/>
-        /// </summary>
-        [JsonProperty("categoryId")]
-        public int CategoryId { get; set; }
+        NameValueCollection nvc = new NameValueCollection();
 
-        /// <summary>
-        /// ID of the program for which the payment options are used. (Only available if the program option is enabled!)
-        /// </summary>
-        [JsonProperty("programId")]
-        public int? ProgramId { get; set; }
+        ParameterValidator.IsNotNull(CategoryId, "CategoryId");
+        nvc.Add("categoryId", CategoryId.ToString());
 
-        /// <summary>
-        /// Optional ID of the payment method
-        /// </summary>
-        [JsonProperty("paymentMethodId")]
-        public int? PaymentMethodId { get; set; }
-
-        /// <summary>
-        /// Indicator wether to show profiles that are initially not allowed on registration. 
-        /// </summary>
-        [JsonProperty("showNotAllowedOnRegistration"), JsonConverter(typeof(BooleanConverter))]
-        public bool? ShowNotAllowedOnRegistration { get; set; }
-
-        /// <inheritdoc />
-        protected override int Version => 1;
-
-        /// <inheritdoc />
-        protected override string Controller => "PaymentProfile";
-
-        /// <inheritdoc />
-        protected override string Method => "getAvailable";
-
-        /// <inheritdoc />
-        public override NameValueCollection GetParameters()
+        if (!ParameterValidator.IsNonEmptyInt(ProgramId))
         {
-            NameValueCollection nvc = new NameValueCollection();
-
-            ParameterValidator.IsNotNull(CategoryId, "CategoryId");
-            nvc.Add("categoryId", CategoryId.ToString());
-
-            if (!ParameterValidator.IsNonEmptyInt(ProgramId))
-            {
-                nvc.Add("programId", ProgramId.ToString());
-            }
-
-            if (!ParameterValidator.IsNonEmptyInt(PaymentMethodId))
-            {
-                nvc.Add("paymentMethodId", PaymentMethodId.ToString());
-            }
-
-            if (!ParameterValidator.IsNull(ShowNotAllowedOnRegistration))
-            {
-                nvc.Add("ShowNotAllowedOnRegistration", ((bool)ShowNotAllowedOnRegistration) ? "1" : "0");
-            }
-
-            return nvc;
+            nvc.Add("programId", ProgramId.ToString());
         }
 
-        public Response Response { get { return (Response)response; } }
-
-        /// <inheritdoc />
-        protected override void PrepareAndSetResponse()
+        if (!ParameterValidator.IsNonEmptyInt(PaymentMethodId))
         {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            PAYNLSDK.Objects.PaymentProfile[] pm = JsonConvert.DeserializeObject<PAYNLSDK.Objects.PaymentProfile[]>(RawResponse);
-            Response r = new Response();
-            r.PaymentProfiles = pm;
-            response = r;
+            nvc.Add("paymentMethodId", PaymentMethodId.ToString());
         }
+
+        if (!ParameterValidator.IsNull(ShowNotAllowedOnRegistration))
+        {
+            nvc.Add("ShowNotAllowedOnRegistration", ((bool)ShowNotAllowedOnRegistration) ? "1" : "0");
+        }
+
+        return nvc;
+    }
+
+    public Response Response { get { return (Response)response; } }
+
+    /// <inheritdoc />
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
+        {
+            throw new PayNlException("rawResponse is empty!");
+        }
+        Objects.PaymentProfile[] pm = JsonConvert.DeserializeObject<Objects.PaymentProfile[]>(RawResponse);
+        Response r = new Response();
+        r.PaymentProfiles = pm;
+        response = r;
     }
 }

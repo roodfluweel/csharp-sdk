@@ -1,57 +1,57 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Objects;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Service.GetCategories
+namespace PayNLSdk.Api.Service.GetCategories;
+
+/// <summary>
+/// Returns a list of available service categories. 
+/// If a payment option is specified, only the categories linked to the payment option is returned 
+/// </summary>
+public class Request : RequestBase
 {
     /// <summary>
-    /// Returns a list of available service categories. 
-    /// If a payment option is specified, only the categories linked to the payment option is returned 
+    ///  	The optional ID of the payment profile
     /// </summary>
-    public class Request : RequestBase
+    [JsonProperty("paymentOptionId")]
+    public int? PaymentOptionId { get; set; }
+
+    /// <inheritdoc />
+    protected override int Version => 3;
+
+    /// <inheritdoc />
+    protected override string Controller => "Service";
+
+    /// <inheritdoc />
+    protected override string Method => "getCategories";
+
+    /// <inheritdoc />
+    public override NameValueCollection GetParameters()
     {
-        /// <summary>
-        ///  	The optional ID of the payment profile
-        /// </summary>
-        [JsonProperty("paymentOptionId")]
-        public int? PaymentOptionId { get; set; }
-
-        /// <inheritdoc />
-        protected override int Version => 3;
-
-        /// <inheritdoc />
-        protected override string Controller => "Service";
-
-        /// <inheritdoc />
-        protected override string Method => "getCategories";
-
-        /// <inheritdoc />
-        public override NameValueCollection GetParameters()
+        NameValueCollection nvc = new NameValueCollection();
+        if (!ParameterValidator.IsNonEmptyInt(PaymentOptionId))
         {
-            NameValueCollection nvc = new NameValueCollection();
-            if (!ParameterValidator.IsNonEmptyInt(PaymentOptionId))
-            {
-                nvc.Add("paymentOptionId", PaymentOptionId.ToString());
-            }
-            return nvc;
+            nvc.Add("paymentOptionId", PaymentOptionId.ToString());
         }
+        return nvc;
+    }
 
-        public Response Response => (Response)response;
+    public Response Response => (Response)response;
 
-        /// <inheritdoc />
-        protected override void PrepareAndSetResponse()
+    /// <inheritdoc />
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
         {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            PAYNLSDK.Objects.ServiceCategory[] pm = JsonConvert.DeserializeObject<PAYNLSDK.Objects.ServiceCategory[]>(RawResponse);
-            Response r = new Response
-            {
-                ServiceCategories = pm
-            };
-            response = r;
+            throw new PayNlException("rawResponse is empty!");
         }
+        ServiceCategory[] pm = JsonConvert.DeserializeObject<ServiceCategory[]>(RawResponse);
+        Response r = new Response
+        {
+            ServiceCategories = pm
+        };
+        response = r;
     }
 }

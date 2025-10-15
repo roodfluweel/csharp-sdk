@@ -1,23 +1,21 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects;
+
+/// <summary>
+/// Service Category information
+/// </summary>
+public class ServiceCategory
 {
     /// <summary>
-    /// Service Category information
+    /// ID of the Service Category
     /// </summary>
-    public class ServiceCategory
-    {
-        /// <summary>
-        /// ID of the Service Category
-        /// </summary>
-        [JsonProperty("id")]
-        public string Id { get; set; }
+    [JsonProperty("id")]
+    public string Id { get; set; }
 
-        /// <summary>
-        /// Name of the Service Category
-        /// </summary>
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
+    /// <summary>
+    /// Name of the Service Category
+    /// </summary>
+    [JsonProperty("name")]
+    public string Name { get; set; }
 }

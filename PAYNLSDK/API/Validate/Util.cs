@@ -1,106 +1,104 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Net;
-using System;
+using PayNLSdk.Net;
 
-namespace PAYNLSDK.API.Validate
+namespace PayNLSdk.Api.Validate;
+
+public class Util
 {
-    public class Util
+    public IClient Client { get; set; }
+
+    private JsonSerializerSettings serializerSettings;
+    public JsonSerializerSettings SerializerSettings
     {
-        public IClient Client { get; set; }
-
-        private JsonSerializerSettings serializerSettings;
-        public JsonSerializerSettings SerializerSettings 
-        { 
-            get 
-            { 
-                if (serializerSettings == null) 
-                { 
-                    serializerSettings = new JsonSerializerSettings(); 
-                    serializerSettings.NullValueHandling = NullValueHandling.Ignore; 
-                }
-                return serializerSettings; 
-            }
-            set 
-            { 
-                serializerSettings = value;
-            }
-        }
-
-        public Util(IClient client) : this(client, null)
+        get
         {
-        }
-
-        public Util(IClient client, JsonSerializerSettings serializerSettings)
-        {
-            Client = client;
-            SerializerSettings = serializerSettings;
-        }
-
-        public bool ValidatePayIP(string ipAddress)
-        {
-            IsPayServerIp.Request request = new IsPayServerIp.Request();
-            request.IpAddress = ipAddress;
-            Client.PerformRequest(request);
-            return request.Response.result;
-        }
-
-        public bool ValidateBankAccountNumber(string bankAccountNumber, bool international)
-        {
-            if (international)
+            if (serializerSettings == null)
             {
-                BankAccountNumberInternational.Request request = new BankAccountNumberInternational.Request();
-                request.BankAccountNumber = bankAccountNumber;
-                Client.PerformRequest(request);
-                return request.Response.Result;
+                serializerSettings = new JsonSerializerSettings();
+                serializerSettings.NullValueHandling = NullValueHandling.Ignore;
             }
-            else
-            {
-                BankAccountNumber.Request request = new BankAccountNumber.Request();
-                request.BankAccountNumber = bankAccountNumber;
-                Client.PerformRequest(request);
-                return request.Response.result;
-            }
+            return serializerSettings;
         }
-
-        public bool ValidateIBAN(string iban)
+        set
         {
-            IBAN.Request request = new IBAN.Request();
-            request.IBAN = iban;
-            Client.PerformRequest(request);
-            return request.Response.result;
+            serializerSettings = value;
         }
-
-        public bool ValidateSWIFT(string swift)
-        {
-            SWIFT.Request request = new SWIFT.Request();
-            request.SWIFT = swift;
-            Client.PerformRequest(request);
-            return request.Response.result;
-        }
-
-        public bool ValidateKVK(string kvk)
-        {
-            KVK.Request request = new KVK.Request();
-            request.KVK = kvk;
-            Client.PerformRequest(request);
-            return request.Response.result;
-        }
-
-        public bool ValidateVAT(string vat)
-        {
-            VAT.Request request = new VAT.Request();
-            request.VAT = vat;
-            Client.PerformRequest(request);
-            return request.Response.result;
-        }
-
-        public bool ValidateSOFI(string sofi)
-        {
-            SOFI.Request request = new SOFI.Request();
-            request.SOFI = sofi;
-            Client.PerformRequest(request);
-            return request.Response.result;
-        }
-
     }
+
+    public Util(IClient client) : this(client, null)
+    {
+    }
+
+    public Util(IClient client, JsonSerializerSettings serializerSettings)
+    {
+        Client = client;
+        SerializerSettings = serializerSettings;
+    }
+
+    public bool ValidatePayIP(string ipAddress)
+    {
+        IsPayServerIp.Request request = new IsPayServerIp.Request();
+        request.IpAddress = ipAddress;
+        Client.PerformRequest(request);
+        return request.Response.result;
+    }
+
+    public bool ValidateBankAccountNumber(string bankAccountNumber, bool international)
+    {
+        if (international)
+        {
+            BankAccountNumberInternational.Request request = new BankAccountNumberInternational.Request();
+            request.BankAccountNumber = bankAccountNumber;
+            Client.PerformRequest(request);
+            return request.Response.Result;
+        }
+        else
+        {
+            BankAccountNumber.Request request = new BankAccountNumber.Request();
+            request.BankAccountNumber = bankAccountNumber;
+            Client.PerformRequest(request);
+            return request.Response.result;
+        }
+    }
+
+    public bool ValidateIBAN(string iban)
+    {
+        IBAN.Request request = new IBAN.Request();
+        request.IBAN = iban;
+        Client.PerformRequest(request);
+        return request.Response.result;
+    }
+
+    public bool ValidateSWIFT(string swift)
+    {
+        SWIFT.Request request = new SWIFT.Request();
+        request.SWIFT = swift;
+        Client.PerformRequest(request);
+        return request.Response.result;
+    }
+
+    public bool ValidateKVK(string kvk)
+    {
+        KVK.Request request = new KVK.Request();
+        request.KVK = kvk;
+        Client.PerformRequest(request);
+        return request.Response.result;
+    }
+
+    public bool ValidateVAT(string vat)
+    {
+        VAT.Request request = new VAT.Request();
+        request.VAT = vat;
+        Client.PerformRequest(request);
+        return request.Response.result;
+    }
+
+    public bool ValidateSOFI(string sofi)
+    {
+        SOFI.Request request = new SOFI.Request();
+        request.SOFI = sofi;
+        Client.PerformRequest(request);
+        return request.Response.result;
+    }
+
 }

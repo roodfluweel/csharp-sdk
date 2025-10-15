@@ -1,41 +1,34 @@
-﻿using PAYNLSDK.Net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PAYNLSDK.API.Alliance;
-using PAYNLSDK.API.Alliance.GetMerchant;
-using PAYNLSDK.API.Language;
+﻿using PayNLSdk.Api.Alliance.GetMerchant;
+using PayNLSdk.Api.Language;
+using PayNLSdk.Net;
 
-namespace PAYNLSDK
+namespace PayNLSdk;
+
+/// <summary>
+/// This is a part of the alliance SDK
+/// </summary>
+public class Language : ILanguage
 {
-    /// <summary>
-    /// This is a part of the alliance SDK
-    /// </summary>
-    public class Language : ILanguage
+    private readonly IClient _webClient;
+
+    /// <inheritdoc />
+    public Language(IClient webClient)
     {
-        private readonly IClient _webClient;
-
-        /// <inheritdoc />
-        public Language(IClient webClient)
-        {
-            _webClient = webClient;
-        }
-
-        /// <inheritdoc />
-        public GetMerchantResult GetAll()
-        {
-            var response = _webClient.PerformRequest(new GetAllRequest());
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<GetMerchantResult>(response);
-        }
+        _webClient = webClient;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public interface ILanguage
+    /// <inheritdoc />
+    public GetMerchantResult GetAll()
     {
-        GetMerchantResult GetAll();
+        var response = _webClient.PerformRequest(new GetAllRequest());
+        return Newtonsoft.Json.JsonConvert.DeserializeObject<GetMerchantResult>(response);
     }
+}
+
+/// <summary>
+/// 
+/// </summary>
+public interface ILanguage
+{
+    GetMerchantResult GetAll();
 }

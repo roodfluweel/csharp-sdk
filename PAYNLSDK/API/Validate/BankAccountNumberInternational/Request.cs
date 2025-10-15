@@ -1,57 +1,56 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Validate.BankAccountNumberInternational
+namespace PayNLSdk.Api.Validate.BankAccountNumberInternational;
+
+/// <inheritdoc />
+/// <summary>
+/// Validation request class for an international bank account number
+/// </summary>
+public class Request : RequestBase
 {
-    /// <inheritdoc />
     /// <summary>
-    /// Validation request class for an international bank account number
+    /// Bank account number
     /// </summary>
-    public class Request : RequestBase
+    [JsonProperty("bankAccountNumber")]
+    public string BankAccountNumber { get; set; }
+
+    /// <inheritdoc />
+    public override bool RequiresApiToken => false;// base.RequiresApiToken;
+
+    /// <inheritdoc />
+    protected override int Version => 1;
+
+    /// <inheritdoc />
+    protected override string Controller => "Validate";
+
+    /// <inheritdoc />
+    protected override string Method => "BankAccountNumberInternational";
+
+    /// <inheritdoc />
+    public override NameValueCollection GetParameters()
     {
-        /// <summary>
-        /// Bank account number
-        /// </summary>
-        [JsonProperty("bankAccountNumber")]
-        public string BankAccountNumber { get; set; }
+        var nvc = new NameValueCollection();
 
-        /// <inheritdoc />
-        public override bool RequiresApiToken => false;// base.RequiresApiToken;
+        ParameterValidator.IsNotEmpty(BankAccountNumber, "bankAccountNumber");
+        nvc.Add("bankAccountNumber", BankAccountNumber);
 
-        /// <inheritdoc />
-        protected override int Version => 1;
+        return nvc;
+    }
 
-        /// <inheritdoc />
-        protected override string Controller => "Validate";
+    /// <summary>  Gets the response.</summary>
+    /// <value>The response.</value>
+    public Response Response => (Response)response;
 
-        /// <inheritdoc />
-        protected override string Method => "BankAccountNumberInternational";
-
-        /// <inheritdoc />
-        public override NameValueCollection GetParameters()
+    /// <inheritdoc />
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
         {
-            var nvc = new NameValueCollection();
-
-            ParameterValidator.IsNotEmpty(BankAccountNumber, "bankAccountNumber");
-            nvc.Add("bankAccountNumber", BankAccountNumber);
-
-            return nvc;
+            throw new PayNlException("rawResponse is empty!");
         }
-
-        /// <summary>  Gets the response.</summary>
-        /// <value>The response.</value>
-        public Response Response => (Response)response;
-
-        /// <inheritdoc />
-        protected override void PrepareAndSetResponse()
-        {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            response = JsonConvert.DeserializeObject<Response>(RawResponse);
-        }
+        response = JsonConvert.DeserializeObject<Response>(RawResponse);
     }
 }

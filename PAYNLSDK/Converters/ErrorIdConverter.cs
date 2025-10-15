@@ -1,48 +1,43 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters;
+
+internal class ErrorIdConverter : JsonConverter
 {
-    internal class ErrorIdConverter : JsonConverter
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        string result = serializer.Deserialize<string>(reader);
+        if (result == String.Empty)
         {
-            string result = serializer.Deserialize<string>(reader);
-            if (result == String.Empty)
-            {
-                return 0;
-            }
-            try
-            {
-                return Int32.Parse(result);
-            }
-            catch (Exception e)
-            {
-                throw new JsonSerializationException(String.Format("Unexpected conversion '{0}' when parsing errorId.", result), e);
-            }
+            return 0;
         }
+        try
+        {
+            return Int32.Parse(result);
+        }
+        catch (Exception e)
+        {
+            throw new JsonSerializationException(String.Format("Unexpected conversion '{0}' when parsing errorId.", result), e);
+        }
+    }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        if (value == null)
         {
-            if (value == null)
-            {
-                writer.WriteNull();
-                return;
-            }
-            //if (CanConvert(value.GetType()))
-            //{
-                serializer.Serialize(writer, value);
-            //}
-            //throw new JsonSerializationException(String.Format("Can't serialize type {0} to Integer.", value.GetType()));
+            writer.WriteNull();
+            return;
         }
+        //if (CanConvert(value.GetType()))
+        //{
+        serializer.Serialize(writer, value);
+        //}
+        //throw new JsonSerializationException(String.Format("Can't serialize type {0} to Integer.", value.GetType()));
+    }
 
-        public override bool CanConvert(Type objectType)
-        {
-            return typeof(int).IsAssignableFrom(objectType);
-        }
+    public override bool CanConvert(Type objectType)
+    {
+        return typeof(int).IsAssignableFrom(objectType);
     }
 }

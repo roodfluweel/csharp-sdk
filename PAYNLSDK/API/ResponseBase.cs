@@ -1,27 +1,26 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API
+namespace PayNLSdk.Api;
+
+/// <summary>
+/// A abstract base class for every response from the API
+/// </summary>
+public abstract class ResponseBase
 {
     /// <summary>
-    /// A abstract base class for every response from the API
+    /// The Error if the request led to a failed response
     /// </summary>
-    public abstract class ResponseBase
-    {
-        /// <summary>
-        /// The Error if the request led to a failed response
-        /// </summary>
-        [JsonProperty("request")]
-        public Error Request { get; protected set; }
+    [JsonProperty("request")]
+    public Error Request { get; protected set; }
 
-        /// <summary>
-        /// Return response as formatted JSON
-        /// </summary>
-        /// <returns>JSON string</returns>
-        public override string ToString()
-        {
-            //return base.ToString();
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+    /// <summary>
+    /// Return response as formatted JSON
+    /// </summary>
+    /// <returns>JSON string</returns>
+    public override string ToString()
+    {
+        //return base.ToString();
+        return JsonConvert.SerializeObject(this, Formatting.Indented);
     }
 }

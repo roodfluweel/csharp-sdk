@@ -1,62 +1,61 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Validate.IsPayServerIp
+namespace PayNLSdk.Api.Validate.IsPayServerIp;
+
+/// <inheritdoc />
+/// <summary>
+/// Request to validate whether the ipaddress is a PAY server ip
+/// Implements the <see cref="RequestBase" />
+/// </summary>
+/// <seealso cref="RequestBase" />
+public class Request : RequestBase
 {
-    /// <inheritdoc />
     /// <summary>
-    /// Request to validate whether the ipaddress is a PAY server ip
-    /// Implements the <see cref="PAYNLSDK.API.RequestBase" />
+    /// Gets or sets the ip address.
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.RequestBase" />
-    public class Request : RequestBase
+    /// <value>The ip address.</value>
+    [JsonProperty("ipAddress")]
+    public string IpAddress { get; set; }
+
+    /// <inheritdoc />
+    public override bool RequiresApiToken => false;
+
+    /// <inheritdoc />
+    protected override int Version => 1;
+
+    /// <inheritdoc />
+    protected override string Controller => "Validate";
+
+    /// <inheritdoc />
+    protected override string Method => "isPayServerIp";
+
+    /// <inheritdoc />
+    public override System.Collections.Specialized.NameValueCollection GetParameters()
     {
-        /// <summary>
-        /// Gets or sets the ip address.
-        /// </summary>
-        /// <value>The ip address.</value>
-        [JsonProperty("ipAddress")]
-        public string IpAddress { get; set; }
+        var nvc = new NameValueCollection();
 
-        /// <inheritdoc />
-        public override bool RequiresApiToken => false;
+        ParameterValidator.IsNotEmpty(IpAddress, "IpAddress");
+        nvc.Add("ipAddress", IpAddress);
 
-        /// <inheritdoc />
-        protected override int Version => 1;
+        return nvc;
+    }
 
-        /// <inheritdoc />
-        protected override string Controller => "Validate";
+    /// <summary>
+    /// Gets the response.
+    /// </summary>
+    /// <value>The response.</value>
+    public Response Response => (Response)response;
 
-        /// <inheritdoc />
-        protected override string Method => "isPayServerIp";
-
-        /// <inheritdoc />
-        public override System.Collections.Specialized.NameValueCollection GetParameters()
+    /// <inheritdoc />
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
         {
-            var nvc = new NameValueCollection();
-
-            ParameterValidator.IsNotEmpty(IpAddress, "IpAddress");
-            nvc.Add("ipAddress", IpAddress);
-
-            return nvc;
+            throw new PayNlException("rawResponse is empty!");
         }
-
-        /// <summary>
-        /// Gets the response.
-        /// </summary>
-        /// <value>The response.</value>
-        public Response Response => (Response)response;
-
-        /// <inheritdoc />
-        protected override void PrepareAndSetResponse()
-        {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            response = JsonConvert.DeserializeObject<Response>(RawResponse);
-        }
+        response = JsonConvert.DeserializeObject<Response>(RawResponse);
     }
 }

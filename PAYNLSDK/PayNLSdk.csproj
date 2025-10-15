@@ -7,7 +7,7 @@
 
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>RoodFluweel.PAYNLSDK</PackageId>
-        <Version>1.7.6</Version>
+        <Version>2.0.0</Version>
         <Authors>paynl, dampee, Sebsoft</Authors>
         <Company>dampee, paynl</Company>
         <PackageLicenseUrl></PackageLicenseUrl>

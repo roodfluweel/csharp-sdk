@@ -1,40 +1,39 @@
 ﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.PaymentProfile.GetAll
+namespace PayNLSdk.Api.PaymentProfile.GetAll;
+
+public class Request : RequestBase
 {
-    public class Request : RequestBase
+    /// <inheritdoc />
+    protected override int Version => 1;
+
+    /// <inheritdoc />
+    protected override string Controller => "PaymentProfile";
+
+    /// <inheritdoc />
+    protected override string Method => "getAll";
+
+    public override NameValueCollection GetParameters()
     {
-        /// <inheritdoc />
-        protected override int Version => 1;
+        return new NameValueCollection();
+    }
 
-        /// <inheritdoc />
-        protected override string Controller => "PaymentProfile";
+    public Response Response => (Response)response;
 
-        /// <inheritdoc />
-        protected override string Method => "getAll";
-
-        public override NameValueCollection GetParameters()
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
         {
-            return new NameValueCollection();
+            throw new PayNlException("rawResponse is empty!");
         }
-
-        public Response Response => (Response)response;
-
-        protected override void PrepareAndSetResponse()
+        Objects.PaymentProfile[] pm = JsonConvert.DeserializeObject<Objects.PaymentProfile[]>(RawResponse);
+        Response r = new Response
         {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            PAYNLSDK.Objects.PaymentProfile[] pm = JsonConvert.DeserializeObject<PAYNLSDK.Objects.PaymentProfile[]>(RawResponse);
-            Response r = new Response
-            {
-                PaymentProfiles = pm
-            };
-            response = r;
-        }
+            PaymentProfiles = pm
+        };
+        response = r;
     }
 }
