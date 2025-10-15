@@ -1,36 +1,73 @@
-﻿using Newtonsoft.Json;
 using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters;
+
+/// <summary>
+/// A boolean json converter for System.Text.Json that supports numeric and string payloads.
+/// </summary>
+internal class BooleanConverter : JsonConverter
 {
-    /// <summary>
-    /// A boolean json converter for newtonsoft
-    /// </summary>
-    internal class BooleanConverter : JsonConverter
+    public override bool CanConvert(Type typeToConvert)
     {
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        var targetType = Nullable.GetUnderlyingType(typeToConvert) ?? typeToConvert;
+        return targetType == typeof(bool);
+    }
+
+    public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        bool? value = reader.TokenType switch
         {
-            try
-            {
-                var result = serializer.Deserialize<int>(reader);
-                return (result == 1);
-            }
-            catch (Exception)
-            {
-                return Boolean.Parse(serializer.Deserialize<string>(reader));
-            }
+            JsonTokenType.True => true,
+            JsonTokenType.False => false,
+            JsonTokenType.Number => reader.GetDouble() != 0d,
+            JsonTokenType.String => ParseString(reader.GetString()),
+            JsonTokenType.Null => null,
+            _ => throw new JsonException($"Unexpected token '{reader.TokenType}' when parsing boolean.")
+        };
+
+        if (Nullable.GetUnderlyingType(typeToConvert) != null)
+        {
+            return value;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        if (!value.HasValue)
         {
-            bool result = Convert.ToBoolean(value);
-            writer.WriteValue(result);
+            throw new JsonException("Cannot convert null to non-nullable boolean.");
+        }
+
+        return value.Value;
+    }
+
+    public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
+    {
+        if (value == null)
+        {
+            writer.WriteNullValue();
             return;
         }
 
-        public override bool CanConvert(Type objectType)
+        writer.WriteBooleanValue(Convert.ToBoolean(value));
+    }
+
+    private static bool? ParseString(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
         {
-            return typeof(Boolean).IsAssignableFrom(objectType);
+            return null;
         }
+
+        if (bool.TryParse(value, out var boolResult))
+        {
+            return boolResult;
+        }
+
+        if (int.TryParse(value, out var intResult))
+        {
+            return intResult != 0;
+        }
+
+        throw new JsonException($"Unexpected value '{value}' when parsing boolean.");
     }
 }

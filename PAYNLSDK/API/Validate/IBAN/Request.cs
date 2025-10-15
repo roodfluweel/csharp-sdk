@@ -1,64 +1,64 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PAYNLSDK.API.Validate.IBAN
+namespace PayNLSdk.Api.Validate.IBAN;
+
+/// <inheritdoc />
+/// <summary>
+/// Validate Iban Request
+/// Implements the <see cref="T:PayNLSdk.Api.RequestBase" />
+/// </summary>
+/// <seealso cref="T:PayNLSdk.Api.RequestBase" />
+public class Request : RequestBase
 {
-    /// <inheritdoc />
     /// <summary>
-    /// Validate Iban Request
-    /// Implements the <see cref="T:PAYNLSDK.API.RequestBase" />
+    /// Gets or sets the iban.
     /// </summary>
-    /// <seealso cref="T:PAYNLSDK.API.RequestBase" />
-    public class Request : RequestBase
+    /// <value>The iban.</value>
+    [JsonPropertyName("iban")]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public string IBAN { get; set; }
+
+    /// <inheritdoc />
+    public override bool RequiresApiToken => false;// base.RequiresApiToken;
+
+    /// <inheritdoc />
+    protected override int Version => 1;
+
+    /// <inheritdoc />
+    protected override string Controller => "Validate";
+
+    /// <inheritdoc />
+    protected override string Method => "IBAN";
+
+    /// <inheritdoc />
+    public override System.Collections.Specialized.NameValueCollection GetParameters()
     {
-        /// <summary>
-        /// Gets or sets the iban.
-        /// </summary>
-        /// <value>The iban.</value>
-        [JsonProperty("iban")]
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public string IBAN { get; set; }
+        var nvc = new NameValueCollection();
 
-        /// <inheritdoc />
-        public override bool RequiresApiToken => false;// base.RequiresApiToken;
+        ParameterValidator.IsNotEmpty(IBAN, "iban");
+        nvc.Add("iban", IBAN);
 
-        /// <inheritdoc />
-        protected override int Version => 1;
+        return nvc;
+    }
 
-        /// <inheritdoc />
-        protected override string Controller => "Validate";
+    /// <summary>
+    /// Gets the response.
+    /// </summary>
+    /// <value>The response.</value>
+    public Response Response => (Response)response;
 
-        /// <inheritdoc />
-        protected override string Method => "IBAN";
-
-        /// <inheritdoc />
-        public override System.Collections.Specialized.NameValueCollection GetParameters()
+    /// <inheritdoc />
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
         {
-            var nvc = new NameValueCollection();
-
-            ParameterValidator.IsNotEmpty(IBAN, "iban");
-            nvc.Add("iban", IBAN);
-
-            return nvc;
+            throw new PayNlException("rawResponse is empty!");
         }
-
-        /// <summary>
-        /// Gets the response.
-        /// </summary>
-        /// <value>The response.</value>
-        public Response Response => (Response)response;
-
-        /// <inheritdoc />
-        protected override void PrepareAndSetResponse()
-        {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            response = JsonConvert.DeserializeObject<Response>(RawResponse);
-        }
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
     }
 }

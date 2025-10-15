@@ -1,21 +1,20 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
-using System;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Converters;
 
-namespace PAYNLSDK.API.Validate.IBAN
+namespace PayNLSdk.Api.Validate.IBAN;
+
+/// <summary>
+/// The response of <see cref="Request"/>.
+/// Implements the <see cref="ResponseBase" />
+/// </summary>
+/// <seealso cref="ResponseBase" />
+public class Response : ResponseBase
 {
     /// <summary>
-    /// The response of <see cref="PAYNLSDK.API.Validate.IBAN.Request"/>.
-    /// Implements the <see cref="PAYNLSDK.API.ResponseBase" />
+    /// Gets or sets a value indicating whether this <see cref="Response"/> is succesful.
     /// </summary>
-    /// <seealso cref="PAYNLSDK.API.ResponseBase" />
-    public class Response : ResponseBase
-    {
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="Response"/> is succesful.
-        /// </summary>
-        /// <value><c>true</c> if succesful; otherwise, <c>false</c>.</value>
-        [JsonProperty("result"), JsonConverter(typeof(BooleanConverter))]
-        public bool result { get; protected set; }
-    }
+    /// <value><c>true</c> if succesful; otherwise, <c>false</c>.</value>
+    [JsonPropertyName("result"), JsonConverter(typeof(BooleanConverter))]
+    public bool result { get; protected set; }
 }

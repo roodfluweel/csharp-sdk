@@ -1,29 +1,28 @@
 ﻿using System;
 
-namespace PayNLSdk
+namespace PayNLSdk;
+
+/// <summary>
+/// A DateTime abstraction to make it easier to unittest DateTime.Now
+/// </summary>
+public interface IDateTime
 {
     /// <summary>
-    /// A DateTime abstraction to make it easier to unittest DateTime.Now
+    /// Get the current dateTime
     /// </summary>
-    public interface IDateTime
-    {
-        /// <summary>
-        /// Get the current dateTime
-        /// </summary>
-        DateTime Now { get; }
-    }
+    DateTime Now { get; }
+}
 
+/// <inheritdoc />
+public class LocalDateTime : IDateTime
+{
     /// <inheritdoc />
-    public class LocalDateTime : IDateTime
-    {
-        /// <inheritdoc />
-        public DateTime Now => DateTime.Now;
-    }
+    public DateTime Now => DateTime.Now;
+}
 
+/// <inheritdoc />
+public class UtcDateTime : IDateTime
+{
     /// <inheritdoc />
-    public class UtcDateTime : IDateTime
-    {
-        /// <inheritdoc />
-        public DateTime Now => DateTime.UtcNow;
-    }
+    public DateTime Now => DateTime.UtcNow;
 }

@@ -1,21 +1,53 @@
-﻿using Newtonsoft.Json;
 using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters;
+
+internal abstract class EnumConversionBase : JsonConverter
 {
-    internal abstract class EnumConversionBase : JsonConverter
+    public abstract Type EnumType { get; }
+
+    public override bool CanConvert(Type typeToConvert)
     {
-        public abstract Type EnumType { get; }
+        var targetType = Nullable.GetUnderlyingType(typeToConvert) ?? typeToConvert;
+        return EnumType == targetType;
+    }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        if (reader.TokenType == JsonTokenType.Null)
         {
-            return Enums.EnumUtil.ToEnum(serializer.Deserialize<string>(reader), EnumType);
+            if (Nullable.GetUnderlyingType(typeToConvert) != null)
+            {
+                return null;
+            }
+
+            throw new JsonException("Cannot convert null to enum.");
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        if (reader.TokenType != JsonTokenType.String)
         {
-            string result = Enums.EnumUtil.ToEnumString(value, EnumType);
-            writer.WriteValue(result);
+            throw new JsonException($"Unexpected token '{reader.TokenType}' when parsing enum.");
         }
+
+        var value = reader.GetString();
+        if (string.IsNullOrEmpty(value))
+        {
+            return Nullable.GetUnderlyingType(typeToConvert) != null ? null : Activator.CreateInstance(EnumType);
+        }
+
+        return Enums.EnumUtil.ToEnum(value, EnumType);
+    }
+
+    public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
+    {
+        if (value == null)
+        {
+            writer.WriteNullValue();
+            return;
+        }
+
+        writer.WriteStringValue(Enums.EnumUtil.ToEnumString(value, EnumType));
     }
 }

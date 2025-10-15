@@ -1,96 +1,93 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Utilities;
-using System;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
-using System.Text;
 
-namespace PAYNLSDK.API
+namespace PayNLSdk.Api;
+
+/// <summary>
+/// The base class to perform a request to the Pay.NL api
+/// </summary>
+public abstract class RequestBase
 {
     /// <summary>
-    /// The base class to perform a request to the Pay.NL api
+    /// Indicator stating whether or not a API Token is required for a specific request
     /// </summary>
-    public abstract class RequestBase
+    public virtual bool RequiresApiToken { get { return true; } }
+
+    /// <summary>
+    /// Indicator stating whether or not a Service ID is required for a specific request
+    /// </summary>
+    public virtual bool RequiresServiceId { get { return false; } }
+
+    /// <summary>
+    /// Return as JSON
+    /// </summary>
+    /// <returns>JSON string</returns>
+    public override string ToString()
     {
-        /// <summary>
-        /// Indicator stating whether or not a API Token is required for a specific request
-        /// </summary>
-        public virtual bool RequiresApiToken { get { return true; } }
-
-        /// <summary>
-        /// Indicator stating whether or not a Service ID is required for a specific request
-        /// </summary>
-        public virtual bool RequiresServiceId { get { return false; } }
-        
-        /// <summary>
-        /// Return as JSON
-        /// </summary>
-        /// <returns>JSON string</returns>
-        public override string ToString()
-        {
-            //return base.ToString();
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        /// URL used to perform this specific request
-        /// </summary>
-        public string Url => $"v{Version}/{Controller}/{Method}/json";
-
-        /// <summary>
-        /// Api Version for this request
-        /// </summary>
-        protected abstract int Version { get; }
-
-        /// <summary>
-        /// Controller used for this request
-        /// </summary>
-        protected abstract string Controller { get; }
-
-        /// <summary>
-        /// Controller method for this request
-        /// </summary>
-        protected abstract string Method { get; }
-
-        ///// <summary>
-        ///// Extra querystring parameters used for this request
-        ///// </summary>
-        //public abstract string Querystring { get; }
-
-        /// <summary>
-        /// Get all properties as a nameValueCollection
-        /// </summary>
-        public abstract NameValueCollection GetParameters();
-
-        /// <summary>
-        /// Response belonging to this request
-        /// </summary>
-        protected ResponseBase response;
-
-        /// <summary>
-        /// The raw response stroing
-        /// </summary>
-        protected string rawResponse;
-
-        /// <summary>
-        /// Raw response data
-        /// </summary>
-        public string RawResponse
-        {
-            get
-            {
-                return rawResponse;
-            }
-            set
-            {
-                rawResponse = value;
-                PrepareAndSetResponse();
-            }
-        }
-
-        /// <summary>
-        /// Load the raw response and perform any actions along with it.
-        /// </summary>
-        protected abstract void PrepareAndSetResponse();
+        //return base.ToString();
+        return JsonSerialization.Serialize(this, JsonSerialization.CreateIndentedOptions());
     }
 
+    /// <summary>
+    /// URL used to perform this specific request
+    /// </summary>
+    public string Url => $"v{Version}/{Controller}/{Method}/json";
+
+    /// <summary>
+    /// Api Version for this request
+    /// </summary>
+    protected abstract int Version { get; }
+
+    /// <summary>
+    /// Controller used for this request
+    /// </summary>
+    protected abstract string Controller { get; }
+
+    /// <summary>
+    /// Controller method for this request
+    /// </summary>
+    protected abstract string Method { get; }
+
+    ///// <summary>
+    ///// Extra querystring parameters used for this request
+    ///// </summary>
+    //public abstract string Querystring { get; }
+
+    /// <summary>
+    /// Get all properties as a nameValueCollection
+    /// </summary>
+    public abstract NameValueCollection GetParameters();
+
+    /// <summary>
+    /// Response belonging to this request
+    /// </summary>
+    protected ResponseBase response;
+
+    /// <summary>
+    /// The raw response stroing
+    /// </summary>
+    protected string rawResponse;
+
+    /// <summary>
+    /// Raw response data
+    /// </summary>
+    public string RawResponse
+    {
+        get
+        {
+            return rawResponse;
+        }
+        set
+        {
+            rawResponse = value;
+            PrepareAndSetResponse();
+        }
+    }
+
+    /// <summary>
+    /// Load the raw response and perform any actions along with it.
+    /// </summary>
+    protected abstract void PrepareAndSetResponse();
 }

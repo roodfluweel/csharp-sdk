@@ -1,17 +1,8 @@
-﻿using System;
+using System;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters;
+
+internal class GenderConverter : EnumConversionBase
 {
-    internal class GenderConverter : EnumConversionBase
-    {
-        public override Type EnumType
-        {
-            get { return typeof(Enums.Gender); }
-        }
-
-        public override bool CanConvert(Type objectType)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    public override Type EnumType => typeof(Enums.Gender);
 }

@@ -1,20 +1,17 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
-using PAYNLSDK.Enums;
-using System;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Enums;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects;
+
+/// <summary>
+/// 
+/// </summary>
+public class TransactionStartEnduser
 {
     /// <summary>
-    /// 
+    /// Indidicator whether or not the cusomer is blacklisted
     /// </summary>
-    public class TransactionStartEnduser
-    {
-        /// <summary>
-        /// Indidicator whether or not the cusomer is blacklisted
-        /// </summary>
-        [JsonProperty("blacklist")]
-        public Blacklist Blacklist {get; protected set;}
-    }
-
+    [JsonPropertyName("blacklist")]
+    public Blacklist Blacklist { get; protected set; }
 }

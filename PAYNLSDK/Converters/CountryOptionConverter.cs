@@ -1,34 +1,48 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Objects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.Converters
+namespace PayNLSdk.Converters;
+
+internal class CountryOptionConverter : JsonConverter
 {
-    internal class CountryOptionConverter : JsonConverter
+    public override bool CanConvert(Type typeToConvert)
     {
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.StartObject)
-            {
-                var dict = serializer.Deserialize<Dictionary<string, CountryOption>>(reader);
-                return dict;
-            }
-            throw new JsonSerializationException(String.Format("Unexpected token '{0}' when parsing country options.", reader.TokenType));
+        return typeof(CountryOptions).IsAssignableFrom(typeToConvert);
+    }
 
+    public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        if (reader.TokenType != JsonTokenType.StartObject)
+        {
+            throw new JsonException($"Unexpected token '{reader.TokenType}' when parsing country options.");
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        var data = JsonSerializer.Deserialize<Dictionary<string, CountryOption>>(ref reader, options);
+        if (data == null)
         {
-            //throw new NotImplementedException();
+            return new CountryOptions();
         }
 
-        public override bool CanConvert(Type objectType)
+        var result = new CountryOptions();
+        foreach (var pair in data)
         {
-            return typeof(CountryOptions).IsAssignableFrom(objectType);
+            result[pair.Key] = pair.Value;
         }
+
+        return result;
+    }
+
+    public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
+    {
+        if (value is CountryOptions countryOptions)
+        {
+            JsonSerializer.Serialize(writer, new Dictionary<string, CountryOption>(countryOptions), options);
+            return;
+        }
+
+        writer.WriteNullValue();
     }
 }

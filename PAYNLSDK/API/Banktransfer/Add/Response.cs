@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace PAYNLSDK.API.Banktransfer.Add
+namespace PayNLSdk.Api.Banktransfer.Add;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
-        [JsonProperty("refundId")]
-        public string RefundId { get; set; }
-    }
+    [JsonPropertyName("refundId")]
+    public string RefundId { get; set; }
 }

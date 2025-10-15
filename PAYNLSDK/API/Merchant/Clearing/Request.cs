@@ -1,52 +1,49 @@
-﻿using PAYNLSDK.API;
-using PAYNLSDK.Utilities;
+﻿using PayNLSdk.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text;
+using System.Globalization;
 
-namespace PayNLSdk.API.Merchant.Clearing
+namespace PayNLSdk.Api.Merchant.Clearing;
+
+public class Request : RequestBase
 {
-    public class Request : RequestBase
+    protected override int Version => 4;
+
+    protected override string Controller => "merchant";
+
+    protected override string Method => "addClearing";
+
+    /// <summary>
+    ///  The amount to clear, will round on 2 decimals
+    /// </summary>
+    public decimal Amount { get; set; }
+    /// <summary>
+    /// The merchant to clear
+    /// </summary>
+    public string? MerchantId { get; set; }
+
+    /// <summary>
+    /// The content category Id.
+    /// </summary>
+    public string? ContentCategoryId { get; set; }
+
+    /// <inheritdoc />
+    public override NameValueCollection GetParameters()
     {
-        protected override int Version => 4;
+        NameValueCollection nvc = new NameValueCollection();
 
-        protected override string Controller => "merchant";
+        ParameterValidator.IsNotNull(Amount, "Amount");
+        nvc.Add("amount", Math.Round(Amount * 100).ToString(CultureInfo.InvariantCulture));
+        nvc.Add("merchantId", MerchantId);
+        nvc.Add("contentCategoryId", ContentCategoryId);
 
-        protected override string Method => "addClearing";
+        return nvc;
+    }
 
-        /// <summary>
-        ///  The amount to clear, will round on 2 decimals
-        /// </summary>
-        public decimal Amount { get; set; }
-        /// <summary>
-        /// The merchant to clear
-        /// </summary>
-        public string? MerchantId { get; set; }
-
-        /// <summary>
-        /// The content category Id.
-        /// </summary>
-        public string? ContentCategoryId { get; set; }
-
-        /// <inheritdoc />
-        public override NameValueCollection GetParameters()
-        {
-            NameValueCollection nvc = new NameValueCollection();
-
-            ParameterValidator.IsNotNull(Amount, "Amount");
-            nvc.Add("amount", Math.Round(Amount * 100).ToString());
-            nvc.Add("merchantId", MerchantId);
-            nvc.Add("contentCategoryId", ContentCategoryId);
-
-            return nvc;
-        }
-
-        /// <inheritdoc />
-        /// <exception cref="NotImplementedException"></exception>
-        protected override void PrepareAndSetResponse()
-        {
-            throw new NotImplementedException();
-        }
+    /// <inheritdoc />
+    /// <exception cref="NotImplementedException"></exception>
+    protected override void PrepareAndSetResponse()
+    {
+        throw new NotImplementedException();
     }
 }

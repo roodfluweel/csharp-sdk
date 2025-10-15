@@ -1,37 +1,36 @@
-﻿using System;
-using Newtonsoft.Json;
-using PAYNLSDK.Enums;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Enums;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects;
+
+/// <summary>
+/// Merchant information
+/// </summary>
+public class Merchant
 {
     /// <summary>
-    /// Merchant information
+    /// Merchant ID
     /// </summary>
-    public class Merchant
-    {
-        /// <summary>
-        /// Merchant ID
-        /// </summary>
-        [JsonProperty("id")]
-        public string ID { get; set; }
+    [JsonPropertyName("id")]
+    public string ID { get; set; }
 
-        /// <summary>
-        /// Merchant Name
-        /// </summary>
-        [JsonProperty("name")]
-        public string Name { get; set; }
+    /// <summary>
+    /// Merchant Name
+    /// </summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Merchant Public Name
-        /// </summary>
-        [JsonProperty("publicName")]
-        public string PublicName { get; set; }
+    /// <summary>
+    /// Merchant Public Name
+    /// </summary>
+    [JsonPropertyName("publicName")]
+    public string PublicName { get; set; }
 
-        /// <summary>
-        /// Active State of the merchant
-        /// </summary>
-        [JsonProperty("state")]
-        public ActiveState State { get; set; }
+    /// <summary>
+    /// Active State of the merchant
+    /// </summary>
+    [JsonPropertyName("state")]
+    public ActiveState State { get; set; }
 
-    }
 }

@@ -1,51 +1,50 @@
-﻿using PAYNLSDK.Enums;
+﻿using PayNLSdk.Enums;
 
-namespace PAYNLSDK.API.Transaction.Info
+namespace PayNLSdk.Api.Transaction.Info;
+
+/// <summary>
+/// Extentions methods
+/// </summary>
+public static class ResponseExtentions
 {
     /// <summary>
-    /// Extentions methods
+    ///     Checks whether a status is a PAID status
     /// </summary>
-    public static class ResponseExtentions
+    /// <returns>True if PAID, false otherwise</returns>
+    public static bool IsPaid(this Response response)
     {
-        /// <summary>
-        ///     Checks whether a status is a PAID status
-        /// </summary>
-        /// <returns>True if PAID, false otherwise</returns>
-        public static bool IsPaid(this Response response)
-        {
-            return response?.PaymentDetails?.State == PaymentStatus.PAID;
-        }
+        return response?.PaymentDetails?.State == PaymentStatus.PAID;
+    }
 
-        /// <summary>
-        ///     Checks whether a status is a CANCELLED status
-        /// </summary>
-        /// <returns>True if CANCELLED, false otherwise</returns>
-        public static bool IsCancelled(this Response response)
-        {
-            return response?.PaymentDetails?.State == PaymentStatus.CANCEL;
-        }
+    /// <summary>
+    ///     Checks whether a status is a CANCELLED status
+    /// </summary>
+    /// <returns>True if CANCELLED, false otherwise</returns>
+    public static bool IsCancelled(this Response response)
+    {
+        return response?.PaymentDetails?.State == PaymentStatus.CANCEL;
+    }
 
-        /// <summary>
-        ///     Checks whether a status is a PENDING status
-        /// </summary>
-        /// <returns>True if PENDING, false otherwise</returns>
-        public static bool IsPending(this Response response)
-        {
-            var status = response?.PaymentDetails?.State;
-            return status == PaymentStatus.PENDING_1 ||
-                   status == PaymentStatus.PENDING_2 ||
-                   status == PaymentStatus.PENDING_3 ||
-                   status == PaymentStatus.VERIFY;
-        }
+    /// <summary>
+    ///     Checks whether a status is a PENDING status
+    /// </summary>
+    /// <returns>True if PENDING, false otherwise</returns>
+    public static bool IsPending(this Response response)
+    {
+        var status = response?.PaymentDetails?.State;
+        return status == PaymentStatus.PENDING_1 ||
+               status == PaymentStatus.PENDING_2 ||
+               status == PaymentStatus.PENDING_3 ||
+               status == PaymentStatus.VERIFY;
+    }
 
-        /// <summary>
-        ///     Checks whether a status is a VERIFY status
-        /// </summary>
-        /// <param name="response"></param>
-        /// <returns>True if VERIFY, false otherwise</returns>
-        public static bool IsVerify(this Response response)
-        {
-            return response?.PaymentDetails?.State == PaymentStatus.VERIFY;
-        }
+    /// <summary>
+    ///     Checks whether a status is a VERIFY status
+    /// </summary>
+    /// <param name="response"></param>
+    /// <returns>True if VERIFY, false otherwise</returns>
+    public static bool IsVerify(this Response response)
+    {
+        return response?.PaymentDetails?.State == PaymentStatus.VERIFY;
     }
 }

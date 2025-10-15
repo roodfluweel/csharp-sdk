@@ -1,14 +1,13 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace PAYNLSDK.API.Refund.Transaction
+namespace PayNLSdk.Api.Refund.Transaction;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
-        /// <summary>
-        /// ID of the refund starting with 'RF-' (optional, emptyfor creditcard transactions)
-        /// </summary>
-        [JsonProperty("refundId")]
-        public string RefundId { get; set; }
-    }
+    /// <summary>
+    /// ID of the refund starting with 'RF-' (optional, emptyfor creditcard transactions)
+    /// </summary>
+    [JsonPropertyName("refundId")]
+    public string RefundId { get; set; }
 }

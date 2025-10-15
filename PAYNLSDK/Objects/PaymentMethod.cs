@@ -1,30 +1,29 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects;
+
+/// <summary>
+/// Payment Method information
+/// </summary>
+public class PaymentMethod
 {
     /// <summary>
-    /// Payment Method information
+    /// Payment method ID
     /// </summary>
-    public class PaymentMethod
-    {
-        /// <summary>
-        /// Payment method ID
-        /// </summary>
-        [JsonProperty("id")]
-        public int Id { get; set; }
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
 
-        /// <summary>
-        /// Payment method name
-        /// </summary>
-        [JsonProperty("name")]
-        public string Name { get; set; }
+    /// <summary>
+    /// Payment method name
+    /// </summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Abbreviation for this payment method
-        /// </summary>
-        [JsonProperty("abbreviation")]
-        public string Abbreviation { get; set; }
+    /// <summary>
+    /// Abbreviation for this payment method
+    /// </summary>
+    [JsonPropertyName("abbreviation")]
+    public string Abbreviation { get; set; }
 
-    }
 }

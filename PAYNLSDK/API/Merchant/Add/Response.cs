@@ -1,50 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Utilities;
 
-namespace PAYNLSDK.API.Merchant.Add
+namespace PayNLSdk.Api.Merchant.Add;
+
+/// <summary>
+/// Reponse from the Merchant add command
+/// </summary>
+public class Response : ResponseBase
 {
+    [JsonPropertyName("merchantId")]
+    public string MerchantId { get; set; }
+
     /// <summary>
-    /// Reponse from the Merchant add command
+    /// The merchant name
     /// </summary>
-    public class Response : ResponseBase
+    [JsonPropertyName("merchantName")] public string MerchantName { get; set; }
+    /// <summary>
+    /// Alliance or AlliancePlus
+    /// </summary>
+    [JsonPropertyName("packageName")] public string PackageName { get; set; }
+    [JsonPropertyName("invoiceAllowed")] public bool GetInvoiceAllowed { get; set; }
+    [JsonPropertyName("payoutInterval")] public string PayoutInterval { get; set; }
+    /// <summary>
+    /// The date the contract has been created.  
+    /// </summary>
+    [JsonPropertyName("createdDate")] public string CreatedDate { get; set; }
+    /// <summary>
+    /// The date when you can start using the services from PAY
+    /// </summary>
+    [JsonPropertyName("acceptedDate")] public string AcceptedDate { get; set; }
+    [JsonPropertyName("deletedDate")] public string DeletedDate { get; set; }
+    [JsonPropertyName("services")] public string Services { get; set; }
+
+    /// <summary>
+    /// Convert a raw response to an object
+    /// </summary>
+    /// <param name="response"></param>
+    /// <returns></returns>
+    public static Response FromRawResponse(string response)
     {
-        [JsonProperty("merchantId")]
-        public string MerchantId { get; set; }
-
-        /// <summary>
-        /// The merchant name
-        /// </summary>
-        [JsonProperty("merchantName")] public string MerchantName { get; set; }
-        /// <summary>
-        /// Alliance or AlliancePlus
-        /// </summary>
-        [JsonProperty("packageName")] public string PackageName { get; set; }
-        [JsonProperty("invoiceAllowed")] public bool GetInvoiceAllowed { get; set; }
-        [JsonProperty("payoutInterval")] public string PayoutInterval { get; set; }
-        /// <summary>
-        /// The date the contract has been created.  
-        /// </summary>
-        [JsonProperty("createdDate")] public string CreatedDate { get; set; }
-        /// <summary>
-        /// The date when you can start using the services from PAY
-        /// </summary>
-        [JsonProperty("acceptedDate")] public string AcceptedDate { get; set; }
-        [JsonProperty("deletedDate")] public string DeletedDate { get; set; }
-        [JsonProperty("services")] public string Services { get; set; }
-
-        /// <summary>
-        /// Convert a raw response to an object
-        /// </summary>
-        /// <param name="response"></param>
-        /// <returns></returns>
-        public static Response FromRawResponse(string response)
-        {
-            return JsonConvert.DeserializeObject<Response>(response);
-        }
+        return JsonSerialization.Deserialize<Response>(response);
     }
 }

@@ -1,57 +1,57 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Transaction.Info
+namespace PayNLSdk.Api.Transaction.Info;
+
+public class Request : RequestBase
 {
-    public class Request : RequestBase
+    /// <summary>
+    /// Mandatory transaction identifier
+    /// </summary>
+    [System.ComponentModel.DataAnnotations.Required]
+    public string TransactionId { get; set; }
+
+    /// <summary>
+    /// Unique code related to the order.
+    /// </summary>
+    public string EntranceCode { get; set; }
+
+    /// <inheritdoc />
+    protected override int Version => 5;
+
+    /// <inheritdoc />
+    protected override string Controller => "Transaction";
+
+    /// <inheritdoc />
+    protected override string Method => "info";
+
+    /// <inheritdoc />
+    public override NameValueCollection GetParameters()
     {
-        /// <summary>
-        /// Mandatory transaction identifier
-        /// </summary>
-        [System.ComponentModel.DataAnnotations.Required]
-        public string TransactionId { get; set; }
+        NameValueCollection nvc = new NameValueCollection();
 
-        /// <summary>
-        /// Unique code related to the order.
-        /// </summary>
-        public string EntranceCode { get; set; }
+        ParameterValidator.IsNotEmpty(TransactionId, "TransactionId");
+        nvc.Add("transactionId", TransactionId);
 
-        /// <inheritdoc />
-        protected override int Version => 5;
-
-        /// <inheritdoc />
-        protected override string Controller => "Transaction";
-
-        /// <inheritdoc />
-        protected override string Method => "info";
-
-        /// <inheritdoc />
-        public override NameValueCollection GetParameters()
+        if (!ParameterValidator.IsEmpty(EntranceCode))
         {
-            NameValueCollection nvc = new NameValueCollection();
-            
-            ParameterValidator.IsNotEmpty(TransactionId, "TransactionId");
-            nvc.Add("transactionId", TransactionId);
-
-            if (!ParameterValidator.IsEmpty(EntranceCode))
-            {
-                nvc.Add("entranceCode", EntranceCode);
-            }
-            return nvc;
+            nvc.Add("entranceCode", EntranceCode);
         }
-        public Response Response => (Response)response;
-
-        /// <inheritdoc />
-        protected override void PrepareAndSetResponse()
-        {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            response = JsonConvert.DeserializeObject<Response>(RawResponse);
-        }
-    
+        return nvc;
     }
+    public Response Response => (Response)response;
+
+    /// <inheritdoc />
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
+        {
+            throw new PayNlException("rawResponse is empty!");
+        }
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
+    }
+
 }

@@ -2,7 +2,7 @@
 using PAYNLSDK.Objects;
 using PAYNLSDK;
 using PAYNLSDK.Enums;
-using Newtonsoft.Json;
+using PayNLSdk.Utilities;
 
 namespace PAYNLFormsApp.Fixtures
 {
@@ -11,7 +11,7 @@ namespace PAYNLFormsApp.Fixtures
         static public PAYNLSDK.Objects.RefundInfo GetRefundInfoFixture()
         {
             String json = GetJsonFixture();
-            PAYNLSDK.Objects.RefundInfo info = JsonConvert.DeserializeObject<PAYNLSDK.Objects.RefundInfo>(json);
+            PAYNLSDK.Objects.RefundInfo info = JsonSerialization.Deserialize<PAYNLSDK.Objects.RefundInfo>(json);
             return info;
         }
 

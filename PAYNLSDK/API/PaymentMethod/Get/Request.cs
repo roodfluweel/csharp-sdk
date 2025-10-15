@@ -1,55 +1,55 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.PaymentMethod.Get
+namespace PayNLSdk.Api.PaymentMethod.Get;
+
+/// <summary>
+/// The model to request a particular paymentMethod
+/// </summary>
+public class Request : RequestBase
 {
     /// <summary>
-    /// The model to request a particular paymentMethod
+    /// The paymentMethod to be used
     /// </summary>
-    public class Request : RequestBase
+    [JsonPropertyName("paymentMethodId")]
+    public Enums.PaymentMethodId PaymentMethodId { get; set; }
+
+    /// <inheritdoc />
+    protected override int Version => 1;
+
+    /// <inheritdoc />
+    protected override string Controller => "PaymentMethod";
+
+    /// <inheritdoc />
+    protected override string Method => "get";
+
+    /// <inheritdoc />
+    public override System.Collections.Specialized.NameValueCollection GetParameters()
     {
-        /// <summary>
-        /// The paymentMethod to be used
-        /// </summary>
-        [JsonProperty("paymentMethodId")]
-        public Enums.PaymentMethodId PaymentMethodId { get; set; }
+        var allParameters = new NameValueCollection();
 
-        /// <inheritdoc />
-        protected override int Version => 1;
+        ParameterValidator.IsNotNull(PaymentMethodId, "PaymentMethodId");
+        allParameters.Add("paymentMethodId", PaymentMethodId.ToString());
 
-        /// <inheritdoc />
-        protected override string Controller => "PaymentMethod";
+        return allParameters;
+    }
 
-        /// <inheritdoc />
-        protected override string Method => "get";
+    public Response Response => (Response)response;
 
-        /// <inheritdoc />
-        public override System.Collections.Specialized.NameValueCollection GetParameters()
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
         {
-            var allParameters = new NameValueCollection();
-
-            ParameterValidator.IsNotNull(PaymentMethodId, "PaymentMethodId");
-            allParameters.Add("paymentMethodId", PaymentMethodId.ToString());
-
-            return allParameters;
+            throw new PayNlException("rawResponse is empty!");
         }
-
-        public Response Response => (Response)response;
-        
-        protected override void PrepareAndSetResponse()
+        Objects.PaymentMethod pm = JsonSerialization.Deserialize<Objects.PaymentMethod>(RawResponse);
+        Response r = new Response
         {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            PAYNLSDK.Objects.PaymentMethod pm = JsonConvert.DeserializeObject<PAYNLSDK.Objects.PaymentMethod>(RawResponse);
-            Response r = new Response
-            {
-                PaymentMethod = pm
-            };
-            response = r;
-        }
+            PaymentMethod = pm
+        };
+        response = r;
     }
 }

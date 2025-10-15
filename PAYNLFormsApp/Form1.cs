@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using PayNLSdk.Utilities;
 using PAYNLFormsApp.Fixtures;
 using PAYNLSDK.API;
 using PAYNLSDK.Exceptions;
@@ -133,7 +133,7 @@ namespace PAYNLFormsApp
             //string qs = fixture.ToQueryString();
             //AddDebug(qs);
             //NameValueCollection nvc = HttpUtility.ParseQueryString(qs);
-            //string json = JsonConvert.SerializeObject(NvcToDictionary(nvc, true));
+            //string json = JsonSerialization.Serialize(NvcToDictionary(nvc, true));
             AddDebug("-----");
             //DumpNvc(nvc);
             AddDebug("-----");
@@ -249,8 +249,8 @@ namespace PAYNLFormsApp
             AddDebug(PAYNLSDK.Enums.Util.ToEnumString(PAYNLSDK.Enums.TaxClass.High, typeof(PAYNLSDK.Enums.TaxClass)));
 
             string ser = @"{'gender':'m'}";
-            X x = JsonConvert.DeserializeObject<X>(ser);
-            AddDebug(JsonConvert.SerializeObject(x));
+            X x = JsonSerialization.Deserialize<X>(ser);
+            AddDebug(JsonSerialization.Serialize(x));
             */
         }
 
@@ -379,7 +379,7 @@ namespace PAYNLFormsApp
                 AddDebug("Can not test this use case");
             //    try
             //    {
-            //        TestYMD testObj = JsonConvert.DeserializeObject<TestYMD>(dateString);
+            //        TestYMD testObj = JsonSerialization.Deserialize<TestYMD>(dateString);
             //        AddDebug(String.Format("Converted '{0}' to {1}.", dateString, testObj.DT.ToString()));
             //    }
             //    catch (Exception e0)
@@ -392,7 +392,7 @@ namespace PAYNLFormsApp
             //{
             //    try
             //    {
-            //        TestDMY testObj = JsonConvert.DeserializeObject<TestDMY>(dateString);
+            //        TestDMY testObj = JsonSerialization.Deserialize<TestDMY>(dateString);
             //        AddDebug(String.Format("Converted '{0}' to {1}.", dateString, testObj.DT.ToString()));
             //    }
             //    catch (Exception e1)
@@ -405,7 +405,7 @@ namespace PAYNLFormsApp
             //{
             //    try
             //    {
-            //        TestYMDHIS testObj = JsonConvert.DeserializeObject<TestYMDHIS>(dateString);
+            //        TestYMDHIS testObj = JsonSerialization.Deserialize<TestYMDHIS>(dateString);
             //        AddDebug(String.Format("Converted '{0}' to {1}.", dateString, testObj.DT.ToString()));
             //    }
             //    catch (Exception e2)
@@ -429,7 +429,7 @@ namespace PAYNLFormsApp
             //string qs = fixture.ToQueryString();
             //AddDebug(qs);
             //NameValueCollection nvc = HttpUtility.ParseQueryString(qs);
-            //string json = JsonConvert.SerializeObject(NvcToDictionary(nvc, true));
+            //string json = JsonSerialization.Serialize(NvcToDictionary(nvc, true));
             AddDebug("-----");
             //AddDebug("PARAMS AS JSON");
             //AddDebug(json);
@@ -450,7 +450,7 @@ namespace PAYNLFormsApp
             //string qs = fixture.ToQueryString();
             //AddDebug(qs);
             //NameValueCollection nvc = HttpUtility.ParseQueryString(qs);
-            //string json = JsonConvert.SerializeObject(NvcToDictionary(nvc, true));
+            //string json = JsonSerialization.Serialize(NvcToDictionary(nvc, true));
             //AddDebug("-----");
             ////AddDebug("PARAMS AS JSON");
             ////AddDebug(json);
@@ -481,7 +481,7 @@ namespace PAYNLFormsApp
         /*
         class X
         {
-            [JsonProperty("gender"), JsonConverter(typeof(PAYNLSDK.Converters.GenderConverter))]
+            [JsonPropertyName("gender"), JsonConverter(typeof(PAYNLSDK.Converters.GenderConverter))]
             public PAYNLSDK.Enums.Gender Gender { get; set; }
 
         }
@@ -493,7 +493,7 @@ namespace PAYNLFormsApp
     //    /// <summary>
     //    /// Merchant ID
     //    /// </summary>
-    //    [JsonProperty("dt"), JsonConverter(typeof(PAYNLSDK.Converters.YMDConverter))]
+    //    [JsonPropertyName("dt"), JsonConverter(typeof(PAYNLSDK.Converters.YMDConverter))]
     //    public DateTime? DT { get; set; }
 
     //}
@@ -502,7 +502,7 @@ namespace PAYNLFormsApp
     //    /// <summary>
     //    /// Merchant ID
     //    /// </summary>
-    //    [JsonProperty("dt"), JsonConverter(typeof(PAYNLSDK.Converters.DMYConverter))]
+    //    [JsonPropertyName("dt"), JsonConverter(typeof(PAYNLSDK.Converters.DMYConverter))]
     //    public DateTime? DT { get; set; }
     //}
 
@@ -511,7 +511,7 @@ namespace PAYNLFormsApp
     //    /// <summary>
     //    /// Merchant ID
     //    /// </summary>
-    //    [JsonProperty("dt"), JsonConverter(typeof(PAYNLSDK.Converters.YMDHISConverter))]
+    //    [JsonPropertyName("dt"), JsonConverter(typeof(PAYNLSDK.Converters.YMDHISConverter))]
     //    public DateTime? DT { get; set; }
 
     //}

@@ -47,3 +47,13 @@
 *.fsproj text=auto merge=union 
 *.dbproj text=auto merge=union 
 *.sln text=auto eol=crlf merge=union 
+PAYNLFormsApp/DebugForm.cs -text diff=csharp
+PAYNLFormsApp/Form1.cs -text diff=csharp
+PAYNLFormsApp/PAYNLFormsApp.csproj -text
+PAYNLSDK/API/Banktransfer/Add/Request.cs -text diff=csharp
+PAYNLSDK/API/Refund/Add/Request.cs -text diff=csharp
+PAYNLSDK/API/Refund/Add/Response.cs -text diff=csharp
+PAYNLSDK/API/Transaction/Approve/Request.cs -text diff=csharp
+PAYNLSDK/API/Transaction/Approve/Response.cs -text diff=csharp
+PAYNLSDK/API/Transaction/Decline/Request.cs -text diff=csharp
+PAYNLSDK/API/Transaction/Decline/Response.cs -text diff=csharp

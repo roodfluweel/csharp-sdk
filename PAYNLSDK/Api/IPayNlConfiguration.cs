@@ -1,17 +1,16 @@
-﻿namespace PAYNLSDK.API
+﻿namespace PayNLSdk.Api;
+
+/// <summary>
+/// An object containing all configuration for 
+/// </summary>
+public interface IPayNlConfiguration
 {
     /// <summary>
-    /// An object containing all configuration for 
+    /// The security token
     /// </summary>
-    public interface IPayNlConfiguration
-    {
-        /// <summary>
-        /// The security token
-        /// </summary>
-        string ApiToken { get;  }
-        /// <summary>
-        /// The service Id,
-        /// </summary>
-        string ServiceId { get; }
-    }
+    string ApiToken { get; }
+    /// <summary>
+    /// The service Id,
+    /// </summary>
+    string ServiceId { get; }
 }

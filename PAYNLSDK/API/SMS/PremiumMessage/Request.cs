@@ -1,56 +1,56 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.SMS.PremiumMessage
+namespace PayNLSdk.Api.SMS.PremiumMessage;
+
+public class Request : RequestBase
 {
-    public class Request : RequestBase
+
+    [JsonPropertyName("sms_id")]
+    public string SmsId { get; set; }
+
+    [JsonPropertyName("secret")]
+    public string Secret { get; set; }
+
+    [JsonPropertyName("message")]
+    public string Message { get; set; }
+
+    /// <inheritdoc />
+    protected override int Version => 1;
+
+    /// <inheritdoc />
+    protected override string Controller => "SMS";
+
+    /// <inheritdoc />
+    protected override string Method => "sendPremiumMessage";
+
+    public override NameValueCollection GetParameters()
     {
+        NameValueCollection nvc = new NameValueCollection();
 
-        [JsonProperty("sms_id")]
-        public string SmsId { get; set; }
+        ParameterValidator.IsNotEmpty(SmsId, "SmsId");
+        nvc.Add("sms_id", SmsId);
 
-        [JsonProperty("secret")]
-        public string Secret { get; set; }
+        ParameterValidator.IsNotEmpty(Secret, "secret");
+        nvc.Add("secret", Secret);
 
-        [JsonProperty("message")]
-        public string Message { get; set; }
+        ParameterValidator.IsNotEmpty(Message, "message");
+        nvc.Add("message", Message);
 
-        /// <inheritdoc />
-        protected override int Version => 1;
-
-        /// <inheritdoc />
-        protected override string Controller => "SMS";
-
-        /// <inheritdoc />
-        protected override string Method => "sendPremiumMessage";
-
-        public override NameValueCollection GetParameters()
-        {
-            NameValueCollection nvc = new NameValueCollection();
-
-            ParameterValidator.IsNotEmpty(SmsId, "SmsId");
-            nvc.Add("sms_id", SmsId);
-
-            ParameterValidator.IsNotEmpty(Secret, "secret");
-            nvc.Add("secret", Secret);
-
-            ParameterValidator.IsNotEmpty(Message, "message");
-            nvc.Add("message", Message);
-
-            return nvc;
-        }
-        public Response Response => (Response)response;
-
-        protected override void PrepareAndSetResponse()
-        {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            response = JsonConvert.DeserializeObject<Response>(RawResponse);
-        }
-
+        return nvc;
     }
+    public Response Response => (Response)response;
+
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
+        {
+            throw new PayNlException("rawResponse is empty!");
+        }
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
+    }
+
 }

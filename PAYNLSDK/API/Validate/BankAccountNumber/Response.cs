@@ -1,19 +1,19 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Converters;
+using System.Diagnostics.CodeAnalysis;
 
-namespace PAYNLSDK.API.Validate.BankAccountNumber
+namespace PayNLSdk.Api.Validate.BankAccountNumber;
+
+/// <summary>
+/// The reponse object for the bank account number validation
+/// </summary>
+public class Response : ResponseBase
 {
     /// <summary>
-    /// The reponse object for the bank account number validation
+    /// the result from the bank account number validation
     /// </summary>
-    public class Response : ResponseBase
-    {
-        /// <summary>
-        /// the result from the bank account number validation
-        /// </summary>
-        [JsonProperty("result"), JsonConverter(typeof(BooleanConverter))]
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public bool result { get; protected set; }
-    }
+    [JsonPropertyName("result"), JsonConverter(typeof(BooleanConverter))]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public bool result { get; protected set; }
 }

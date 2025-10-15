@@ -1,19 +1,17 @@
-﻿using System;
-using PAYNLSDK.API;
-using Newtonsoft.Json;
-using PAYNLSDK.Objects;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Objects;
 
-namespace PAYNLSDK.API.Transaction.GetService
+namespace PayNLSdk.Api.Transaction.GetService;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
-        [JsonProperty("merchant")]
-        public Objects.Merchant Merchant { get; set; }
+    [JsonPropertyName("merchant")]
+    public Objects.Merchant Merchant { get; set; }
 
-        [JsonProperty("service")]
-        public PAYNLSDK.Objects.Service Service { get; set; }
+    [JsonPropertyName("service")]
+    public Objects.Service Service { get; set; }
 
-        [JsonProperty("countryOptionList")]
-        public CountryOptions CountryOptions { get; set; }
-    }
+    [JsonPropertyName("countryOptionList")]
+    public CountryOptions CountryOptions { get; set; }
 }

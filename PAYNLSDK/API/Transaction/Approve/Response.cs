@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace PAYNLSDK.API.Transaction.Approve
+namespace PayNLSdk.Api.Transaction.Approve;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
 
-        [JsonProperty("message")]
-        public string Message { get; protected set; }
-    }
+    [JsonPropertyName("message")]
+    public string Message { get; protected set; }
 }

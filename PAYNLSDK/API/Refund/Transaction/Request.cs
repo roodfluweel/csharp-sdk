@@ -1,181 +1,181 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Utilities;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Converters;
+using PayNLSdk.Exceptions;
+using PayNLSdk.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace PAYNLSDK.API.Refund.Transaction
+namespace PayNLSdk.Api.Refund.Transaction;
+
+/// <summary>
+/// A product specific refund for Products like Sofort & Afterpay
+/// For normal refunds, you should use <seealso cref="Api.Transaction.Refund.Request"/>
+/// </summary>
+public class Request : RequestBase
 {
     /// <summary>
-    /// A product specific refund for Products like Sofort & Afterpay
-    /// For normal refunds, you should use <seealso cref="PAYNLSDK.API.Transaction.Refund.Request"/>
     /// </summary>
-    public class Request : RequestBase
+    /// <param name="transactionId">The order ID or EX code of the transaction</param>
+    public Request(string transactionId)
     {
-        /// <summary>
-        /// </summary>
-        /// <param name="transactionId">The order ID or EX code of the transaction</param>
-        public Request(string transactionId)
+        TransactionId = transactionId;
+        Products = new Dictionary<string, int>();
+    }
+
+    /// <summary>
+    /// The order ID or EX code of the transaction.
+    /// </summary>
+    [JsonPropertyName("transactionId")]
+    public string TransactionId { get; set; }
+
+    /// <summary>
+    /// The amount to be paid should be given in cents. For example € 3.50 becomes 350.
+    /// </summary>
+    [JsonPropertyName("amount")]
+    public int? Amount { get; set; }
+
+    /// <summary>
+    /// The description to include with the payment.
+    /// </summary>
+    [JsonPropertyName("description")]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// The description to include with the payment.
+    /// </summary>
+    [JsonPropertyName("processDate"), JsonConverter(typeof(DMYConverter))]
+    public DateTime? ProcessDate { get; set; }
+
+    /// <summary>
+    /// Custom exchange URL overriding the defaultexchange URL.
+    /// </summary>
+    [JsonPropertyName("exchangeUrl")]
+    public string ExchangeUrl { get; set; }
+
+    /// <summary>
+    /// Product items that are refunded (key: product ID, value: quantity).
+    /// </summary>
+    [JsonPropertyName("products")]
+    public Dictionary<string, int> Products { get; set; }
+
+    /// <summary>
+    /// Add a product reference (key + amount)
+    /// </summary>
+    /// <param name="productId">The order ID or EX code of the transaction</param>
+    /// <param name="amount">Product quantity</param>
+    public void AddProduct(string productId, int amount)
+    {
+        if (Products.ContainsKey(productId))
         {
-            TransactionId = transactionId;
-            Products = new Dictionary<string, int>();
+            Products[productId] += amount;
+        }
+        else
+        {
+            Products[productId] = amount;
+        }
+    }
+
+    /// <inheritdoc />
+    protected override int Version => 2;
+
+    /// <inheritdoc />
+
+    protected override string Controller => "Refund";
+
+    /// <inheritdoc />
+    protected override string Method => "transaction";
+
+    //public override string Querystring
+    //{
+    //    get { return ""; }
+    //}
+
+    /// <inheritdoc />
+    public override bool RequiresApiToken => true;
+
+    /// <inheritdoc />
+    public override bool RequiresServiceId => true;
+
+    /// <inheritdoc />
+    public override System.Collections.Specialized.NameValueCollection GetParameters()
+    {
+        NameValueCollection nvc = new NameValueCollection();
+
+        ParameterValidator.IsNotNull(TransactionId, "TransactionId");
+        nvc.Add("transactionId", TransactionId.ToString());
+
+        if (ParameterValidator.IsNonEmptyInt(Amount))
+        {
+            nvc.Add("amount", Amount.Value.ToString());
         }
 
-        /// <summary>
-        /// The order ID or EX code of the transaction.
-        /// </summary>
-        [JsonProperty("transactionId")]
-        public string TransactionId { get; set; }
-
-        /// <summary>
-        /// The amount to be paid should be given in cents. For example € 3.50 becomes 350.
-        /// </summary>
-        [JsonProperty("amount")]
-        public int? Amount { get; set; }
-
-        /// <summary>
-        /// The description to include with the payment.
-        /// </summary>
-        [JsonProperty("description")]
-        public string Description { get; set; }
-
-        /// <summary>
-        /// The description to include with the payment.
-        /// </summary>
-        [JsonProperty("processDate"), JsonConverter(typeof(DMYConverter))]
-        public DateTime? ProcessDate { get; set; }
-
-        /// <summary>
-        /// Custom exchange URL overriding the defaultexchange URL.
-        /// </summary>
-        [JsonProperty("exchangeUrl")]
-        public string ExchangeUrl { get; set; }
-
-        /// <summary>
-        /// Product items that are refunded (key: product ID, value: quantity).
-        /// </summary>
-        [JsonProperty("products")]
-        public Dictionary<string, int> Products { get; set; }
-
-        /// <summary>
-        /// Add a product reference (key + amount)
-        /// </summary>
-        /// <param name="productId">The order ID or EX code of the transaction</param>
-        /// <param name="amount">Product quantity</param>
-        public void AddProduct(string productId, int amount)
+        if (!ParameterValidator.IsEmpty(Description))
         {
-            if (Products.ContainsKey(productId))
-            {
-                Products[productId] += amount;
-            }
-            else
-            {
-                Products[productId] = amount;
-            }
+            nvc.Add("description", Description);
         }
 
-        /// <inheritdoc />
-        protected override int Version => 2;
-
-        /// <inheritdoc />
-
-        protected override string Controller => "Refund";
-
-        /// <inheritdoc />
-        protected override string Method => "transaction";
-
-        //public override string Querystring
-        //{
-        //    get { return ""; }
-        //}
-
-        /// <inheritdoc />
-        public override bool RequiresApiToken => true;
-
-        /// <inheritdoc />
-        public override bool RequiresServiceId => true;
-
-        /// <inheritdoc />
-        public override System.Collections.Specialized.NameValueCollection GetParameters()
+        if (ProcessDate.HasValue)
         {
-            NameValueCollection nvc = new NameValueCollection();
-
-            ParameterValidator.IsNotNull(TransactionId, "TransactionId");
-            nvc.Add("transactionId", TransactionId.ToString());
-
-            if (ParameterValidator.IsNonEmptyInt(Amount))
-            {
-                nvc.Add("amount", Amount.Value.ToString());
-            }
-
-            if (!ParameterValidator.IsEmpty(Description))
-            {
-                nvc.Add("description", Description);
-            }
-
-            if (ProcessDate.HasValue)
-            {
-                nvc.Add("processDate", ProcessDate.Value.ToString("yyyy-MM-dd"));
-            }
-
-            if (Products.Count > 0)
-            {
-                nvc.Add("products", JsonConvert.SerializeObject(Products));
-            }
-
-            if (!ParameterValidator.IsEmpty(ExchangeUrl))
-            {
-                nvc.Add("exchangeUrl", ExchangeUrl);
-            }
-
-            return nvc;
+            nvc.Add("processDate", ProcessDate.Value.ToString("yyyy-MM-dd"));
         }
 
-        protected override void PrepareAndSetResponse()
+        if (Products.Count > 0)
         {
-            if (ParameterValidator.IsEmpty(rawResponse))
-            {
-                throw new PayNlException("rawResponse is empty!");
-            }
-            response = JsonConvert.DeserializeObject<Response>(RawResponse);
-            if (!Response.Request.Result)
-            {
-                // toss
-                throw new PayNlException(Response.Request.Message);
-            }
+            nvc.Add("products", JsonSerialization.Serialize(Products));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Response Response => (Response)response;
-
-        private static Dictionary<string, object> NvcToDictionary(NameValueCollection nvc, bool handleMultipleValuesPerKey)
+        if (!ParameterValidator.IsEmpty(ExchangeUrl))
         {
-            var result = new Dictionary<string, object>();
-            foreach (string key in nvc.Keys)
+            nvc.Add("exchangeUrl", ExchangeUrl);
+        }
+
+        return nvc;
+    }
+
+    protected override void PrepareAndSetResponse()
+    {
+        if (ParameterValidator.IsEmpty(rawResponse))
+        {
+            throw new PayNlException("rawResponse is empty!");
+        }
+        response = JsonSerialization.Deserialize<Response>(RawResponse);
+        if (!Response.Request.Result)
+        {
+            // toss
+            throw new PayNlException(Response.Request.Message);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public Response Response => (Response)response;
+
+    private static Dictionary<string, object> NvcToDictionary(NameValueCollection nvc, bool handleMultipleValuesPerKey)
+    {
+        var result = new Dictionary<string, object>();
+        foreach (string key in nvc.Keys)
+        {
+            if (handleMultipleValuesPerKey)
             {
-                if (handleMultipleValuesPerKey)
+                string[] values = nvc.GetValues(key);
+                if (values.Length == 1)
                 {
-                    string[] values = nvc.GetValues(key);
-                    if (values.Length == 1)
-                    {
-                        result.Add(key, values[0]);
-                    }
-                    else
-                    {
-                        result.Add(key, values);
-                    }
+                    result.Add(key, values[0]);
                 }
                 else
                 {
-                    result.Add(key, nvc[key]);
+                    result.Add(key, values);
                 }
             }
-
-            return result;
+            else
+            {
+                result.Add(key, nvc[key]);
+            }
         }
+
+        return result;
     }
 }

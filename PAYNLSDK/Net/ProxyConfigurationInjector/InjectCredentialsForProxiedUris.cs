@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Net;
 
-namespace PAYNLSDK.Net.ProxyConfigurationInjector
+namespace PayNLSdk.Net.ProxyConfigurationInjector;
+
+public class InjectCredentialsForProxiedUris : IProxyConfigurationInjector
 {
-    public class InjectCredentialsForProxiedUris : IProxyConfigurationInjector
+    private readonly ICredentials credentials;
+
+    public InjectCredentialsForProxiedUris(ICredentials credentials)
     {
-        private readonly ICredentials credentials;
+        this.credentials = credentials;
+    }
 
-        public InjectCredentialsForProxiedUris(ICredentials credentials)
+    public IWebProxy InjectProxyConfiguration(IWebProxy webProxy, Uri uri)
+    {
+        Uri proxy = WebRequest.DefaultWebProxy.GetProxy(uri);
+        if (uri != proxy) // request goes through proxy
         {
-            this.credentials = credentials;
+            // webProxy.UseDefaultCredentials = true; // not accessible through IWebProxy
+            webProxy.Credentials = credentials; // same as setting `webProxy.UseDefaultCredentials = true`
         }
-
-        public IWebProxy InjectProxyConfiguration(IWebProxy webProxy, Uri uri)
-        {
-            Uri proxy = WebRequest.DefaultWebProxy.GetProxy(uri);
-            if (uri != proxy) // request goes through proxy
-            {
-                // webProxy.UseDefaultCredentials = true; // not accessible through IWebProxy
-                webProxy.Credentials = credentials; // same as setting `webProxy.UseDefaultCredentials = true`
-            }
-            return webProxy;
-        }
+        return webProxy;
     }
 }

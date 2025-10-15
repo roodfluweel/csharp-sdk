@@ -1,16 +1,11 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Converters;
 
-namespace PAYNLSDK.API.SMS.BulkMessage
+namespace PayNLSdk.Api.SMS.BulkMessage;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
-        [JsonProperty("result"),JsonConverter(typeof(BooleanConverter))]
-        public bool result { get; protected set; }
-    }
+    [JsonPropertyName("result"), JsonConverter(typeof(BooleanConverter))]
+    public bool result { get; protected set; }
 }

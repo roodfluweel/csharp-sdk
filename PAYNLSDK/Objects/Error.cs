@@ -1,30 +1,29 @@
-﻿using System;
-using Newtonsoft.Json;
-using PAYNLSDK.Converters;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Converters;
 
-namespace PAYNLSDK.Objects
+namespace PayNLSdk.Objects;
+
+/// <summary>
+/// Error definition
+/// </summary>
+public class Error
 {
     /// <summary>
-    /// Error definition
+    /// Result of a call. In case of a real error, this SHOULD always be false.
     /// </summary>
-    public class Error
-    {
-        /// <summary>
-        /// Result of a call. In case of a real error, this SHOULD always be false.
-        /// </summary>
-        [JsonProperty("result"), JsonConverter(typeof(BooleanConverter))]
-        public bool Result { get; protected set; }
+    [JsonPropertyName("result"), JsonConverter(typeof(BooleanConverter))]
+    public bool Result { get; protected set; }
 
-        /// <summary>
-        /// Error code
-        /// </summary>
-        [JsonProperty("errorId")]
-        public string Code { get; protected set; }
+    /// <summary>
+    /// Error code
+    /// </summary>
+    [JsonPropertyName("errorId")]
+    public string Code { get; protected set; }
 
-        /// <summary>
-        /// Error message
-        /// </summary>
-        [JsonProperty("errorMessage")]
-        public string Message { get; protected set; }
-    }
+    /// <summary>
+    /// Error message
+    /// </summary>
+    [JsonPropertyName("errorMessage")]
+    public string Message { get; protected set; }
 }

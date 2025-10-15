@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using PAYNLSDK.Converters;
-using System;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using PayNLSdk.Converters;
 
-namespace PAYNLSDK.API.SMS.PremiumMessage
+namespace PayNLSdk.Api.SMS.PremiumMessage;
+
+public class Response : ResponseBase
 {
-    public class Response : ResponseBase
-    {
-        [JsonProperty("result"), JsonConverter(typeof(BooleanConverter))]
-        public bool result { get; protected set; }
-    }
+    [JsonPropertyName("result"), JsonConverter(typeof(BooleanConverter))]
+    public bool result { get; protected set; }
 }
