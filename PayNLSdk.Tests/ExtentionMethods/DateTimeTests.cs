@@ -1,148 +1,171 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayNLSdk.ExtentionMethods;
 using System;
+using PayNLSdk.ExtentionMethods;
+using Shouldly;
+using Xunit;
 
-namespace PayNLSdk.Tests.ExtentionMethods;
-
-[TestClass]
-public class DateTimeTests
+namespace PayNLSdk.Tests.ExtentionMethods
 {
-    [TestInitialize]
-    public void TestInitialize()
+    public class DateTimeTests
     {
+        [Fact]
+        public void LastMonthFirstDay_February_CurrentlyMarch()
+        {
+            // Arrange
+            var initialDate = new DateTime(2018, 2, 5);
 
-    }
+            // Act
+            var result = initialDate.LastMonthFirstDay();
 
-    [TestMethod]
-    public void LastMonthFirstDay_February_CurrentlyMarch()
-    {
-        // Arrange
-        var initialDate = new DateTime(2018, 2, 5);
+            // Assert
+            result.Year.ShouldBe(2018);
+            result.Month.ShouldBe(1);
+            result.Day.ShouldBe(1);
+        }
 
-        // Act
-        var result = initialDate.LastMonthFirstDay();
+        [Fact]
+        public void LastMonthFirstDay_DecemberPreviousYear_CurrentlyFirstJanuary()
+        {
+            // Arrange
+            var initialDate = new DateTime(2018, 1, 1);
 
-        // Assert
-        Assert.AreEqual(2018, result.Year);
-        Assert.AreEqual(1, result.Month);
-        Assert.AreEqual(1, result.Day);
-    }
+            // Act
+            var result = initialDate.LastMonthFirstDay();
 
-    [TestMethod]
-    public void LastMonthFirstDay_DecemberPreviousYear_CurrentlyFirstJanuary()
-    {
-        // Arrange
-        var initialDate = new DateTime(2018, 1, 1);
+            // Assert
+            result.Year.ShouldBe(2017);
+            result.Month.ShouldBe(12);
+            result.Day.ShouldBe(1);
+        }
 
-        // Act
-        var result = initialDate.LastMonthFirstDay();
+        [Fact]
+        public void LastMonthFirstDay_PreviousMonth_LastDayOfTheMonth()
+        {
+            // Arrange
+            var initialDate = new DateTime(2018, 1, 31);
 
-        // Assert
-        Assert.AreEqual(2017, result.Year);
-        Assert.AreEqual(12, result.Month);
-        Assert.AreEqual(1, result.Day);
-    }
+            // Act
+            var result = initialDate.LastMonthFirstDay();
 
-    [TestMethod]
-    public void LastMonthFirstDay_PreviousMonth_LastDayOfTheMonth()
-    {
-        // Arrange
-        var initialDate = new DateTime(2018, 1, 31);
+            // Assert
+            result.Year.ShouldBe(2017);
+            result.Month.ShouldBe(12);
+            result.Day.ShouldBe(1);
+        }
 
-        // Act
-        var result = initialDate.LastMonthFirstDay();
+        [Fact]
+        public void LastWeek_PreviousMonday_TodaySaturday()
+        {
+            // Arrange
+            var initialDate = new DateTime(2018, 10, 13);
 
-        // Assert
-        Assert.AreEqual(2017, result.Year);
-        Assert.AreEqual(12, result.Month);
-        Assert.AreEqual(1, result.Day);
-    }
+            // Act
+            var result = initialDate.LastWeek(DayOfWeek.Monday);
 
-    [TestMethod]
-    public void LastWeek_PreviousMonday_TodaySaturday()
-    {
-        // Arrange
-        var initialDate = new DateTime(2018, 10, 13);
+            // Assert
+            result.ShouldBe(new DateTime(2018, 10, 1));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
+        }
 
-        // Act
-        var result = initialDate.LastWeek(DayOfWeek.Monday);
+        [Fact]
+        public void LastWeek_PreviousMonday_TodayMonday()
+        {
+            // Arrange
+            var initialDate = new DateTime(2018, 12, 10);
 
-        // Assert
-        Assert.AreEqual(new DateTime(2018, 10, 1), result);
-        Assert.AreEqual(DayOfWeek.Monday, result.DayOfWeek);
-    }
+            // Act
+            var result = initialDate.LastWeek(DayOfWeek.Monday);
 
-    [TestMethod]
-    public void LastWeek_PreviousMonday_TodayMonday()
-    {
-        // Arrange
-        var initialDate = new DateTime(2018, 12, 10);
+            // Assert
+            result.ShouldBe(new DateTime(2018, 12, 3));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
+        }
 
-        // Act
-        var result = initialDate.LastWeek(DayOfWeek.Monday);
+        [Fact]
+        public void LastWeek_PreviousMonday_TodaySunday()
+        {
+            // Arrange
+            var initialDate = new DateTime(2018, 12, 9);
 
-        // Assert
-        Assert.AreEqual(new DateTime(2018, 12, 3), result);
-        Assert.AreEqual(DayOfWeek.Monday, result.DayOfWeek);
-    }
+            // Act
+            var result = initialDate.LastWeek(DayOfWeek.Monday);
 
-    [TestMethod]
-    public void LastWeek_PreviousMonday_TodaySunday()
-    {
-        // Arrange
-        var initialDate = new DateTime(2018, 12, 9);
+            // Assert
+            result.ShouldBe(new DateTime(2018, 11, 26));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
+        }
 
-        // Act
-        var result = initialDate.LastWeek(DayOfWeek.Monday);
+        [Fact]
+        public void LastMonthLastDay_Lastday_normalconditions()
+        {
+            // Arrange
+            var initialDate = new DateTime(2018, 7, 19);
 
-        // Assert
-        Assert.AreEqual(new DateTime(2018, 11, 26), result);
-        Assert.AreEqual(DayOfWeek.Monday, result.DayOfWeek);
-    }
+            // Act
+            var result = initialDate.LastMonthLastDay();
 
-    [TestMethod]
-    public void LastMonthLastDay_Lastday_normalconditions()
-    {
-        // Arrange
-        var initialDate = new DateTime(2018, 7, 19);
+            // Assert
+            result.Year.ShouldBe(2018);
+            result.Month.ShouldBe(6);
+            result.Day.ShouldBe(30);
+        }
 
-        // Act
-        var result = initialDate.LastMonthLastDay();
+        [Fact]
+        public void LastMonthLastDay_31DecemberPreviousYear_CurrentlyFirstJanuary()
+        {
+            // Arrange
+            var initialDate = new DateTime(2018, 1, 1);
 
-        // Assert
-        Assert.AreEqual(2018, result.Year);
-        Assert.AreEqual(6, result.Month);
-        Assert.AreEqual(30, result.Day);
-    }
+            // Act
+            var result = initialDate.LastMonthLastDay();
 
+            // Assert
+            result.Year.ShouldBe(2017);
+            result.Month.ShouldBe(12);
+            result.Day.ShouldBe(31);
+        }
 
-    [TestMethod]
-    public void LastMonthLastDay_31DecemberPreviousYear_CurrentlyFirstJanuary()
-    {
-        // Arrange
-        var initialDate = new DateTime(2018, 1, 1);
+        [Fact]
+        public void LastMonthLastDay_1March_LeapYear()
+        {
+            // Arrange
+            var initialDate = new DateTime(2004, 3, 15);
 
-        // Act
-        var result = initialDate.LastMonthLastDay();
+            // Act
+            var result = initialDate.LastMonthLastDay();
 
-        // Assert
-        Assert.AreEqual(2017, result.Year);
-        Assert.AreEqual(12, result.Month);
-        Assert.AreEqual(31, result.Day);
-    }
+            // Assert
+            result.Year.ShouldBe(2004);
+            result.Month.ShouldBe(2);
+            result.Day.ShouldBe(29);
+        }
 
-    [TestMethod]
-    public void LastMonthLastDay_1March_LeapYear()
-    {
-        // Arrange
-        var initialDate = new DateTime(2004, 3, 15);
+        [Fact]
+        public void ThisWeek_ShouldReturnMondayMidnight_WhenDateIsWednesday()
+        {
+            // Arrange
+            var initialDate = new DateTime(2024, 7, 17, 15, 30, 45);
 
-        // Act
-        var result = initialDate.LastMonthLastDay();
+            // Act
+            var result = initialDate.ThisWeek(DayOfWeek.Monday);
 
-        // Assert
-        Assert.AreEqual(2004, result.Year);
-        Assert.AreEqual(2, result.Month);
-        Assert.AreEqual(29, result.Day);
+            // Assert
+            result.ShouldBe(new DateTime(2024, 7, 15));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
+            result.TimeOfDay.ShouldBe(TimeSpan.Zero);
+        }
+
+        [Fact]
+        public void ThisWeek_ShouldRollBackToPreviousWeek_WhenDateIsSunday()
+        {
+            // Arrange
+            var initialDate = new DateTime(2024, 7, 14, 9, 0, 0);
+
+            // Act
+            var result = initialDate.ThisWeek(DayOfWeek.Monday);
+
+            // Assert
+            result.ShouldBe(new DateTime(2024, 7, 8));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
+        }
     }
 }

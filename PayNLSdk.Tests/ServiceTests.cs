@@ -1,51 +1,83 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using PayNLSdk.Api.Service.GetCategories;
-using PayNLSdk.Net;
+using NSubstitute;
+using PAYNLSDK;
+using PAYNLSDK.API;
+using PAYNLSDK.Net;
+using Shouldly;
+using Xunit;
+
+using ServiceGetCategoriesRequest = PAYNLSDK.API.Service.GetCategories.Request;
 
 namespace PayNLSdk.Tests;
 
-[TestClass]
 public class ServiceTests
 {
-    private Mock<IClient> _iClientMock;
-    private Service _sut;
+    private readonly IClient _client;
+    private readonly Service _sut;
 
-    [TestInitialize]
-    public void TestInitialize()
+    public ServiceTests()
     {
-        _iClientMock = new Mock<IClient>();
-        _sut = new Service(_iClientMock.Object);
+        _client = Substitute.For<IClient>();
+        _sut = new Service(_client);
     }
 
-    [TestMethod]
-    public void GetCategories_withoutParams()
+    [Fact]
+    public void GetCategories_ShouldRequestAllCategoriesWhenPaymentOptionMissing()
     {
         // Arrange
+        const string rawResponse = """
+        [
+          {
+            "id": "SC-1",
+            "name": "Retail"
+          }
+        ]
+        """;
+        _client.PerformRequest(Arg.Do<RequestBase>(request =>
+        {
+            request.ShouldBeOfType<ServiceGetCategoriesRequest>();
+            request.RawResponse = rawResponse;
+        }));
 
         // Act
-        var result = _sut.GetCategories();
+        var response = _sut.GetCategories();
 
         // Assert
-        _iClientMock.Verify(
-            o => o.PerformRequest(It.IsAny<Request>()),
-            Times.Once);
-        // Assert.IsNotNull(result); // UNTESTABLE CURRENTLY
+        _client.Received(1).PerformRequest(Arg.Any<ServiceGetCategoriesRequest>());
+        response.ShouldNotBeNull();
+        response.ServiceCategories.ShouldNotBeNull();
+        response.ServiceCategories.Length.ShouldBe(1);
+        response.ServiceCategories[0].Id.ShouldBe("SC-1");
+        response.ServiceCategories[0].Name.ShouldBe("Retail");
     }
 
-    [TestMethod]
-    public void GetCategories_withParams()
+    [Fact]
+    public void GetCategories_ShouldForwardPaymentOptionIdToRequest()
     {
         // Arrange
-        int paymentOptionId = 1;
+        ServiceGetCategoriesRequest? capturedRequest = null;
+        const string rawResponse = """
+        [
+          {
+            "id": "SC-2",
+            "name": "Hospitality"
+          }
+        ]
+        """;
+        _client.PerformRequest(Arg.Do<RequestBase>(request =>
+        {
+            capturedRequest = request.ShouldBeOfType<ServiceGetCategoriesRequest>();
+            request.RawResponse = rawResponse;
+        }));
 
         // Act
-        var result = _sut.GetCategories(paymentOptionId);
+        var response = _sut.GetCategories(paymentOptionId: 42);
 
         // Assert
-        _iClientMock.Verify(
-            o => o.PerformRequest(It.IsAny<Request>()),
-            Times.Once);
-        // Assert.IsNotNull(result); // UNTESTABLE CURRENTLY
+        _client.Received(1).PerformRequest(Arg.Any<ServiceGetCategoriesRequest>());
+        capturedRequest.ShouldNotBeNull();
+        capturedRequest!.PaymentOptionId.ShouldBe(42);
+        response.ShouldNotBeNull();
+        response.ServiceCategories.ShouldNotBeNull();
+        response.ServiceCategories[0].Name.ShouldBe("Hospitality");
     }
 }

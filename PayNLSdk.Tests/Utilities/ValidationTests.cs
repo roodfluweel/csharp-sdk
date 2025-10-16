@@ -1,67 +1,113 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayNLSdk.Utilities;
 using System;
+using PAYNLSDK.Utilities;
+using Shouldly;
+using Xunit;
 
-namespace PayNLSdk.Tests.Utilities;
-
-[TestClass]
-public class ValidationTests
+namespace PayNLSdk.Tests.Utilities
 {
-    [TestMethod]
-    public void IsNotEmpty_DoesNotThrow_AbcInput()
+    public class ValidationTests
     {
-        // Arrange
-        var input = "abc";
+        [Fact]
+        public void IsNotEmpty_DoesNotThrow_AbcInput()
+        {
+            // Arrange
+            var input = "abc";
 
-        // Act
-        try
-        {
-            ParameterValidator.IsNotEmpty(input, "someParamName");
-        }
-        catch (ArgumentException)
-        {
-            Assert.Fail("should not throw");
+            // Act & Assert
+            Should.NotThrow(() => ParameterValidator.IsNotEmpty(input, "someParamName"));
         }
 
-        // Assert
-    }
+        [Fact]
+        public void IsNotEmpty_ThrowsException_EmptyString()
+        {
+            // Arrange
+            var input = string.Empty;
 
-    [ExpectedException(typeof(ArgumentException), "We expected an exception")]
-    [TestMethod]
-    public void IsNotEmpty_ThrowsException_EmptyString()
-    {
-        // Arrange
-        var input = "";
+            // Act & Assert
+            Should.Throw<ArgumentException>(() => ParameterValidator.IsNotEmpty(input, "someParamName"));
+        }
 
-        // Act
-        ParameterValidator.IsNotEmpty(input, "someParamName");
+        [Fact]
+        public void IsEmpty_False_AbcInput()
+        {
+            // Arrange
+            var input = "abc";
 
-        // Assert
-    }
+            // Act
+            var result = ParameterValidator.IsEmpty(input);
 
-    [TestMethod]
-    public void IsEmpty_False_AbcInput()
-    {
-        // Arrange
-        var input = "abc";
+            // Assert
+            result.ShouldBeFalse();
+        }
 
-        // Act
-        var result = ParameterValidator.IsEmpty(input);
+        [Fact]
+        public void IsEmpty_True_EmptyString()
+        {
+            // Arrange
+            var input = string.Empty;
 
-        // Assert
-        Assert.IsFalse(result);
-    }
+            // Act
+            var result = ParameterValidator.IsEmpty(input);
 
-    [TestMethod]
-    public void IsEmpty_True_EmptyString()
-    {
-        // Arrange
-        var input = "";
+            // Assert
+            result.ShouldBeTrue();
+        }
 
-        // Act
-        var result = ParameterValidator.IsEmpty(input);
+        [Fact]
+        public void IsNotNull_DoesNotThrow_ForReferenceValue()
+        {
+            // Arrange
+            object value = new object();
 
-        // Assert
-        Assert.IsTrue(result);
+            // Act & Assert
+            Should.NotThrow(() => ParameterValidator.IsNotNull(value, nameof(value)));
+        }
+
+        [Fact]
+        public void IsNotNull_ThrowsArgumentException_ForNullReference()
+        {
+            // Act & Assert
+            Should.Throw<ArgumentException>(() => ParameterValidator.IsNotNull(null!, "param"));
+        }
+
+        [Fact]
+        public void IsNull_ShouldReturnTrue_WhenValueIsNull()
+        {
+            // Act
+            var result = ParameterValidator.IsNull(null);
+
+            // Assert
+            result.ShouldBeTrue();
+        }
+
+        [Fact]
+        public void IsNull_ShouldReturnFalse_WhenValueProvided()
+        {
+            // Act
+            var result = ParameterValidator.IsNull("value");
+
+            // Assert
+            result.ShouldBeFalse();
+        }
+
+        [Fact]
+        public void IsNonEmptyInt_ShouldReturnFalse_WhenNull()
+        {
+            // Act
+            var result = ParameterValidator.IsNonEmptyInt(null);
+
+            // Assert
+            result.ShouldBeFalse();
+        }
+
+        [Fact]
+        public void IsNonEmptyInt_ShouldReturnTrue_WhenValueProvided()
+        {
+            // Act
+            var result = ParameterValidator.IsNonEmptyInt(5);
+
+            // Assert
+            result.ShouldBeTrue();
+        }
     }
 }

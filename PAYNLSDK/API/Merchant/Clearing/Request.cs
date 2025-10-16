@@ -1,6 +1,8 @@
 ﻿using PayNLSdk.Utilities;
+using PAYNLSDK.Exceptions;
 using System;
 using System.Collections.Specialized;
+using System.Text;
 using System.Globalization;
 
 namespace PayNLSdk.Api.Merchant.Clearing;
@@ -40,10 +42,20 @@ public class Request : RequestBase
         return nvc;
     }
 
+        public Response Response { get { return (Response)response; } }
+
     /// <inheritdoc />
     /// <exception cref="NotImplementedException"></exception>
     protected override void PrepareAndSetResponse()
     {
-        throw new NotImplementedException();
+            if (ParameterValidator.IsEmpty(rawResponse))
+            {
+                throw new PayNlException("rawResponse is empty!");
+            }
+            response = Response.FromRawResponse(RawResponse);
+            if (!Response.Request.Result)
+            {
+                throw new PayNlException(Response.Request.Code + " " + Response.Request.Message);
+            }
     }
 }

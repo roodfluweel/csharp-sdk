@@ -27,18 +27,25 @@ public class Request : RequestBase
         return nvc;
     }
 
-    /// <inheritdoc />
-    protected override void PrepareAndSetResponse()
-    {
-        if (ParameterValidator.IsEmpty(rawResponse))
+        /// <inheritdoc />
+        protected override void PrepareAndSetResponse()
         {
-            throw new PayNlException("rawResponse is empty!");
-        }
-        response = JsonSerialization.Deserialize<Response>(RawResponse);
-        if (!response.Request.Result)
-        {
-            // toss
-            throw new PayNlException(response.Request.Message);
+            if (ParameterValidator.IsEmpty(rawResponse))
+            {
+                throw new PayNlException("rawResponse is empty!");
+            }
+            response = JsonConvert.DeserializeObject<API.Merchant.Get.Response>(RawResponse);
+            var merchantResponse = response as API.Merchant.Get.Response;
+            
+            // Check if request was successful (result can be "1" for success or other values for failure)
+            if (merchantResponse?.request != null && merchantResponse.request.result != "1")
+            {
+                // toss
+                var errorMessage = !string.IsNullOrEmpty(merchantResponse.request.errorMessage) 
+                    ? merchantResponse.request.errorMessage 
+                    : "Request failed";
+                throw new PayNlException(errorMessage);
+            }
         }
     }
 }

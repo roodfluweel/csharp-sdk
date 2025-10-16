@@ -135,7 +135,7 @@ public class Request : RequestBase
             {
                 nvc.Add("transaction[currency]", TransactionData.Currency);
             }
-            if (!ParameterValidator.IsNonEmptyInt(TransactionData.CostsVat))
+                if (ParameterValidator.IsNonEmptyInt(TransactionData.CostsVat))
             {
                 nvc.Add("transaction[costsVat]", TransactionData.CostsVat.ToString());
             }
@@ -153,7 +153,7 @@ public class Request : RequestBase
                 nvc.Add("transaction[description]", TransactionData.Description);
             }
 
-            if (!ParameterValidator.IsNonEmptyInt(TransactionData.EnduserId))
+                if (ParameterValidator.IsNonEmptyInt(TransactionData.EnduserId))
             {
                 nvc.Add("transaction[enduserId]", TransactionData.EnduserId.ToString());
             }

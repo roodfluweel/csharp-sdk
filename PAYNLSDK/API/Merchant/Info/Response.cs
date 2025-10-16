@@ -78,6 +78,8 @@ public class Response : ResponseBase
         public Address postalAddress { get; set; }
         public Address visitAddress { get; set; }
         public Tradename[] tradeNames { get; set; }
+            public Contact[] contactData { get; set; }
+            public string state { get; set; }
 
         public class Address
         {
@@ -156,3 +158,4 @@ public class Response : ResponseBase
     }
 
 }
+

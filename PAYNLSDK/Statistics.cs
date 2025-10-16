@@ -54,7 +54,8 @@ public class Statistics : IStatistics
         request.GroupByFieldNames.Add(groupByFieldName2);
 
         var response = _webClient.PerformRequest(request);
-        return JsonSerialization.Deserialize<GetStatsMultiLevel>(response);
+            var jsonConverters = new List<JsonConverter> { new DecimalConverter() };
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<GetStatsMultiLevel>(response, jsonConverters.ToArray());
     }
 }
 
