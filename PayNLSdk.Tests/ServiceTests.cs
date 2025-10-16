@@ -25,13 +25,13 @@ public class ServiceTests
     {
         // Arrange
         const string rawResponse = """
-[
-  {
-    "id": "SC-1",
-    "name": "Retail"
-  }
-]
-""";
+        [
+          {
+            "id": "SC-1",
+            "name": "Retail"
+          }
+        ]
+        """;
         _client.PerformRequest(Arg.Do<RequestBase>(request =>
         {
             request.ShouldBeOfType<ServiceGetCategoriesRequest>();
@@ -56,13 +56,13 @@ public class ServiceTests
         // Arrange
         ServiceGetCategoriesRequest? capturedRequest = null;
         const string rawResponse = """
-[
-  {
-    "id": "SC-2",
-    "name": "Hospitality"
-  }
-]
-""";
+        [
+          {
+            "id": "SC-2",
+            "name": "Hospitality"
+          }
+        ]
+        """;
         _client.PerformRequest(Arg.Do<RequestBase>(request =>
         {
             capturedRequest = request.ShouldBeOfType<ServiceGetCategoriesRequest>();

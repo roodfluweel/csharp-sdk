@@ -20,17 +20,17 @@ public class PaymentProfileTests
         var client = Substitute.For<IClient>();
         PaymentProfileGetRequest? capturedRequest = null;
         const string rawResponse = """
-{
-  "id": 1001,
-  "name": "AfterPay",
-  "parent_id": 0,
-  "public": true,
-  "payment_method_id": 613,
-  "country_id": 528,
-  "payment_tariff_id": 1,
-  "noah_id": 2
-}
-""";
+        {
+          "id": 1001,
+          "name": "AfterPay",
+          "parent_id": 0,
+          "public": true,
+          "payment_method_id": 613,
+          "country_id": 528,
+          "payment_tariff_id": 1,
+          "noah_id": 2
+        }
+        """;
         client.PerformRequest(Arg.Do<RequestBase>(request =>
         {
             capturedRequest = request.ShouldBeOfType<PaymentProfileGetRequest>();
@@ -59,19 +59,19 @@ public class PaymentProfileTests
         // Arrange
         var client = Substitute.For<IClient>();
         const string rawResponse = """
-[
-  {
-    "id": 1002,
-    "name": "Visa",
-    "parent_id": 0,
-    "public": false,
-    "payment_method_id": 706,
-    "country_id": 840,
-    "payment_tariff_id": 2,
-    "noah_id": 1
-  }
-]
-""";
+        [
+          {
+            "id": 1002,
+            "name": "Visa",
+            "parent_id": 0,
+            "public": false,
+            "payment_method_id": 706,
+            "country_id": 840,
+            "payment_tariff_id": 2,
+            "noah_id": 1
+          }
+        ]
+        """;
         client.PerformRequest(Arg.Do<RequestBase>(request =>
         {
             request.ShouldBeOfType<PaymentProfileGetAllRequest>();
@@ -99,19 +99,19 @@ public class PaymentProfileTests
         var client = Substitute.For<IClient>();
         PaymentProfileGetAvailableRequest? capturedRequest = null;
         const string rawResponse = """
-[
-  {
-    "id": 2001,
-    "name": "Giropay",
-    "parent_id": 0,
-    "public": true,
-    "payment_method_id": 712,
-    "country_id": 276,
-    "payment_tariff_id": 5,
-    "noah_id": 4
-  }
-]
-""";
+        [
+          {
+            "id": 2001,
+            "name": "Giropay",
+            "parent_id": 0,
+            "public": true,
+            "payment_method_id": 712,
+            "country_id": 276,
+            "payment_tariff_id": 5,
+            "noah_id": 4
+          }
+        ]
+        """;
         client.PerformRequest(Arg.Do<RequestBase>(request =>
         {
             capturedRequest = request.ShouldBeOfType<PaymentProfileGetAvailableRequest>();

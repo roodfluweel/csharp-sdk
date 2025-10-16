@@ -20,12 +20,12 @@ public class PaymentMethodTests
         var client = Substitute.For<IClient>();
         PaymentMethodGetRequest? capturedRequest = null;
         const string rawResponse = """
-{
-  "id": 10,
-  "name": "iDEAL",
-  "abbreviation": "IDEAL"
-}
-""";
+        {
+          "id": 10,
+          "name": "iDEAL",
+          "abbreviation": "IDEAL"
+        }
+        """;
         client
             .PerformRequest(Arg.Do<RequestBase>(request =>
             {
@@ -54,14 +54,14 @@ public class PaymentMethodTests
         // Arrange
         var client = Substitute.For<IClient>();
         const string rawResponse = """
-[
-  {
-    "id": 613,
-    "name": "PayPal",
-    "abbreviation": "PAYPAL"
-  }
-]
-""";
+        [
+          {
+            "id": 613,
+            "name": "PayPal",
+            "abbreviation": "PAYPAL"
+          }
+        ]
+        """;
         client
             .PerformRequest(Arg.Do<RequestBase>(request =>
             {

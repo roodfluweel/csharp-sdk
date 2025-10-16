@@ -502,92 +502,92 @@ public class TransactionTests
     {
         stateName ??= status.ToString();
         return $$"""
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "paymentDetails": {
-    "state": {{(int)status}},
-    "stateName": "{{stateName}}"
-  }
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "paymentDetails": {
+            "state": {{(int)status}},
+            "stateName": "{{stateName}}"
+          }
+        }
+        """;
     }
 
     private static string BuildGetServiceResponse()
     {
         return """
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "merchant": {},
-  "service": {},
-  "countryOptionList": {}
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "merchant": {},
+          "service": {},
+          "countryOptionList": {}
+        }
+        """;
     }
 
     private static string BuildRefundResponse(string refundId)
     {
         return $$"""
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "refundId": "{{refundId}}"
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "refundId": "{{refundId}}"
+        }
+        """;
     }
 
     private static string BuildApproveResponse(string message)
     {
         return $$"""
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "message": "{{message}}"
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "message": "{{message}}"
+        }
+        """;
     }
 
     private static string BuildDeclineResponse(string message)
     {
         return $$"""
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "message": "{{message}}"
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "message": "{{message}}"
+        }
+        """;
     }
 
     private static string BuildStartResponse()
     {
         return """
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "transaction": {
-    "transactionId": "TRANS-13",
-    "paymentReference": "REF"
-  }
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "transaction": {
+            "transactionId": "TRANS-13",
+            "paymentReference": "REF"
+          }
+        }
+        """;
     }
 }

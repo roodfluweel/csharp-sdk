@@ -15,17 +15,17 @@ public class AllianceTests
     {
         // Arrange
         var rawResponse = """
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "merchantId": "M-4",
-  "merchantName": "Alliance Merchant",
-  "services": []
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "merchantId": "M-4",
+          "merchantName": "Alliance Merchant",
+          "services": []
+        }
+        """;
         var client = CreateClient(rawResponse);
         var alliance = new Alliance(client);
         var request = new PAYNLSDK.API.Alliance.GetMerchant.Request { MerchantId = "M-4" };
@@ -44,18 +44,18 @@ public class AllianceTests
     {
         // Arrange
         var rawResponse = """
-{
-  "success": true,
-  "merchantId": "M-5",
-  "merchantToken": "token",
-  "accounts": [
-    {
-      "accountId": "A-1",
-      "email": "mail@example.com"
-    }
-  ]
-}
-""";
+        {
+          "success": true,
+          "merchantId": "M-5",
+          "merchantToken": "token",
+          "accounts": [
+            {
+              "accountId": "A-1",
+              "email": "mail@example.com"
+            }
+          ]
+        }
+        """;
         var client = CreateClient(rawResponse);
         var alliance = new Alliance(client);
 
@@ -74,15 +74,15 @@ public class AllianceTests
     {
         // Arrange
         var rawResponse = """
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "serviceId": "SL-1000-2000"
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "serviceId": "SL-1000-2000"
+        }
+        """;
         var client = CreateClient(rawResponse);
         var alliance = new Alliance(client);
 
@@ -98,15 +98,15 @@ public class AllianceTests
     {
         // Arrange
         var rawResponse = """
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "referenceId": "INV-1"
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "referenceId": "INV-1"
+        }
+        """;
         var client = CreateClient(rawResponse);
         var alliance = new Alliance(client);
 

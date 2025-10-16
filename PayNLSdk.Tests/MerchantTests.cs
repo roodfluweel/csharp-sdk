@@ -17,15 +17,15 @@ public class MerchantTests
         // Arrange
         var (client, capture) = CreateClientWithCapture(
             """
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "result": "CL-1"
-}
-""");
+            {
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              },
+              "result": "CL-1"
+            }
+            """);
         var merchant = new Merchant(client);
         var request = new PayNLSdk.API.Merchant.Clearing.Request { Amount = 10, MerchantId = "M-1" };
 
@@ -42,16 +42,16 @@ public class MerchantTests
     {
         // Arrange
         var rawResponse = """
-{
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  },
-  "merchantId": "M-2",
-  "merchantName": "Test Merchant"
-}
-""";
+        {
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          },
+          "merchantId": "M-2",
+          "merchantName": "Test Merchant"
+        }
+        """;
         var client = CreateClient(rawResponse);
         var merchant = new Merchant(client);
         var request = new PAYNLSDK.API.Merchant.Add.Request();
@@ -69,16 +69,16 @@ public class MerchantTests
     {
         // Arrange
         var rawResponse = """
-{
-  "request": {
-    "result": "1"
-  },
-  "merchant": {
-    "merchantId": "M-3",
-    "name": "Shop"
-  }
-}
-""";
+        {
+          "request": {
+            "result": "1"
+          },
+          "merchant": {
+            "merchantId": "M-3",
+            "name": "Shop"
+          }
+        }
+        """;
         var client = CreateClient(rawResponse);
         var merchant = new Merchant(client);
 

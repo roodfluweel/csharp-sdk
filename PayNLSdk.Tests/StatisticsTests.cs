@@ -27,16 +27,29 @@ public class StatisticsTests
         request.Filters.Add(new Request.FilterItem { Key = "payment_method_id", Value = "10" });
 
         const string rawResponse = """
-{
-  "arrStatsData": [
-    {
-      "Id": "company",
-      "Label": "Acme BV",
-      "Data": [
         {
-          "Id": "turnover",
-          "Label": "Turnover",
-          "Data": {
+          "arrStatsData": [
+            {
+              "Id": "company",
+              "Label": "Acme BV",
+              "Data": [
+                {
+                  "Id": "turnover",
+                  "Label": "Turnover",
+                  "Data": {
+                    "sum": "123.45",
+                    "cst": "2.34",
+                    "num": "3",
+                    "avg_dur": "1.23",
+                    "avg_pay": "41.15",
+                    "pay": "120.11",
+                    "org_tot": "123.45"
+                  }
+                }
+              ]
+            }
+          ],
+          "totals": {
             "sum": "123.45",
             "cst": "2.34",
             "num": "3",
@@ -46,20 +59,7 @@ public class StatisticsTests
             "org_tot": "123.45"
           }
         }
-      ]
-    }
-  ],
-  "totals": {
-    "sum": "123.45",
-    "cst": "2.34",
-    "num": "3",
-    "avg_dur": "1.23",
-    "avg_pay": "41.15",
-    "pay": "120.11",
-    "org_tot": "123.45"
-  }
-}
-""";
+        """;
 
         var client = Substitute.For<IClient>();
         client.PerformRequest(Arg.Do<RequestBase>(performedRequest => performedRequest.RawResponse = rawResponse))
@@ -99,30 +99,30 @@ public class StatisticsTests
         };
 
         const string rawResponse = """
-{
-  "arrStatsData": [
-    {
-      "Id": "company",
-      "Label": "Acme BV",
-      "Data": [
         {
-          "Id": "2024-02-01",
-          "Label": "2024-02-01",
-          "Data": {
-            "sum": "45.67",
-            "cst": "1.00",
-            "num": "2",
-            "avg_dur": "0.00",
-            "avg_pay": "22.83",
-            "pay": "44.67",
-            "org_tot": "45.67"
-          }
+          "arrStatsData": [
+            {
+              "Id": "company",
+              "Label": "Acme BV",
+              "Data": [
+                {
+                  "Id": "2024-02-01",
+                  "Label": "2024-02-01",
+                  "Data": {
+                    "sum": "45.67",
+                    "cst": "1.00",
+                    "num": "2",
+                    "avg_dur": "0.00",
+                    "avg_pay": "22.83",
+                    "pay": "44.67",
+                    "org_tot": "45.67"
+                  }
+                }
+              ]
+            }
+          ]
         }
-      ]
-    }
-  ]
-}
-""";
+        """;
 
         var client = Substitute.For<IClient>();
         client.PerformRequest(Arg.Do<RequestBase>(performedRequest => performedRequest.RawResponse = rawResponse))

@@ -22,15 +22,15 @@ public class BanktransferTests
             Description = "Invoice 42"
         };
         const string rawResponse = """
-{
-  "refundId": "RF-123",
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  }
-}
-""";
+        {
+          "refundId": "RF-123",
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          }
+        }
+        """;
         client.PerformRequest(Arg.Do<RequestBase>(performedRequest =>
         {
             performedRequest.ShouldBeSameAs(request);
@@ -54,15 +54,15 @@ public class BanktransferTests
         var client = Substitute.For<IClient>();
         BanktransferAddRequest? capturedRequest = null;
         const string rawResponse = """
-{
-  "refundId": "RF-456",
-  "request": {
-    "result": true,
-    "errorId": null,
-    "errorMessage": null
-  }
-}
-""";
+        {
+          "refundId": "RF-456",
+          "request": {
+            "result": true,
+            "errorId": null,
+            "errorMessage": null
+          }
+        }
+        """;
         client.PerformRequest(Arg.Do<RequestBase>(performedRequest =>
         {
             capturedRequest = performedRequest.ShouldBeOfType<BanktransferAddRequest>();
