@@ -162,7 +162,7 @@ public class Transaction : ITransaction
     /// <returns>Full response object with all information available</returns>
     public Response Info(string transactionId)
     {
-        TransactionInfo request = new TransactionInfo { TransactionId = transactionId };
+        var request = new TransactionInfo { TransactionId = transactionId };
 
         _webClient.PerformRequest(request);
         return request.Response;
@@ -173,12 +173,14 @@ public class Transaction : ITransaction
     /// This API returns merchant info and all the available payment options per country for a given service.
     /// This is an important API if you want to build your own payment screens.
     /// </summary>
-    /// <param name="paymentMethodId">Paymentmethod ID</param>
-    /// <returns>FUll response with all service information</returns>
+    /// <param name="paymentMethodId">The id of the payment method (optional)</param>
+    /// <returns>Full response with all service information</returns>
     public Api.Transaction.GetService.Response GetService(PaymentMethodId? paymentMethodId)
     {
-        TransactionGetService request = new TransactionGetService();
-        request.PaymentMethodId = paymentMethodId;
+        var request = new TransactionGetService
+        {
+            PaymentMethodId = paymentMethodId
+        };
 
         _webClient.PerformRequest(request);
         return request.Response;
@@ -210,11 +212,13 @@ public class Transaction : ITransaction
     /// function to approve a suspicious transaction
     /// </summary>
     /// <param name="transactionId">Transaction ID</param>
-    /// <returns>Full response including the message about the approvement</returns>
+    /// <returns>Full response Whether the transaction was approved</returns>
     public Api.Transaction.Approve.Response Approve(string transactionId)
     {
-        TransactionApprove request = new TransactionApprove();
-        request.TransactionId = transactionId;
+        var request = new TransactionApprove
+        {
+            TransactionId = transactionId
+        };
 
         _webClient.PerformRequest(request);
         return request.Response;
