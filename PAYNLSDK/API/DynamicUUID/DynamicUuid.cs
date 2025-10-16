@@ -1,284 +1,314 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using PAYNLSDK.Exceptions;
-using PAYNLSDK.Objects;
 
-namespace PayNLSdk.API.DynamicUUID
+namespace PAYNLSDK.API.DynamicUUID
 {
     /// <summary>
-    /// 
+    /// Provides helpers to create, validate and decode Dynamic UUIDs for Pay.nl.
     /// </summary>
-    /// <remarks>
-    /// original from : https://github.com/paynl/sdk/blob/e8b66a7d1b704be915189b03fa8d8b0c663fe0cb/src/DynamicUUID.php
-    /// </remarks>
-    public class DynamicUUID
+    public static class DynamicUuid
     {
-        private const int REFERENCE_TYPE_STRING = 1;
-        private const int REFERENCE_TYPE_HEX = 0;
+        private const char Prefix = 'b';
+        private const string ServiceIdDigitsPattern = "[^0-9]";
+        private const string UuidAllowedCharactersPattern = "[^0-9a-z]";
+        private static readonly Encoding AsciiEncoding = Encoding.ASCII;
 
-        private static readonly Encoding Encoding = Encoding.UTF8;
-
-        /**
-         * Generate a UUID
-         *
-         * @param string serviceId
-         * @param string secret
-         * @param string reference Your reference to the transaction
-         * @param string padChar The reference will be padded with this character, default '0'
-         * @param int referenceType Define if you are using a string (8 chars) of hex (16 chars)
-         *
-         * @return string The UUID
-         */
-        public string encode(string serviceId, string secret, string reference, char padChar = '0', int referenceType = REFERENCE_TYPE_STRING)
+        /// <summary>
+        /// Generates a Dynamic UUID based on the supplied service id, secret and reference.
+        /// </summary>
+        /// <param name="serviceId">The service id (SL-0000-0000).</param>
+        /// <param name="secret">The 40 character secret in hexadecimal form.</param>
+        /// <param name="reference">The merchant reference.</param>
+        /// <param name="padChar">The pad character for the reference when less than 16 hex characters.</param>
+        /// <param name="referenceType">Indicates whether the reference is plain text or hexadecimal.</param>
+        /// <returns>The generated UUID.</returns>
+        public static string Encode(
+            string serviceId,
+            string secret,
+            string reference,
+            char padChar = '0',
+            DynamicUuidReferenceType referenceType = DynamicUuidReferenceType.String)
         {
-            if (referenceType == REFERENCE_TYPE_STRING)
-            {
-                validateReferenceString(reference);
-                reference = this.asciiToHex(reference);
-            }
-            else if (referenceType == REFERENCE_TYPE_HEX)
-            {
-                validateReferenceHex(reference);
-            }
-            validateSecret(secret);
-            validateServiceId(serviceId);
-            validatePadChar(padChar);
-            var UUIDData = System.Text.RegularExpressions.Regex.Replace(serviceId, "/[^0-9]/", "");
-            UUIDData += reference.ToLowerInvariant().PadLeft(16, padChar);
+            ValidateServiceId(serviceId);
+            ValidateSecret(secret);
+            ValidatePadChar(padChar);
 
-            var hash = MhmacSHA256(UUIDData, secret);
-            var UUID = "b" + hash.Substring(0, 7) + UUIDData;
-            return string.Format(
-                "%08s-%04s-%04s-%04s-%12s",
-                UUID.Substring(0, 8),
-                UUID.Substring(8, 4),
-                UUID.Substring(12, 4),
-                UUID.Substring(16, 4),
-                UUID.Substring(20, 12)
-            );
-        }
+            var referenceHex = ConvertReferenceToHex(reference, referenceType);
+            var sanitizedServiceId = Regex.Replace(serviceId, ServiceIdDigitsPattern, string.Empty);
+            var paddedReference = referenceHex.ToLowerInvariant().PadLeft(16, char.ToLowerInvariant(padChar));
+            var uuidData = sanitizedServiceId + paddedReference;
+            var signature = ComputeSignature(uuidData, secret);
 
-        #region new helper functions
-        public static string MhmacSHA256(string key, string message)
-        {
-            var keyByte = Encoding.GetBytes(key);
-            using (var hmacsha256 = new System.Security.Cryptography.HMACSHA256(keyByte))
-            {
-                hmacsha256.ComputeHash(Encoding.GetBytes(message));
-
-                return ByteToString(hmacsha256.Hash);
-            }
-        }
-
-        private static string ByteToString(byte[] buff)
-        {
-            var sbinary = "";
-            for (int i = 0; i < buff.Length; i++)
-            {
-                sbinary += buff[i].ToString("X2"); /* hex format */
-            }
-            return sbinary;
-        }
-
-        // original from https://stackoverflow.com/a/29950264/97615
-        private static string packHStar(string input)
-        {
-            //only for H32 & H*
-            return Encoding.Default.GetString(FromHex(input));
-        }
-
-        // original from https://stackoverflow.com/a/29950264/97615
-        private static byte[] FromHex(string hex)
-        {
-            hex = hex.Replace("-", "");
-            byte[] raw = new byte[hex.Length / 2];
-            for (int i = 0; i < raw.Length; i++)
-            {
-                raw[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
-            }
-            return raw;
-        }
-        // original from https://stackoverflow.com/a/29950264/97615
-        private static string unpack(string p1, string input)
-        {
-            StringBuilder output = new StringBuilder();
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                string a = Convert.ToInt32(input[i]).ToString("X");
-                output.Append(a);
-            }
-
-            return output.ToString();
+            var uuid = string.Concat(Prefix, signature.Substring(0, 7), uuidData);
+            return FormatUuid(uuid);
         }
 
         /// <summary>
-        /// The equivalent for hexdec in php
+        /// Validates a Dynamic UUID against the provided secret.
         /// </summary>
-        /// <param name="hex"></param>
-        /// <returns></returns>
-        private static int HexToDec(String hex)
+        /// <param name="uuid">The UUID to validate.</param>
+        /// <param name="secret">The 40 character secret in hexadecimal form.</param>
+        /// <returns><c>true</c> if the UUID signature matches the secret; otherwise <c>false</c>.</returns>
+        public static bool Validate(string uuid, string secret)
         {
-            //Int32.Parse(hexString, System.Globalization.NumberStyles.HexNumber);
-            return Convert.ToInt32(hex, 16);
+            ValidateSecret(secret);
+
+            var normalizedUuid = NormalizeUuid(uuid);
+            if (normalizedUuid.Length != 32)
+            {
+                return false;
+            }
+
+            var uuidData = normalizedUuid.Substring(8);
+            var expectedPrefix = Prefix + ComputeSignature(uuidData, secret).Substring(0, 7);
+            return string.Equals(expectedPrefix, normalizedUuid.Substring(0, 8), StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
-        /// The equivalent for dechex in php
+        /// Decodes a UUID to retrieve the service id and reference.
         /// </summary>
-        /// <param name="decValue"></param>
-        /// <returns></returns>
-        private static string DecToHex(int? decValue)
+        /// <param name="uuid">The UUID to decode.</param>
+        /// <param name="secret">Optional secret to validate the UUID before decoding.</param>
+        /// <param name="padChar">The pad character that was used during encoding.</param>
+        /// <param name="referenceType">Indicates whether the reference should be returned as string or hexadecimal.</param>
+        /// <returns>The decoded information.</returns>
+        public static DynamicUuidDecodeResult Decode(
+            string uuid,
+            string secret = null,
+            char padChar = '0',
+            DynamicUuidReferenceType referenceType = DynamicUuidReferenceType.String)
         {
-            return decValue == null ? "" : decValue.Value.ToString("X");
-        }
-
-        #endregion
-
-        private string asciiToHex(string ascii)
-        {
-            var hex = "";
-            for (var i = 0; i < ascii.Length; i++)
+            if (!string.IsNullOrWhiteSpace(secret) && !Validate(uuid, secret))
             {
-                var b = DecToHex((int)ascii[i]).ToUpper();
-                b = new string('0', 2 - b.Length) + b;
-                hex += b;
+                throw new PayNlException("Incorrect signature");
             }
-            return hex;
+
+            var normalizedUuid = NormalizeUuid(uuid);
+            if (normalizedUuid.Length != 32)
+            {
+                throw new PayNlException("Invalid UUID");
+            }
+
+            var uuidData = normalizedUuid.Substring(8);
+            var serviceIdDigits = uuidData.Substring(0, 8);
+            var referenceHex = uuidData.Substring(8);
+
+            var serviceId = $"SL-{serviceIdDigits.Substring(0, 4)}-{serviceIdDigits.Substring(4, 4)}";
+            var trimmedReference = TrimReference(referenceHex, padChar);
+            var reference = referenceType == DynamicUuidReferenceType.String
+                ? ConvertHexToString(trimmedReference)
+                : trimmedReference.ToLowerInvariant();
+
+            return new DynamicUuidDecodeResult(serviceId, reference);
         }
 
-        private void validateSecret(string strSecret)
+        /// <summary>
+        /// Builds QR-code information for Bancontact payments.
+        /// </summary>
+        /// <param name="uuid">The UUID to embed in the QR-code.</param>
+        /// <param name="includeBase64">Indicates whether the base64 encoded QR image should be fetched.</param>
+        /// <param name="imageDownloader">Optional delegate to download image bytes when <paramref name="includeBase64"/> is true.</param>
+        /// <returns>The QR-code information.</returns>
+        public static DynamicUuidQrCodeInfo GetBancontactQr(
+            string uuid,
+            bool includeBase64 = false,
+            Func<Uri, byte[]> imageDownloader = null)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(strSecret, "/^[0-9a-f]{40}/", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+            const string redirectBase = "https://qr.pisp.me/bc/";
+            const string qrTemplate = "https://chart.googleapis.com/chart?cht=qr&chs=260x260&chl=";
+            var qrUri = new Uri(qrTemplate + Uri.EscapeDataString(redirectBase + uuid));
+
+            return CreateQrInfo(redirectBase + uuid, qrUri, includeBase64, imageDownloader);
+        }
+
+        /// <summary>
+        /// Builds QR-code information for iDEAL payments.
+        /// </summary>
+        /// <param name="uuid">The UUID to embed in the QR-code.</param>
+        /// <param name="includeBase64">Indicates whether the base64 encoded QR image should be fetched.</param>
+        /// <param name="imageDownloader">Optional delegate to download image bytes when <paramref name="includeBase64"/> is true.</param>
+        /// <returns>The QR-code information.</returns>
+        public static DynamicUuidQrCodeInfo GetIdealQr(
+            string uuid,
+            bool includeBase64 = false,
+            Func<Uri, byte[]> imageDownloader = null)
+        {
+            const string redirectBase = "https://qr6.ideal.nl/";
+            const string qrTemplate = "https://ideal.pay.nl/qr/";
+            var qrUri = new Uri(qrTemplate + uuid);
+
+            return CreateQrInfo(redirectBase + uuid, qrUri, includeBase64, imageDownloader);
+        }
+
+        private static DynamicUuidQrCodeInfo CreateQrInfo(
+            string url,
+            Uri qrUri,
+            bool includeBase64,
+            Func<Uri, byte[]> imageDownloader)
+        {
+            var qrUrl = qrUri.ToString();
+            var qrBase64 = includeBase64 ? DownloadBase64(qrUri, imageDownloader) : null;
+
+            return new DynamicUuidQrCodeInfo(url, qrUrl, qrBase64);
+        }
+
+        private static string DownloadBase64(Uri uri, Func<Uri, byte[]> imageDownloader)
+        {
+            var downloader = imageDownloader ?? DefaultImageDownloader;
+            var bytes = downloader(uri);
+            return Convert.ToBase64String(bytes);
+        }
+
+        private static byte[] DefaultImageDownloader(Uri uri)
+        {
+            using var httpClient = new HttpClient();
+            return httpClient.GetByteArrayAsync(uri).GetAwaiter().GetResult();
+        }
+
+        private static string ConvertReferenceToHex(string reference, DynamicUuidReferenceType referenceType)
+        {
+            if (referenceType == DynamicUuidReferenceType.Hex)
+            {
+                ValidateReferenceHex(reference);
+                return reference.ToLowerInvariant();
+            }
+
+            ValidateReferenceString(reference);
+
+            var builder = new StringBuilder(reference.Length * 2);
+            foreach (var character in reference)
+            {
+                builder.Append(((int)character).ToString("x2"));
+            }
+
+            return builder.ToString();
+        }
+
+        private static string ConvertHexToString(string hex)
+        {
+            if (hex.Length % 2 != 0)
+            {
+                throw new PayNlException("Invalid reference length");
+            }
+
+            var bytes = HexStringToBytes(hex);
+            return AsciiEncoding.GetString(bytes);
+        }
+
+        private static string TrimReference(string referenceHex, char padChar)
+        {
+            if (referenceHex.Length == 0)
+            {
+                return referenceHex;
+            }
+
+            var padString = new string(char.ToLowerInvariant(padChar), 1);
+            return referenceHex.TrimStart(padString.ToCharArray());
+        }
+
+        private static string ComputeSignature(string uuidData, string secret)
+        {
+            var keyBytes = AsciiEncoding.GetBytes(secret.ToLowerInvariant());
+            var dataBytes = AsciiEncoding.GetBytes(uuidData.ToLowerInvariant());
+
+            using var hmac = new System.Security.Cryptography.HMACSHA256(keyBytes);
+            var hashBytes = hmac.ComputeHash(dataBytes);
+            return BytesToHex(hashBytes);
+        }
+
+        private static string BytesToHex(IReadOnlyCollection<byte> bytes)
+        {
+            var builder = new StringBuilder(bytes.Count * 2);
+            foreach (var b in bytes)
+            {
+                builder.Append(b.ToString("x2"));
+            }
+
+            return builder.ToString();
+        }
+
+        private static byte[] HexStringToBytes(string hex)
+        {
+            if (hex == null || hex.Length % 2 != 0)
+            {
+                throw new PayNlException("Invalid hex string");
+            }
+
+            if (hex.Length == 0)
+            {
+                return Array.Empty<byte>();
+            }
+
+            var bytes = new byte[hex.Length / 2];
+            for (var index = 0; index < bytes.Length; index++)
+            {
+                var byteValue = hex.Substring(index * 2, 2);
+                bytes[index] = Convert.ToByte(byteValue, 16);
+            }
+
+            return bytes;
+        }
+
+        private static string NormalizeUuid(string uuid)
+        {
+            return Regex
+                .Replace(uuid ?? string.Empty, UuidAllowedCharactersPattern, string.Empty, RegexOptions.IgnoreCase)
+                .ToLowerInvariant();
+        }
+
+        private static string FormatUuid(string uuid)
+        {
+            return string.Join(
+                "-",
+                uuid.Substring(0, 8),
+                uuid.Substring(8, 4),
+                uuid.Substring(12, 4),
+                uuid.Substring(16, 4),
+                uuid.Substring(20, 12));
+        }
+
+        private static void ValidateSecret(string secret)
+        {
+            if (string.IsNullOrWhiteSpace(secret) || !Regex.IsMatch(secret, "^[0-9a-fA-F]{40}$"))
             {
                 throw new PayNlException("Invalid secret");
             }
         }
-        private void validateServiceId(string strServiceId)
+
+        private static void ValidateServiceId(string serviceId)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(strServiceId, "/^SL-[0-9]{4}-[0-9]{4}/"))
+            if (string.IsNullOrWhiteSpace(serviceId) || !Regex.IsMatch(serviceId, "^SL-[0-9]{4}-[0-9]{4}$"))
             {
                 throw new PayNlException("Invalid service ID");
             }
         }
-        private void validateReferenceString(string strReference)
+
+        private static void ValidateReferenceString(string reference)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(strReference, "/^[0-9a-zA-Z]{0,8}/", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+            if (reference == null || !Regex.IsMatch(reference, "^[0-9a-zA-Z]{0,8}$"))
             {
                 throw new PayNlException("Invalid reference: only alphanumeric chars are allowed, up to 8 chars long");
             }
         }
-        private void validateReferenceHex(string strReference)
+
+        private static void ValidateReferenceHex(string reference)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(strReference, "/^[0-9a-f]{0,16}/", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+            if (reference == null || !Regex.IsMatch(reference, "^[0-9a-fA-F]{0,16}$"))
             {
-                throw new PayNlException("Invalid reference: only alphanumeric chars are allowed, up to 16 chars long");
+                throw new PayNlException("Invalid reference: only hexadecimal chars are allowed, up to 16 chars long");
             }
         }
-        private void validatePadChar(char strPadChar)
+
+        private static void ValidatePadChar(char padChar)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(new string(new[] { strPadChar }), "/^[a-z0-9]{1}/", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+            if (!Regex.IsMatch(new string(padChar, 1), "^[a-zA-Z0-9]{1}$"))
             {
                 throw new PayNlException("Invalid pad char");
             }
-        }
-
-        /**
-         * Get url and qr-image for bancontact
-         * @param UUID
-         * @param withBase64 True if you need a base64 image
-         * @return array url, QRUrl and QRBase64
-         */
-        public Dictionary<string, string> bancontact(string UUID, bool withBase64 = false)
-        {
-            string qrUrl = "https://chart.googleapis.com/chart?cht=qr&chs=260x260&chl=https://qr.pisp.me/bc/" + UUID;
-            var result = new Dictionary<string, string>()
-        {
-            {"url" , "https://qr.pisp.me/bc/" + UUID},
-            { "QRUrl" , qrUrl}
-
-        };
-            if (withBase64) result["QRBase64"] = base64_encode(file_get_contents(qrUrl));
-            return result;
-        }
-
-        /**
-         * Get url and qr-image for ideal
-         *
-         * @param UUID
-         * @param withBase64 True if you need a base64 image
-         * @return array url, QRUrl and QRBase64
-         */
-        public new Dictionary<string, string> ideal(string UUID, bool withBase64 = false)
-        {
-            var qrUrl = "https://ideal.pay.nl/qr/" + UUID;
-            var result = new Dictionary<string, string>()
-        {
-            {"url" , "https://qr6.ideal.nl/" + UUID},
-            { "QRUrl" , qrUrl}
-
-        };
-
-            if (withBase64) result["QRBase64"] = base64_encode(file_get_contents(qrUrl));
-            return result;
-        }
-
-        /**
-         * Decode a UUID
-         *
-         * @param string uuid The UUID to decode
-         * @param string|null secret If supplied the uuid will be validated before decoding.
-         * @param string padChar The reference will be padded with this character, default '0'
-         *
-         * @return array Array with serviceId and reference
-         * @throws Error
-         */
-        public Dictionary<string, string> decode(string uuid, string secret = null, char padChar = '0', int referenceType = REFERENCE_TYPE_STRING)
-        {
-            if (string.IsNullOrWhiteSpace(secret) == false)
-            {
-                validateSecret(secret);
-                var isValid = this.validate(uuid, secret);
-                if (!isValid)
-                {
-                    throw new PayNlException("Incorrect signature");
-                }
-            }
-
-            var uuidData = System.Text.RegularExpressions.Regex.Replace(uuid, "/[^0-9a-z]/", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            uuidData = uuidData.Substring(8);
-            var serviceId = "SL-" + uuidData.Substring(0, 4) + '-' + uuidData.Substring(4, 4);
-            var reference = uuidData.Substring(8);
-            reference = reference.TrimStart(padChar); // trim leading characters
-            if (referenceType == REFERENCE_TYPE_STRING)
-            {
-                reference = packHStar(reference);
-            }
-
-            return new Dictionary<string, string>{
-            { "serviceId" , serviceId},
-            { "reference", reference}
-        };
-        }
-
-        /**
-         * Validate a UUID with supplied secret
-         *
-         * @param string uuid
-         * @param string secret
-         *
-         * @return bool
-         */
-        public bool validate(string uuid, string secret)
-        {
-            var uuidData = System.Text.RegularExpressions.Regex.Replace(uuid, "/[^0-9a-z]/", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            uuidData = uuidData.Substring(8);
-            var hash = MhmacSHA256(secret, uuidData);
-            var checksum = "b" + hash.Substring(0, 7);
-            return checksum == uuid.Substring(0, 8);
         }
     }
 }
