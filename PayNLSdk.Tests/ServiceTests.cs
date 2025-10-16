@@ -1,46 +1,83 @@
 using NSubstitute;
 using PAYNLSDK;
+using PAYNLSDK.API;
 using PAYNLSDK.Net;
+using Shouldly;
 using Xunit;
 
-namespace PayNLSdk.Tests
+using ServiceGetCategoriesRequest = PAYNLSDK.API.Service.GetCategories.Request;
+
+namespace PayNLSdk.Tests;
+
+public class ServiceTests
 {
-    public class ServiceTests
+    private readonly IClient _client;
+    private readonly Service _sut;
+
+    public ServiceTests()
     {
-        private readonly IClient _client;
-        private readonly Service _sut;
+        _client = Substitute.For<IClient>();
+        _sut = new Service(_client);
+    }
 
-        public ServiceTests()
+    [Fact]
+    public void GetCategories_ShouldRequestAllCategoriesWhenPaymentOptionMissing()
+    {
+        // Arrange
+        const string rawResponse = """
+[
+  {
+    "id": "SC-1",
+    "name": "Retail"
+  }
+]
+""";
+        _client.PerformRequest(Arg.Do<RequestBase>(request =>
         {
-            _client = Substitute.For<IClient>();
-            _sut = new Service(_client);
-        }
+            request.ShouldBeOfType<ServiceGetCategoriesRequest>();
+            request.RawResponse = rawResponse;
+        }));
 
-        [Fact]
-        public void GetCategories_withoutParams()
+        // Act
+        var response = _sut.GetCategories();
+
+        // Assert
+        _client.Received(1).PerformRequest(Arg.Any<ServiceGetCategoriesRequest>());
+        response.ShouldNotBeNull();
+        response.ServiceCategories.ShouldNotBeNull();
+        response.ServiceCategories.Length.ShouldBe(1);
+        response.ServiceCategories[0].Id.ShouldBe("SC-1");
+        response.ServiceCategories[0].Name.ShouldBe("Retail");
+    }
+
+    [Fact]
+    public void GetCategories_ShouldForwardPaymentOptionIdToRequest()
+    {
+        // Arrange
+        ServiceGetCategoriesRequest? capturedRequest = null;
+        const string rawResponse = """
+[
+  {
+    "id": "SC-2",
+    "name": "Hospitality"
+  }
+]
+""";
+        _client.PerformRequest(Arg.Do<RequestBase>(request =>
         {
-            // Arrange
+            capturedRequest = request.ShouldBeOfType<ServiceGetCategoriesRequest>();
+            request.RawResponse = rawResponse;
+        }));
 
-            // Act
-            _sut.GetCategories();
+        // Act
+        var response = _sut.GetCategories(paymentOptionId: 42);
 
-            // Assert
-            _client.Received(1).PerformRequest(Arg.Any<PAYNLSDK.API.Service.GetCategories.Request>());
-            // Assert.IsNotNull(result); // UNTESTABLE CURRENTLY
-        }
-
-        [Fact]
-        public void GetCategories_withParams()
-        {
-            // Arrange
-            const int paymentOptionId = 1;
-
-            // Act
-            _sut.GetCategories(paymentOptionId);
-
-            // Assert
-            _client.Received(1).PerformRequest(Arg.Any<PAYNLSDK.API.Service.GetCategories.Request>());
-            // Assert.IsNotNull(result); // UNTESTABLE CURRENTLY
-        }
+        // Assert
+        _client.Received(1).PerformRequest(Arg.Any<ServiceGetCategoriesRequest>());
+        capturedRequest.ShouldNotBeNull();
+        capturedRequest!.PaymentOptionId.ShouldBe(42);
+        response.ShouldNotBeNull();
+        response.ServiceCategories.ShouldNotBeNull();
+        response.ServiceCategories[0].Name.ShouldBe("Hospitality");
     }
 }
