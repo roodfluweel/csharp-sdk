@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
+using PayNlSdk.Converters;
 using System;
 
-namespace PayNLSdk.Objects;
+namespace PayNlSdk.Objects;
 
 /// <summary>
 /// Payment Transaction Information

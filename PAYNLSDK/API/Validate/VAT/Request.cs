@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Validate.VAT;
+namespace PayNlSdk.Api.Validate.VAT;
 
 /// <summary>
 /// A request to validate a VAT number

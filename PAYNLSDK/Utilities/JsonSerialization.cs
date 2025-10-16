@@ -1,9 +1,8 @@
-using System;
+using PayNlSdk.Converters;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
 
-namespace PayNLSdk.Utilities;
+namespace PayNlSdk.Utilities;
 
 internal static class JsonSerialization
 {
@@ -61,11 +60,12 @@ internal static class JsonSerialization
             NumberHandling = JsonNumberHandling.AllowReadingFromString
         };
 
-        options.Converters.Add(new BooleanConverter());
-        options.Converters.Add(new DMYConverter());
-        options.Converters.Add(new YMDConverter());
-        options.Converters.Add(new YMDHISConverter());
-        options.Converters.Add(new ErrorIdConverter());
+        // Use factories that can handle both nullable and non-nullable types
+        options.Converters.Add(new BooleanConverterFactory());
+        options.Converters.Add(new DMYConverterFactory());
+        options.Converters.Add(new YMDConverterFactory());
+        options.Converters.Add(new YMDHISConverterFactory());
+        options.Converters.Add(new ErrorIdConverterFactory());
         options.Converters.Add(new CountryOptionConverter());
         options.Converters.Add(new JsonStringEnumConverter());
         options.Converters.Add(new DecimalConverterFactory());

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Alliance.GetMerchant;
+namespace PayNlSdk.Api.Alliance.GetMerchant;
 
 /// <summary>
 /// The result of the Alliance/GetMerchant call

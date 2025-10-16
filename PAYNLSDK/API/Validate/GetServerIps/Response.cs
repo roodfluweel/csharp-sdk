@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Validate.GetServerIps;
+namespace PayNlSdk.Api.Validate.GetServerIps;
 
 /// <summary>
 /// Response object for the <see cref="Request"/>.

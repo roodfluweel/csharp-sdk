@@ -1,15 +1,15 @@
 using NSubstitute;
-using PAYNLSDK;
-using PAYNLSDK.Net;
-using PAYNLSDK.API;
+using PayNlSdk;
+using PayNlSdk.Net;
+using PayNlSdk.Api;
 using Shouldly;
 using Xunit;
 
-using PaymentProfileGetRequest = PAYNLSDK.API.PaymentProfile.Get.Request;
-using PaymentProfileGetAllRequest = PAYNLSDK.API.PaymentProfile.GetAll.Request;
-using PaymentProfileGetAvailableRequest = PAYNLSDK.API.PaymentProfile.GetAvailable.Request;
+using PaymentProfileGetRequest = PayNlSdk.Api.PaymentProfile.Get.Request;
+using PaymentProfileGetAllRequest = PayNlSdk.Api.PaymentProfile.GetAll.Request;
+using PaymentProfileGetAvailableRequest = PayNlSdk.Api.PaymentProfile.GetAvailable.Request;
 
-namespace PayNLSdk.Tests;
+namespace PayNlSdk.Tests;
 
 public class PaymentProfileTests
 {

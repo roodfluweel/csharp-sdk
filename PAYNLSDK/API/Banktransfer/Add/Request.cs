@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Banktransfer.Add;
+namespace PayNlSdk.Api.Banktransfer.Add;
 
 /// <summary>
 /// A new ADD request for the banktransfer (payment option id 136)

@@ -1,9 +1,9 @@
-using PAYNLSDK.Enums;
+using PayNlSdk.Enums;
 using Shouldly;
 using System;
 using Xunit;
 
-namespace PayNLSdk.Tests.Enums
+namespace PayNlSdk.Tests.Enums
 {
     public class EnumUtilTests
     {

@@ -1,13 +1,13 @@
 using System;
 using NSubstitute;
-using PAYNLSDK;
-using PAYNLSDK.API;
-using PAYNLSDK.Net;
-using PayNLSdk.API.Statistics.GetManagement;
+using PayNlSdk;
+using PayNlSdk.Api;
+using PayNlSdk.Net;
+using PayNlSdk.Api.Statistics.GetManagement;
 using Shouldly;
 using Xunit;
 
-namespace PayNLSdk.Tests;
+namespace PayNlSdk.Tests;
 
 public class StatisticsTests
 {

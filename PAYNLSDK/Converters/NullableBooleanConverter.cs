@@ -5,13 +5,13 @@ using System.Text.Json.Serialization;
 namespace PayNlSdk.Converters;
 
 /// <summary>
-/// A boolean json converter for System.Text.Json that supports numeric and string payloads.
+/// A nullable boolean json converter for System.Text.Json that supports numeric and string payloads.
 /// </summary>
-internal class BooleanConverter : JsonConverter<bool>
+internal class NullableBooleanConverter : JsonConverter<bool?>
 {
-    public override bool Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override bool? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        bool? value = reader.TokenType switch
+        return reader.TokenType switch
         {
             JsonTokenType.True => true,
             JsonTokenType.False => false,
@@ -20,23 +20,17 @@ internal class BooleanConverter : JsonConverter<bool>
             JsonTokenType.Null => null,
             _ => throw new JsonException($"Unexpected token '{reader.TokenType}' when parsing boolean.")
         };
-
-        if (Nullable.GetUnderlyingType(typeToConvert) != null)
-        {
-            return value ?? false;
-        }
-
-        if (!value.HasValue)
-        {
-            throw new JsonException("Cannot convert null to non-nullable boolean.");
-        }
-
-        return value.Value;
     }
 
-    public override void Write(Utf8JsonWriter writer, bool value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, bool? value, JsonSerializerOptions options)
     {
-        writer.WriteBooleanValue(value);
+        if (value == null)
+        {
+            writer.WriteNullValue();
+            return;
+        }
+
+        writer.WriteBooleanValue(value.Value);
     }
 
     private static bool? ParseString(string? value)

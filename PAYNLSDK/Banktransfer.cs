@@ -1,7 +1,7 @@
-﻿using PayNLSdk.Api.Banktransfer.Add;
-using PayNLSdk.Net;
+﻿using PayNlSdk.Api.Banktransfer.Add;
+using PayNlSdk.Net;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// the Bank Transfer API

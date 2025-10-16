@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// A DateTime abstraction to make it easier to unittest DateTime.Now

@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
+using PayNlSdk.Converters;
 
-namespace PayNLSdk.Api.Validate.IBAN;
+namespace PayNlSdk.Api.Validate.IBAN;
 
 /// <summary>
 /// The response of <see cref="Request"/>.

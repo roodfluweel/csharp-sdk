@@ -1,10 +1,10 @@
 using System.Reflection;
-using PAYNLSDK.API;
-using PAYNLSDK.Net;
+using PayNlSdk.Api;
+using PayNlSdk.Net;
 using Shouldly;
 using Xunit;
 
-namespace PayNLSdk.Tests.Net;
+namespace PayNlSdk.Tests.Net;
 
 public class ApiTokenClientTests
 {

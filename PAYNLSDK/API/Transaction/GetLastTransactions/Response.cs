@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Objects;
+using PayNlSdk.Objects;
 
-namespace PayNLSdk.Api.Transaction.GetLastTransactions;
+namespace PayNlSdk.Api.Transaction.GetLastTransactions;
 
 public class Response : ResponseBase
 {

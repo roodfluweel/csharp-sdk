@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Validate.KVK;
+namespace PayNlSdk.Api.Validate.KVK;
 
 /// <summary>
 /// Request to validate the KVK number

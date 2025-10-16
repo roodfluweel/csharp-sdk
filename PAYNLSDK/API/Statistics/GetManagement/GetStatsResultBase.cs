@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using System;
 using System.Globalization;
 
-namespace PayNLSdk.Api.Statistics.GetManagement;
+namespace PayNlSdk.Api.Statistics.GetManagement;
 
 /// <summary>
 /// Class GetStatsResultBase.

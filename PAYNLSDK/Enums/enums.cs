@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace PayNLSdk.Enums;
+namespace PayNlSdk.Enums;
 
 /// <summary>
 /// Utility to convert Enum Values to EnumMember Values and vice versa.

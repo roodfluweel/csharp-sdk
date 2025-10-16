@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using System;
 
-namespace PayNLSdk.Objects;
+namespace PayNlSdk.Objects;
 
 /// <summary>
 /// Refund Info Details

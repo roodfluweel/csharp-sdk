@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Refund.Add;
+namespace PayNlSdk.Api.Refund.Add;
 
 /// <summary>
 /// A refund, not based on a previous transaction, but to another IBAN.

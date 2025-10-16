@@ -16,6 +16,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PAYNLSDK\PayNlSdk.csproj" />
+    <ProjectReference Include="..\PayNlSdk\PayNlSdk.csproj" />
   </ItemGroup>
 </Project>

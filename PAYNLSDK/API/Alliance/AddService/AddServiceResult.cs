@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace PayNLSdk.Api.Alliance.AddService;
+namespace PayNlSdk.Api.Alliance.AddService;
 
 /// <summary>
 ///     Class result class for a Add Service call

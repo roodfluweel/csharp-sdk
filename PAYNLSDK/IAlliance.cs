@@ -1,10 +1,10 @@
-﻿using PayNLSdk.Api.Alliance.AddInvoice;
-using PayNLSdk.Api.Alliance.AddMerchant;
-using PayNLSdk.Api.Alliance.AddService;
-using PayNLSdk.Api.Alliance.GetMerchant;
-using Request = PayNLSdk.Api.Alliance.GetMerchant.Request;
+﻿using PayNlSdk.Api.Alliance.AddInvoice;
+using PayNlSdk.Api.Alliance.AddMerchant;
+using PayNlSdk.Api.Alliance.AddService;
+using PayNlSdk.Api.Alliance.GetMerchant;
+using Request = PayNlSdk.Api.Alliance.GetMerchant.Request;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// Alliance methods

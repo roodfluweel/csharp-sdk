@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Enums;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Enums;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Transaction.GetService;
+namespace PayNlSdk.Api.Transaction.GetService;
 
 public class Request : RequestBase
 {

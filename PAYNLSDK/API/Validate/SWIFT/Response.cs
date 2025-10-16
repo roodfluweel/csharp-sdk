@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
+using PayNlSdk.Converters;
 
-namespace PayNLSdk.Api.Validate.SWIFT;
+namespace PayNlSdk.Api.Validate.SWIFT;
 
 /// <summary>
 /// Response of the <see cref="Request"/>.

@@ -1,13 +1,13 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Converters;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Refund.Transaction;
+namespace PayNlSdk.Api.Refund.Transaction;
 
 /// <summary>
 /// A product specific refund for Products like Sofort & Afterpay

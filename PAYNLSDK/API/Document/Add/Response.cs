@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace PayNLSdk.Api.Document.Add;
+namespace PayNlSdk.Api.Document.Add;
 
 /// <summary>
 /// The result whether the Upload of one or multiple files to a document for a merchant or account has completed

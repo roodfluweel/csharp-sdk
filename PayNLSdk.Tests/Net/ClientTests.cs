@@ -1,27 +1,36 @@
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using PayNlSdk.Api;
+using PayNlSdk.Net;
+using Shouldly;
 using System;
 using System.Collections.Specialized;
 using System.Reflection;
-using PAYNLSDK.API;
-using PAYNLSDK.Net;
-using Shouldly;
 using Xunit;
 
-namespace PayNLSdk.Tests.Net;
+namespace PayNlSdk.Tests.Net;
 
 public class ClientTests
 {
+    private readonly ILogger<Client> _logger;
+
+    public ClientTests()
+    {
+        _logger = NullLogger<Client>.Instance;
+    }
+
     [Fact]
     public void ClientVersion_ShouldExposeSdkVersion()
     {
         // Arrange
         var configuration = new PayNlConfiguration("SL-1234-5678", "token");
-        var client = new Client(configuration);
+        var client = new Client(configuration, _logger);
 
         // Act
         var version = client.ClientVersion;
 
         // Assert
-        version.ShouldBe("1.1.0.0");
+        version.ShouldBe("2");
     }
 
     [Fact]
@@ -29,7 +38,7 @@ public class ClientTests
     {
         // Arrange
         var configuration = new PayNlConfiguration("SL-1234-5678", "token");
-        var client = new Client(configuration);
+        var client = new Client(configuration, _logger);
 
         // Act
         var userAgent = client.UserAgent;
@@ -43,7 +52,7 @@ public class ClientTests
     {
         // Arrange
         var configuration = new PayNlConfiguration("SL-1234-5678", "api token");
-        var client = new Client(configuration);
+        var client = new Client(configuration, _logger);
         var request = new ReflectionFriendlyRequest(
             new NameValueCollection { { "custom key", "value with spaces" } },
             requiresApiToken: true,
@@ -61,7 +70,7 @@ public class ClientTests
     {
         // Arrange
         var configuration = new PayNlConfiguration("SL-1234-5678", "token");
-        var client = new Client(configuration);
+        var client = new Client(configuration, _logger);
         var request = new ReflectionFriendlyRequest(new NameValueCollection());
 
         // Act

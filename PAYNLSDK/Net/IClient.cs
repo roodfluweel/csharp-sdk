@@ -1,6 +1,6 @@
-﻿using PayNLSdk.Api;
+﻿using PayNlSdk.Api;
 
-namespace PayNLSdk.Net;
+namespace PayNlSdk.Net;
 
 /// <summary>
 /// The wrapper for performing HTTP REST calls to the api

@@ -1,4 +1,4 @@
-﻿namespace PayNLSdk.Api;
+﻿namespace PayNlSdk.Api;
 
 /// <inheritdoc />
 public class PayNlConfiguration : IPayNlConfiguration

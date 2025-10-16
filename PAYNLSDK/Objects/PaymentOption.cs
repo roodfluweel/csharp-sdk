@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Enums;
+using PayNlSdk.Enums;
 using System.Collections.Generic;
 
-namespace PayNLSdk.Objects;
+namespace PayNlSdk.Objects;
 
 /// <summary>
 /// Payment Option information base

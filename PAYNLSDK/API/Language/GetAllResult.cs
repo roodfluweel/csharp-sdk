@@ -1,4 +1,4 @@
-﻿namespace PayNLSdk.Api.Language;
+﻿namespace PayNlSdk.Api.Language;
 
 public class GetAllResult
 {

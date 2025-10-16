@@ -1,9 +1,9 @@
-﻿using PayNLSdk.Api.PaymentMethod.Get;
-using PayNLSdk.Net;
-using PaymentMethodGet = PayNLSdk.Api.PaymentMethod.Get.Request;
-using PaymentMethodGetAll = PayNLSdk.Api.PaymentMethod.GetAll.Request;
+﻿using PayNlSdk.Api.PaymentMethod.Get;
+using PayNlSdk.Net;
+using PaymentMethodGet = PayNlSdk.Api.PaymentMethod.Get.Request;
+using PaymentMethodGetAll = PayNlSdk.Api.PaymentMethod.GetAll.Request;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// Generic Payment Method service helper class.

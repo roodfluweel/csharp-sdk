@@ -1,8 +1,5 @@
-using System;
+namespace PayNlSdk.Converters;
 
-namespace PayNLSdk.Converters;
-
-internal class TaxClassConverter : EnumConversionBase
+internal class TaxClassConverter : EnumConversionBase<Enums.TaxClass>
 {
-    public override Type EnumType => typeof(Enums.TaxClass);
 }

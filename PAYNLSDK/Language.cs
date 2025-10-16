@@ -1,9 +1,9 @@
-﻿using PayNLSdk.Api.Alliance.GetMerchant;
-using PayNLSdk.Api.Language;
-using PayNLSdk.Net;
-using PayNLSdk.Utilities;
+﻿using PayNlSdk.Api.Alliance.GetMerchant;
+using PayNlSdk.Api.Language;
+using PayNlSdk.Net;
+using PayNlSdk.Utilities;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// This is a part of the alliance SDK

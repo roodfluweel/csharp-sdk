@@ -1,4 +1,4 @@
-﻿namespace PayNLSdk.Api.PaymentMethod.Get;
+﻿namespace PayNlSdk.Api.PaymentMethod.Get;
 
 public class Response : ResponseBase
 {

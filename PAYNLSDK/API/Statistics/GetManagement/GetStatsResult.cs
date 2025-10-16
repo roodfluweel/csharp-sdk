@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Statistics.GetManagement;
+namespace PayNlSdk.Api.Statistics.GetManagement;
 
 /// <summary>
 /// The result of the Statistics/Management call

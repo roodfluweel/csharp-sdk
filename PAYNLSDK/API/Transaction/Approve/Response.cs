@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace PayNLSdk.Api.Transaction.Approve;
+namespace PayNlSdk.Api.Transaction.Approve;
 
 public class Response : ResponseBase
 {

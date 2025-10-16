@@ -1,9 +1,9 @@
 using System;
-using PayNLSdk.ExtentionMethods;
+using PayNlSdk.ExtentionMethods;
 using Shouldly;
 using Xunit;
 
-namespace PayNLSdk.Tests.ExtentionMethods
+namespace PayNlSdk.Tests.ExtentionMethods
 {
     public class DateTimeTests
     {

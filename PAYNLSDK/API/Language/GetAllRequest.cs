@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Language;
+namespace PayNlSdk.Api.Language;
 
 public class GetAllRequest : RequestBase
 {

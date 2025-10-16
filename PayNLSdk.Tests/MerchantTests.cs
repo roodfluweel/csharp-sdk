@@ -1,13 +1,12 @@
-using PAYNLSDK;
-using Shouldly;
-using Xunit;
 using NSubstitute;
-using PAYNLSDK.Net;
+using PayNlSdk.Api;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Net;
+using Shouldly;
 using System;
-using PAYNLSDK.API;
-using PAYNLSDK.Exceptions;
+using Xunit;
 
-namespace PayNLSdk.Tests;
+namespace PayNlSdk.Tests;
 
 public class MerchantTests
 {
@@ -28,7 +27,7 @@ public class MerchantTests
             }
             """);
         var merchant = new Merchant(client);
-        var request = new PayNLSdk.API.Merchant.Clearing.Request { Amount = 10, MerchantId = "M-1" };
+        var request = new PayNlSdk.Api.Merchant.Clearing.Request { Amount = 10, MerchantId = "M-1" };
 
         // Act
         var response = merchant.AddClearing(request);
@@ -55,7 +54,7 @@ public class MerchantTests
         """;
         var client = CreateClient(rawResponse);
         var merchant = new Merchant(client);
-        var request = new PAYNLSDK.API.Merchant.Add.Request();
+        var request = new PayNlSdk.Api.Merchant.Add.Request();
 
         // Act
         var response = merchant.Create(request);

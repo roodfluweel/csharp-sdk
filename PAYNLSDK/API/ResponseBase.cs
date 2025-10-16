@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Utilities;
-using PayNLSdk.Objects;
+using PayNlSdk.Utilities;
+using PayNlSdk.Objects;
 
-namespace PayNLSdk.Api;
+namespace PayNlSdk.Api;
 
 /// <summary>
 /// A abstract base class for every response from the API

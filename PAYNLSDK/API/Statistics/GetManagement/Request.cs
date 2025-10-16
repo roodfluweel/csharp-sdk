@@ -1,12 +1,12 @@
-﻿using PayNLSdk.Exceptions;
-using PayNLSdk.ExtentionMethods;
-using PayNLSdk.Utilities;
+﻿using PayNlSdk.Exceptions;
+using PayNlSdk.ExtentionMethods;
+using PayNlSdk.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Statistics.GetManagement;
+namespace PayNlSdk.Api.Statistics.GetManagement;
 
 /// <summary>
 /// The parameters to be requested when requesting the management statistics

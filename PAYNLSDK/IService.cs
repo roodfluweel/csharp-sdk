@@ -1,6 +1,6 @@
-﻿using PayNLSdk.Api.Service.GetCategories;
+﻿using PayNlSdk.Api.Service.GetCategories;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// A 

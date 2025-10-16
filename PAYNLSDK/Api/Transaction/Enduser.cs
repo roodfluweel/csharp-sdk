@@ -1,12 +1,12 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Api.Transaction.Info;
-using PayNLSdk.Converters;
-using PayNLSdk.Enums;
-using PayNLSdk.Objects;
+using PayNlSdk.Api.Transaction.Info;
+using PayNlSdk.Converters;
+using PayNlSdk.Enums;
+using PayNlSdk.Objects;
 using System;
 
-namespace PayNLSdk.Api.Transaction;
+namespace PayNlSdk.Api.Transaction;
 
 /// <summary>
 /// Provides details of the EndUser.

@@ -2,7 +2,7 @@
 
 // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Global
 
-namespace PayNLSdk.Utilities;
+namespace PayNlSdk.Utilities;
 
 internal class ParameterValidator
 {

@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
-using PayNLSdk.Enums;
+using PayNlSdk.Converters;
+using PayNlSdk.Enums;
 
-namespace PayNLSdk.Objects;
+namespace PayNlSdk.Objects;
 
 /// <summary>
 /// Ordered product information

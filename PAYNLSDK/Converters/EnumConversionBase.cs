@@ -2,27 +2,14 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace PayNLSdk.Converters;
+namespace PayNlSdk.Converters;
 
-internal abstract class EnumConversionBase : JsonConverter
+internal abstract class EnumConversionBase<T> : JsonConverter<T> where T : struct, Enum
 {
-    public abstract Type EnumType { get; }
-
-    public override bool CanConvert(Type typeToConvert)
-    {
-        var targetType = Nullable.GetUnderlyingType(typeToConvert) ?? typeToConvert;
-        return EnumType == targetType;
-    }
-
-    public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType == JsonTokenType.Null)
         {
-            if (Nullable.GetUnderlyingType(typeToConvert) != null)
-            {
-                return null;
-            }
-
             throw new JsonException("Cannot convert null to enum.");
         }
 
@@ -34,13 +21,42 @@ internal abstract class EnumConversionBase : JsonConverter
         var value = reader.GetString();
         if (string.IsNullOrEmpty(value))
         {
-            return Nullable.GetUnderlyingType(typeToConvert) != null ? null : Activator.CreateInstance(EnumType);
+            return default(T);
         }
 
-        return Enums.EnumUtil.ToEnum(value, EnumType);
+        return (T)Enums.EnumUtil.ToEnum(value, typeof(T));
     }
 
-    public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(Enums.EnumUtil.ToEnumString(value, typeof(T)));
+    }
+}
+
+internal abstract class NullableEnumConversionBase<T> : JsonConverter<T?> where T : struct, Enum
+{
+    public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        if (reader.TokenType == JsonTokenType.Null)
+        {
+            return null;
+        }
+
+        if (reader.TokenType != JsonTokenType.String)
+        {
+            throw new JsonException($"Unexpected token '{reader.TokenType}' when parsing enum.");
+        }
+
+        var value = reader.GetString();
+        if (string.IsNullOrEmpty(value))
+        {
+            return null;
+        }
+
+        return (T)Enums.EnumUtil.ToEnum(value, typeof(T));
+    }
+
+    public override void Write(Utf8JsonWriter writer, T? value, JsonSerializerOptions options)
     {
         if (value == null)
         {
@@ -48,6 +64,6 @@ internal abstract class EnumConversionBase : JsonConverter
             return;
         }
 
-        writer.WriteStringValue(Enums.EnumUtil.ToEnumString(value, EnumType));
+        writer.WriteStringValue(Enums.EnumUtil.ToEnumString(value, typeof(T)));
     }
 }

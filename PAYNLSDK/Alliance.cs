@@ -1,13 +1,13 @@
-﻿using PayNLSdk.Api.Alliance.AddInvoice;
-using PayNLSdk.Api.Alliance.AddMerchant;
-using PayNLSdk.Api.Alliance.AddService;
-using PayNLSdk.Api.Alliance.GetMerchant;
-using PayNLSdk.Net;
+﻿using PayNlSdk.Api.Alliance.AddInvoice;
+using PayNlSdk.Api.Alliance.AddMerchant;
+using PayNlSdk.Api.Alliance.AddService;
+using PayNlSdk.Api.Alliance.GetMerchant;
+using PayNlSdk.Net;
 using System.Diagnostics.CodeAnalysis;
-using Request = PayNLSdk.Api.Alliance.GetMerchant.Request;
-using PayNLSdk.Utilities;
+using Request = PayNlSdk.Api.Alliance.GetMerchant.Request;
+using PayNlSdk.Utilities;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// This is a part of the alliance SDK

@@ -1,18 +1,18 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Validate.IBAN;
+namespace PayNlSdk.Api.Validate.IBAN;
 
 /// <inheritdoc />
 /// <summary>
 /// Validate Iban Request
-/// Implements the <see cref="T:PayNLSdk.Api.RequestBase" />
+/// Implements the <see cref="T:PayNlSdk.Api.RequestBase" />
 /// </summary>
-/// <seealso cref="T:PayNLSdk.Api.RequestBase" />
+/// <seealso cref="T:PayNlSdk.Api.RequestBase" />
 public class Request : RequestBase
 {
     /// <summary>

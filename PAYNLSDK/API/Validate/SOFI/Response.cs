@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
+using PayNlSdk.Converters;
 
-namespace PayNLSdk.Api.Validate.SOFI;
+namespace PayNlSdk.Api.Validate.SOFI;
 
 public class Response : ResponseBase
 {

@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
+using PayNlSdk.Converters;
 using System;
 using System.Collections.Generic;
 
-namespace PayNLSdk.Objects;
+namespace PayNlSdk.Objects;
 
 /// <summary>
 /// Specification of sales data for a transaction

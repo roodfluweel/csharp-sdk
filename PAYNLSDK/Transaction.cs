@@ -1,16 +1,16 @@
-﻿using PayNLSdk.Api.Transaction.Info;
-using PayNLSdk.Enums;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Net;
+﻿using PayNlSdk.Api.Transaction.Info;
+using PayNlSdk.Enums;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Net;
 using System;
-using Request = PayNLSdk.Api.Transaction.Start.Request;
-using TransactionApprove = PayNLSdk.Api.Transaction.Approve.Request;
-using TransactionDecline = PayNLSdk.Api.Transaction.Decline.Request;
-using TransactionGetService = PayNLSdk.Api.Transaction.GetService.Request;
-using TransactionInfo = PayNLSdk.Api.Transaction.Info.Request;
-using TransactionRefund = PayNLSdk.Api.Transaction.Refund.Request;
+using Request = PayNlSdk.Api.Transaction.Start.Request;
+using TransactionApprove = PayNlSdk.Api.Transaction.Approve.Request;
+using TransactionDecline = PayNlSdk.Api.Transaction.Decline.Request;
+using TransactionGetService = PayNlSdk.Api.Transaction.GetService.Request;
+using TransactionInfo = PayNlSdk.Api.Transaction.Info.Request;
+using TransactionRefund = PayNlSdk.Api.Transaction.Refund.Request;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// Generic Transaction service helper class.
@@ -175,7 +175,7 @@ public class Transaction : ITransaction
     /// </summary>
     /// <param name="paymentMethodId">The id of the payment method (optional)</param>
     /// <returns>Full response with all service information</returns>
-    public Api.Transaction.GetService.Response GetService(PaymentMethodId? paymentMethodId)
+    public Api.Transaction.GetService.Response GetService(PaymentMethodId? paymentMethodId = null)
     {
         var request = new TransactionGetService
         {

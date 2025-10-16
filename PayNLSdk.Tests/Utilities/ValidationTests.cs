@@ -1,9 +1,9 @@
 using System;
-using PAYNLSDK.Utilities;
+using PayNlSdk.Utilities;
 using Shouldly;
 using Xunit;
 
-namespace PayNLSdk.Tests.Utilities
+namespace PayNlSdk.Tests.Utilities
 {
     public class ValidationTests
     {

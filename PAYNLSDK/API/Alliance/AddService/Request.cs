@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Alliance.AddService;
+namespace PayNlSdk.Api.Alliance.AddService;
 
 /// <summary>
 /// Class Request for a new Service.

@@ -1,4 +1,4 @@
-﻿namespace PayNLSdk.Api.PaymentProfile.GetAll;
+﻿namespace PayNlSdk.Api.PaymentProfile.GetAll;
 
 public class Response : ResponseBase
 {

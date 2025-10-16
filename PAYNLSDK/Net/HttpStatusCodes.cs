@@ -1,4 +1,4 @@
-﻿namespace PayNLSdk.Net;
+﻿namespace PayNlSdk.Net;
 
 // A more complete list of http status codes from http://httpstatus.es/
 enum HttpStatusCode

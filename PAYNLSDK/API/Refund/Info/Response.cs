@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Objects;
+using PayNlSdk.Objects;
 
-namespace PayNLSdk.Api.Refund.Info;
+namespace PayNlSdk.Api.Refund.Info;
 
 public class Response : ResponseBase
 {

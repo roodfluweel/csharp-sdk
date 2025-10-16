@@ -4,20 +4,20 @@ using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using NSubstitute;
-using PayNLSdk.API.Statistics.GetManagement;
+using PayNlSdk.Api.Statistics.GetManagement;
 using Shouldly;
 using Xunit;
 
-namespace PayNLSdk.Tests.Api.Statistics
+namespace PayNlSdk.Tests.Api.Statistics
 {
     [SuppressMessage("ReSharper", "RedundantNameQualifier", Justification = "We need to be sure the correct object is called in the tests")]
     public class GetStatsRequestTests
     {
-        private readonly PayNLSdk.API.Statistics.GetManagement.Request _sut;
+        private readonly PayNlSdk.Api.Statistics.GetManagement.Request _sut;
 
         public GetStatsRequestTests()
         {
-            _sut = new PayNLSdk.API.Statistics.GetManagement.Request();
+            _sut = new PayNlSdk.Api.Statistics.GetManagement.Request();
         }
 
         [Fact]

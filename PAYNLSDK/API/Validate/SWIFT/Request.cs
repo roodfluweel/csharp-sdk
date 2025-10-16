@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Validate.SWIFT;
+namespace PayNlSdk.Api.Validate.SWIFT;
 
 /// <summary>
 /// Request to validate a swift number.

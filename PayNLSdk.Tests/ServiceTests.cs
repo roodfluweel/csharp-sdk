@@ -1,13 +1,13 @@
 using NSubstitute;
-using PAYNLSDK;
-using PAYNLSDK.API;
-using PAYNLSDK.Net;
+using PayNlSdk;
+using PayNlSdk.Api;
+using PayNlSdk.Net;
 using Shouldly;
 using Xunit;
 
-using ServiceGetCategoriesRequest = PAYNLSDK.API.Service.GetCategories.Request;
+using ServiceGetCategoriesRequest = PayNlSdk.Api.Service.GetCategories.Request;
 
-namespace PayNLSdk.Tests;
+namespace PayNlSdk.Tests;
 
 public class ServiceTests
 {

@@ -1,6 +1,6 @@
-﻿using PayNLSdk.Api.Merchant.Add;
+﻿using PayNlSdk.Api.Merchant.Add;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 public interface IMerchant
 {

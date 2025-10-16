@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
+using PayNlSdk.Converters;
 
-namespace PayNLSdk.Api.SMS.BulkMessage;
+namespace PayNlSdk.Api.SMS.BulkMessage;
 
 public class Response : ResponseBase
 {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Api;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Net.ProxyConfigurationInjector;
-using PayNLSdk.Utilities;
+using PayNlSdk.Api;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Net.ProxyConfigurationInjector;
+using PayNlSdk.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -13,7 +13,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace PayNLSdk.Net;
+namespace PayNlSdk.Net;
 
 /// <inheritdoc />
 ///<summary>
@@ -25,7 +25,7 @@ public class Client : IClient
     /// <summary>
     /// If the client needs to work with a proxy, inject it here
     /// </summary>
-    protected readonly IProxyConfigurationInjector ProxyConfigurationInjector;
+    protected readonly IProxyConfigurationInjector? ProxyConfigurationInjector;
     /// <summary>
     /// The PayNL configuration
     /// </summary>
@@ -37,7 +37,7 @@ public class Client : IClient
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global")]
     public Client(IPayNlConfiguration securityConfiguration,
         ILogger<Client> logger,
-        IProxyConfigurationInjector proxyConfigurationInjector)
+        IProxyConfigurationInjector? proxyConfigurationInjector = null)
     {
         SecurityConfiguration = securityConfiguration;
         _logger = logger;

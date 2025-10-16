@@ -1,10 +1,10 @@
-﻿using PayNLSdk.Api.PaymentProfile.Get;
-using PayNLSdk.Net;
-using PaymentProfileGet = PayNLSdk.Api.PaymentProfile.Get.Request;
-using PaymentProfileGetAll = PayNLSdk.Api.PaymentProfile.GetAll.Request;
-using PaymentProfileGetAvailable = PayNLSdk.Api.PaymentProfile.GetAvailable.Request;
+﻿using PayNlSdk.Api.PaymentProfile.Get;
+using PayNlSdk.Net;
+using PaymentProfileGet = PayNlSdk.Api.PaymentProfile.Get.Request;
+using PaymentProfileGetAll = PayNlSdk.Api.PaymentProfile.GetAll.Request;
+using PaymentProfileGetAvailable = PayNlSdk.Api.PaymentProfile.GetAvailable.Request;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// Provides retrieval for payment options 

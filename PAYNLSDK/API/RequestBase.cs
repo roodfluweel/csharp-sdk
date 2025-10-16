@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Utilities;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api;
+namespace PayNlSdk.Api;
 
 /// <summary>
 /// The base class to perform a request to the Pay.NL api

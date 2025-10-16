@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Transaction.GetLastTransactions;
+namespace PayNlSdk.Api.Transaction.GetLastTransactions;
 
 public class Request : RequestBase
 {

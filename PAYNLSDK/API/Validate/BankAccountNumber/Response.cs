@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
+using PayNlSdk.Converters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Validate.BankAccountNumber;
+namespace PayNlSdk.Api.Validate.BankAccountNumber;
 
 /// <summary>
 /// The reponse object for the bank account number validation

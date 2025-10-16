@@ -1,19 +1,14 @@
+using PayNlSdk.Objects;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Objects;
 
-namespace PayNLSdk.Converters;
+namespace PayNlSdk.Converters;
 
-internal class CountryOptionConverter : JsonConverter
+internal class CountryOptionConverter : JsonConverter<CountryOptions>
 {
-    public override bool CanConvert(Type typeToConvert)
-    {
-        return typeof(CountryOptions).IsAssignableFrom(typeToConvert);
-    }
-
-    public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override CountryOptions? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType != JsonTokenType.StartObject)
         {
@@ -35,14 +30,14 @@ internal class CountryOptionConverter : JsonConverter
         return result;
     }
 
-    public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, CountryOptions value, JsonSerializerOptions options)
     {
-        if (value is CountryOptions countryOptions)
+        if (value == null)
         {
-            JsonSerializer.Serialize(writer, new Dictionary<string, CountryOption>(countryOptions), options);
+            writer.WriteNullValue();
             return;
         }
 
-        writer.WriteNullValue();
+        JsonSerializer.Serialize(writer, new Dictionary<string, CountryOption>(value), options);
     }
 }

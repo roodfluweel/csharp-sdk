@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Utilities;
+using PayNlSdk.Utilities;
 
-namespace PayNLSdk.Api.Merchant.Add;
+namespace PayNlSdk.Api.Merchant.Add;
 
 /// <summary>
 /// Reponse from the Merchant add command

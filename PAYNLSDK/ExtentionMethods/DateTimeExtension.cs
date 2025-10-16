@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayNLSdk.ExtentionMethods;
+namespace PayNlSdk.ExtentionMethods;
 
 public static class DateTimeExtension
 {

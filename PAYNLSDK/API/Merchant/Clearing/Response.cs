@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Utilities;
+using PayNlSdk.Utilities;
 
-namespace PayNLSdk.Api.Merchant.Clearing;
+namespace PayNlSdk.Api.Merchant.Clearing;
 
 public class Response : ResponseBase
 {

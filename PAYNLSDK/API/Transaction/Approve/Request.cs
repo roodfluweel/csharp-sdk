@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Transaction.Approve;
+namespace PayNlSdk.Api.Transaction.Approve;
 
 /// <summary>
 /// function to approve a suspicious transaction

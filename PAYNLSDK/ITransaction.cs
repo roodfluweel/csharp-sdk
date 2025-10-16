@@ -1,9 +1,9 @@
-﻿using PayNLSdk.Api.Transaction.Approve;
-using PayNLSdk.Enums;
+﻿using PayNlSdk.Api.Transaction.Approve;
+using PayNlSdk.Enums;
 using System;
-using Request = PayNLSdk.Api.Transaction.Start.Request;
+using Request = PayNlSdk.Api.Transaction.Start.Request;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// All api calls against transactions

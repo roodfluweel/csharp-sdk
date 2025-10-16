@@ -1,11 +1,10 @@
 using NSubstitute;
-using PAYNLSDK;
-using PAYNLSDK.API;
-using PAYNLSDK.Net;
+using PayNlSdk.Api;
+using PayNlSdk.Net;
 using Shouldly;
 using Xunit;
 
-namespace PayNLSdk.Tests;
+namespace PayNlSdk.Tests;
 
 public class AllianceTests
 {
@@ -14,21 +13,22 @@ public class AllianceTests
     public void GetMerchant_ShouldDeserializeFullResult()
     {
         // Arrange
-        var rawResponse = """
-        {
-          "request": {
-            "result": true,
-            "errorId": null,
-            "errorMessage": null
-          },
-          "merchantId": "M-4",
-          "merchantName": "Alliance Merchant",
-          "services": []
-        }
-        """;
+        var rawResponse =
+            """
+            {
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              },
+              "merchantId": "M-4",
+              "merchantName": "Alliance Merchant",
+              "services": []
+            }
+            """;
         var client = CreateClient(rawResponse);
         var alliance = new Alliance(client);
-        var request = new PAYNLSDK.API.Alliance.GetMerchant.Request { MerchantId = "M-4" };
+        var request = new PayNlSdk.Api.Alliance.GetMerchant.Request { MerchantId = "M-4" };
 
         // Act
         var result = alliance.GetMerchant(request);
@@ -43,24 +43,25 @@ public class AllianceTests
     public void AddMerchant_ShouldReturnDeserializedResult()
     {
         // Arrange
-        var rawResponse = """
-        {
-          "success": true,
-          "merchantId": "M-5",
-          "merchantToken": "token",
-          "accounts": [
+        var rawResponse =
+            """
             {
-              "accountId": "A-1",
-              "email": "mail@example.com"
+              "success": true,
+              "merchantId": "M-5",
+              "merchantToken": "token",
+              "accounts": [
+                {
+                  "accountId": "A-1",
+                  "email": "mail@example.com"
+                }
+              ]
             }
-          ]
-        }
-        """;
+            """;
         var client = CreateClient(rawResponse);
         var alliance = new Alliance(client);
 
         // Act
-        var result = alliance.AddMerchant(new PAYNLSDK.API.Alliance.AddMerchant.Request());
+        var result = alliance.AddMerchant(new PayNlSdk.Api.Alliance.AddMerchant.Request());
 
         // Assert
         result.Success.ShouldBeTrue();
@@ -73,21 +74,22 @@ public class AllianceTests
     public void AddService_ShouldReturnServiceIdentifier()
     {
         // Arrange
-        var rawResponse = """
-        {
-          "request": {
-            "result": true,
-            "errorId": null,
-            "errorMessage": null
-          },
-          "serviceId": "SL-1000-2000"
-        }
-        """;
+        var rawResponse =
+            """
+            {
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              },
+              "serviceId": "SL-1000-2000"
+            }
+            """;
         var client = CreateClient(rawResponse);
         var alliance = new Alliance(client);
 
         // Act
-        var result = alliance.AddService(new PAYNLSDK.API.Alliance.AddService.Request());
+        var result = alliance.AddService(new PayNlSdk.Api.Alliance.AddService.Request());
 
         // Assert
         result.ServiceId.ShouldBe("SL-1000-2000");
@@ -111,7 +113,7 @@ public class AllianceTests
         var alliance = new Alliance(client);
 
         // Act
-        var result = alliance.AddInvoice(new PAYNLSDK.API.Alliance.AddInvoice.Request(
+        var result = alliance.AddInvoice(new PayNlSdk.Api.Alliance.AddInvoice.Request(
             merchantId: "M-4",
             serviceId: "SL-1000-2000",
             invoiceId: "INV-1",

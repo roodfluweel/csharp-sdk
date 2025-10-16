@@ -1,13 +1,12 @@
 using NSubstitute;
-using PAYNLSDK;
-using PAYNLSDK.API;
-using PAYNLSDK.Net;
+using PayNlSdk.Api;
+using PayNlSdk.Net;
 using Shouldly;
 using System;
 using Xunit;
-using BanktransferAddRequest = PAYNLSDK.API.Banktransfer.Add.Request;
+using BanktransferAddRequest = PayNlSdk.Api.Banktransfer.Add.Request;
 
-namespace PayNLSdk.Tests;
+namespace PayNlSdk.Tests;
 
 public class BanktransferTests
 {

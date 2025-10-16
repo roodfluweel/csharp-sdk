@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
+using PayNlSdk.Converters;
 using System;
 
-namespace PayNLSdk.Api.Transaction.Start;
+namespace PayNlSdk.Api.Transaction.Start;
 
 /// <summary>
 /// Transaction data

@@ -1,8 +1,5 @@
-using System;
+namespace PayNlSdk.Converters;
 
-namespace PayNLSdk.Converters;
-
-internal class ProductTypeConverter : EnumConversionBase
+internal class ProductTypeConverter : EnumConversionBase<Enums.ProductType>
 {
-    public override Type EnumType => typeof(Enums.ProductType);
 }

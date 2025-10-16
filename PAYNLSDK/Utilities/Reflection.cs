@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayNLSdk.Utilities;
+namespace PayNlSdk.Utilities;
 
 internal class Reflection
 {

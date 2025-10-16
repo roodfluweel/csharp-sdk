@@ -1,28 +1,30 @@
-﻿using System.Text.Json;
+﻿using PayNlSdk.Net;
+using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Net;
 
-namespace PayNLSdk.Api.Validate;
+namespace PayNlSdk.Api.Validate;
 
 public class Util
 {
     public IClient Client { get; set; }
 
-    private JsonSerializerSettings serializerSettings;
-    public JsonSerializerSettings SerializerSettings
+    private JsonSerializerOptions? serializerOptions;
+    public JsonSerializerOptions SerializerOptions
     {
         get
         {
-            if (serializerSettings == null)
+            if (serializerOptions == null)
             {
-                serializerSettings = new JsonSerializerSettings();
-                serializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                serializerOptions = new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                };
             }
-            return serializerSettings;
+            return serializerOptions;
         }
         set
         {
-            serializerSettings = value;
+            serializerOptions = value;
         }
     }
 
@@ -30,10 +32,10 @@ public class Util
     {
     }
 
-    public Util(IClient client, JsonSerializerSettings serializerSettings)
+    public Util(IClient client, JsonSerializerOptions? serializerOptions)
     {
         Client = client;
-        SerializerSettings = serializerSettings;
+        SerializerOptions = serializerOptions ?? new JsonSerializerOptions();
     }
 
     public bool ValidatePayIP(string ipAddress)

@@ -7,7 +7,7 @@
         <Nullable>enable</Nullable>
 
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageId>RoodFluweel.PAYNLSDK</PackageId>
+        <PackageId>RoodFluweel.PayNlSdk</PackageId>
         <Version>2.0.0-beta001</Version>
         <Version>1.7.7</Version>
         <Authors>paynl, dampee, Sebsoft</Authors>
@@ -23,15 +23,15 @@ Targeting netstandard2.0
         <Copyright>Copyright ©2017</Copyright>
         <RepositoryUrl>https://github.com/roodfluweel/csharp-sdk</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <AssemblyName>PayNLSdk</AssemblyName>
-        <RootNamespace>PayNLSdk</RootNamespace>
+        <AssemblyName>PayNlSdk</AssemblyName>
+        <RootNamespace>PayNlSdk</RootNamespace>
         <Configurations>Debug;Release;AppVeyor</Configurations>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <DocumentationFile>bin\Debug\$(TargetFramework)\PayNLSdk.xml</DocumentationFile>
+        <DocumentationFile>bin\Debug\$(TargetFramework)\PayNlSdk.xml</DocumentationFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 

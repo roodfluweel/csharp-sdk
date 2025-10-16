@@ -1,15 +1,15 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
+using PayNlSdk.Converters;
 
-namespace PayNLSdk.Api.Validate.BankAccountNumberInternational;
+namespace PayNlSdk.Api.Validate.BankAccountNumberInternational;
 
 /// <summary>Class Response.
 /// Implements the <see cref="ResponseBase"/></summary>
 public class Response : ResponseBase
 {
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="T:PayNLSdk.Api.Validate.BankAccountNumberInternational.Response" /> is succesful.
+    /// Gets or sets a value indicating whether this <see cref="T:PayNlSdk.Api.Validate.BankAccountNumberInternational.Response" /> is succesful.
     /// </summary>
     /// <value><c>true</c> if succesful; otherwise, <c>false</c>.</value>
     [JsonPropertyName("result"), JsonConverter(typeof(BooleanConverter))]

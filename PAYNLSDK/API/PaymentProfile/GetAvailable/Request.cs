@@ -1,17 +1,17 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Converters;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.PaymentProfile.GetAvailable;
+namespace PayNlSdk.Api.PaymentProfile.GetAvailable;
 
 public class Request : RequestBase
 {
     /// <summary>
     /// The ID of the category of the service the payment options are used for. 
-    /// For a list of available categories, see <see cref="PAYNLSDK.API.Service.GetCategories"/>
+    /// For a list of available categories, see <see cref="PayNlSdk.Api.Service.GetCategories"/>
     /// </summary>
     [JsonPropertyName("categoryId")]
     public int CategoryId { get; set; }

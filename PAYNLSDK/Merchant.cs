@@ -1,8 +1,8 @@
-﻿using PayNLSdk.Api.Merchant.Clearing;
-using PayNLSdk.Net;
+﻿using PayNlSdk.Api.Merchant.Clearing;
+using PayNlSdk.Net;
 using System;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// This is a part of the alliance SDK

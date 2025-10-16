@@ -1,17 +1,17 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Validate.GetServerIps;
+namespace PayNlSdk.Api.Validate.GetServerIps;
 
 /// <inheritdoc />
 /// <summary>
 /// Request class for the SERVER IPs request.
-/// Implements the <see cref="T:PayNLSdk.Api.RequestBase" />
+/// Implements the <see cref="T:PayNlSdk.Api.RequestBase" />
 /// </summary>
-/// <seealso cref="T:PayNLSdk.Api.RequestBase" />
+/// <seealso cref="T:PayNlSdk.Api.RequestBase" />
 public class Request : RequestBase
 {
     /// <inheritdoc />

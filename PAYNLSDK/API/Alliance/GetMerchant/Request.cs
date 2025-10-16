@@ -1,8 +1,8 @@
-﻿using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+﻿using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Alliance.GetMerchant;
+namespace PayNlSdk.Api.Alliance.GetMerchant;
 
 public class Request : RequestBase
 {

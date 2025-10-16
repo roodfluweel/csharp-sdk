@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace PayNLSdk.Api.Statistics.GetManagement;
+namespace PayNlSdk.Api.Statistics.GetManagement;
 
 /// <summary>
 /// If 2 groupBy parameters are added to the request,

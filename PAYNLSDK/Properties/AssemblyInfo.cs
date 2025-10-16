@@ -1,4 +1,4 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("PayNLSdk.Tests")]
+[assembly:InternalsVisibleTo("PayNlSdk.Tests")]

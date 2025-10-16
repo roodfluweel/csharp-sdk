@@ -1,13 +1,13 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 
-namespace PayNLSdk.Api.Document.Add;
+namespace PayNlSdk.Api.Document.Add;
 
 /// <summary>
 /// Upload one or multiple files to a document for a merchant or account.

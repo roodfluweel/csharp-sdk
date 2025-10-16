@@ -1,8 +1,8 @@
-﻿using PayNLSdk.Api.Service.GetCategories;
-using PayNLSdk.Net;
-using ServiceGetCategories = PayNLSdk.Api.Service.GetCategories.Request;
+﻿using PayNlSdk.Api.Service.GetCategories;
+using PayNlSdk.Net;
+using ServiceGetCategories = PayNlSdk.Api.Service.GetCategories.Request;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 
 /// <summary>
 /// Generic Service service helper class.

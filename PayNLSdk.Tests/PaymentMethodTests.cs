@@ -1,15 +1,15 @@
 using NSubstitute;
-using PAYNLSDK;
-using PAYNLSDK.Enums;
-using PAYNLSDK.Net;
-using PAYNLSDK.API;
+using PayNlSdk;
+using PayNlSdk.Enums;
+using PayNlSdk.Net;
+using PayNlSdk.Api;
 using Shouldly;
 using Xunit;
 
-using PaymentMethodGetRequest = PAYNLSDK.API.PaymentMethod.Get.Request;
-using PaymentMethodGetAllRequest = PAYNLSDK.API.PaymentMethod.GetAll.Request;
+using PaymentMethodGetRequest = PayNlSdk.Api.PaymentMethod.Get.Request;
+using PaymentMethodGetAllRequest = PayNlSdk.Api.PaymentMethod.GetAll.Request;
 
-namespace PayNLSdk.Tests;
+namespace PayNlSdk.Tests;
 
 public class PaymentMethodTests
 {

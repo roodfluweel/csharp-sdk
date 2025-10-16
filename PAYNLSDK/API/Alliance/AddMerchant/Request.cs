@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PayNLSdk.Api.Alliance.AddMerchant;
+namespace PayNlSdk.Api.Alliance.AddMerchant;
 
 public class Request : RequestBase
 {

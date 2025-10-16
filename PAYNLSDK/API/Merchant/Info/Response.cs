@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Utilities;
+using PayNlSdk.Utilities;
 using System.ComponentModel.DataAnnotations;
 
-namespace PayNLSdk.Api.Merchant.Info;
+namespace PayNlSdk.Api.Merchant.Info;
 
 public class Response : ResponseBase
 {

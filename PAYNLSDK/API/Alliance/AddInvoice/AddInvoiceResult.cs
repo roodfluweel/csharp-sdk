@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace PayNLSdk.Api.Alliance.AddInvoice;
+namespace PayNlSdk.Api.Alliance.AddInvoice;
 
 /// <summary>
 /// The result of the Alliance/GetMerchant call

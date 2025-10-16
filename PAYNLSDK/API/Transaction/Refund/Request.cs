@@ -1,13 +1,13 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Converters;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Utilities;
+using PayNlSdk.Converters;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Utilities;
 using System;
 using System.Collections.Specialized;
 using System.Globalization;
 
-namespace PayNLSdk.Api.Transaction.Refund;
+namespace PayNlSdk.Api.Transaction.Refund;
 
 /// <summary>
 /// A normal refund from a previously placed transaction.

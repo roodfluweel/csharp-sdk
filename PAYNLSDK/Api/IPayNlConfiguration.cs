@@ -1,4 +1,4 @@
-﻿namespace PayNLSdk.Api;
+﻿namespace PayNlSdk.Api;
 
 /// <summary>
 /// An object containing all configuration for 

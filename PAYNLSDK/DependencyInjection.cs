@@ -1,10 +1,10 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using PayNLSdk.Api;
-using PayNLSdk.Net;
+using PayNlSdk.Api;
+using PayNlSdk.Net;
 
-namespace PayNLSdk;
+namespace PayNlSdk;
 /// <summary>
 /// Extension services for Pay.nl SDK
 /// </summary>

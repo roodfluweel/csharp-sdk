@@ -1,25 +1,24 @@
+using NSubstitute;
+using NSubstitute.ExceptionExtensions;
+using PayNlSdk.Api;
+using PayNlSdk.Api.Transaction;
+using PayNlSdk.Api.Transaction.Start;
+using PayNlSdk.Enums;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Net;
+using PayNlSdk.Objects;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using NSubstitute;
-using NSubstitute.ExceptionExtensions;
-using PAYNLSDK;
-using PAYNLSDK.API;
-using PAYNLSDK.Enums;
-using PAYNLSDK.Exceptions;
-using PAYNLSDK.Net;
-using PAYNLSDK.Objects;
-using Shouldly;
 using Xunit;
+using TransactionApproveRequest = PayNlSdk.Api.Transaction.Approve.Request;
+using TransactionDeclineRequest = PayNlSdk.Api.Transaction.Decline.Request;
+using TransactionGetServiceRequest = PayNlSdk.Api.Transaction.GetService.Request;
+using TransactionRefundRequest = PayNlSdk.Api.Transaction.Refund.Request;
+using TransactionStartRequest = PayNlSdk.Api.Transaction.Start.Request;
 
-using TransactionApproveRequest = PAYNLSDK.API.Transaction.Approve.Request;
-using TransactionDeclineRequest = PAYNLSDK.API.Transaction.Decline.Request;
-using TransactionGetServiceRequest = PAYNLSDK.API.Transaction.GetService.Request;
-using TransactionInfoRequest = PAYNLSDK.API.Transaction.Info.Request;
-using TransactionRefundRequest = PAYNLSDK.API.Transaction.Refund.Request;
-using TransactionStartRequest = PAYNLSDK.API.Transaction.Start.Request;
-
-namespace PayNLSdk.Tests;
+namespace PayNlSdk.Tests;
 
 public class TransactionTests
 {

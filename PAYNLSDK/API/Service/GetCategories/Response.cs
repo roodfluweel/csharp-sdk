@@ -1,6 +1,6 @@
-﻿using PayNLSdk.Objects;
+﻿using PayNlSdk.Objects;
 
-namespace PayNLSdk.Api.Service.GetCategories;
+namespace PayNlSdk.Api.Service.GetCategories;
 
 public class Response : ResponseBase
 {

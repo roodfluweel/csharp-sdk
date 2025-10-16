@@ -1,18 +1,18 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using PayNLSdk.Enums;
-using PayNLSdk.Exceptions;
-using PayNLSdk.Objects;
-using PayNLSdk.Utilities;
+using PayNlSdk.Enums;
+using PayNlSdk.Exceptions;
+using PayNlSdk.Objects;
+using PayNlSdk.Utilities;
 using System;
 using System.Collections.Specialized;
 
-namespace PayNLSdk.Api.Transaction.Start;
+namespace PayNlSdk.Api.Transaction.Start;
 
 /// <summary>
 /// The HTTP request to request the start of a new transaction
 /// </summary>
-/// <seealso cref="T:PayNLSdk.Api.RequestBase" />
+/// <seealso cref="T:PayNlSdk.Api.RequestBase" />
 public class Request : RequestBase
 {
     /// <summary>
