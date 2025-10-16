@@ -138,5 +138,34 @@ namespace PayNLSdk.Tests.ExtentionMethods
             result.Month.ShouldBe(2);
             result.Day.ShouldBe(29);
         }
+
+        [Fact]
+        public void ThisWeek_ShouldReturnMondayMidnight_WhenDateIsWednesday()
+        {
+            // Arrange
+            var initialDate = new DateTime(2024, 7, 17, 15, 30, 45);
+
+            // Act
+            var result = initialDate.ThisWeek(DayOfWeek.Monday);
+
+            // Assert
+            result.ShouldBe(new DateTime(2024, 7, 15));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
+            result.TimeOfDay.ShouldBe(TimeSpan.Zero);
+        }
+
+        [Fact]
+        public void ThisWeek_ShouldRollBackToPreviousWeek_WhenDateIsSunday()
+        {
+            // Arrange
+            var initialDate = new DateTime(2024, 7, 14, 9, 0, 0);
+
+            // Act
+            var result = initialDate.ThisWeek(DayOfWeek.Monday);
+
+            // Assert
+            result.ShouldBe(new DateTime(2024, 7, 8));
+            result.DayOfWeek.ShouldBe(DayOfWeek.Monday);
+        }
     }
 }

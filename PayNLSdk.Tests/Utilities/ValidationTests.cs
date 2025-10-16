@@ -52,5 +52,62 @@ namespace PayNLSdk.Tests.Utilities
             // Assert
             result.ShouldBeTrue();
         }
+
+        [Fact]
+        public void IsNotNull_DoesNotThrow_ForReferenceValue()
+        {
+            // Arrange
+            object value = new object();
+
+            // Act & Assert
+            Should.NotThrow(() => ParameterValidator.IsNotNull(value, nameof(value)));
+        }
+
+        [Fact]
+        public void IsNotNull_ThrowsArgumentException_ForNullReference()
+        {
+            // Act & Assert
+            Should.Throw<ArgumentException>(() => ParameterValidator.IsNotNull(null!, "param"));
+        }
+
+        [Fact]
+        public void IsNull_ShouldReturnTrue_WhenValueIsNull()
+        {
+            // Act
+            var result = ParameterValidator.IsNull(null);
+
+            // Assert
+            result.ShouldBeTrue();
+        }
+
+        [Fact]
+        public void IsNull_ShouldReturnFalse_WhenValueProvided()
+        {
+            // Act
+            var result = ParameterValidator.IsNull("value");
+
+            // Assert
+            result.ShouldBeFalse();
+        }
+
+        [Fact]
+        public void IsNonEmptyInt_ShouldReturnFalse_WhenNull()
+        {
+            // Act
+            var result = ParameterValidator.IsNonEmptyInt(null);
+
+            // Assert
+            result.ShouldBeFalse();
+        }
+
+        [Fact]
+        public void IsNonEmptyInt_ShouldReturnTrue_WhenValueProvided()
+        {
+            // Act
+            var result = ParameterValidator.IsNonEmptyInt(5);
+
+            // Assert
+            result.ShouldBeTrue();
+        }
     }
 }

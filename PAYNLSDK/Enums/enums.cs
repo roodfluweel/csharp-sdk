@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PAYNLSDK.Enums
 {
@@ -82,7 +79,7 @@ namespace PAYNLSDK.Enums
         /// <summary>
         /// A male gender
         /// </summary>
-        [EnumMember(Value="m")]
+        [EnumMember(Value = "m")]
         Male,
         /// <summary>
         /// A female gender
