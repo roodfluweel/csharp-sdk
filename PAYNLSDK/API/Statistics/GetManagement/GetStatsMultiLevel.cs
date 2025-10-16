@@ -16,10 +16,6 @@ namespace PayNLSdk.API.Statistics.GetManagement
     {
         public string Id { get; set; }
         public string Label { get; set; }
-        public GetStatsResultBase.StatsData[] Data { get; set; }
+        public GetStatsResultBase.StatsLine[] Data { get; set; }
     }
-
-   
-
-
 }

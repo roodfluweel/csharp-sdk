@@ -1,9 +1,8 @@
 ﻿using PAYNLSDK.API;
+using PAYNLSDK.Exceptions;
 using PAYNLSDK.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text;
 
 namespace PayNLSdk.API.Merchant.Clearing
 {
@@ -42,11 +41,21 @@ namespace PayNLSdk.API.Merchant.Clearing
             return nvc;
         }
 
+        public Response Response { get { return (Response)response; } }
+
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
         protected override void PrepareAndSetResponse()
         {
-            throw new NotImplementedException();
+            if (ParameterValidator.IsEmpty(rawResponse))
+            {
+                throw new PayNlException("rawResponse is empty!");
+            }
+            response = Response.FromRawResponse(RawResponse);
+            if (!Response.Request.Result)
+            {
+                throw new PayNlException(Response.Request.Code + " " + Response.Request.Message);
+            }
         }
     }
 }

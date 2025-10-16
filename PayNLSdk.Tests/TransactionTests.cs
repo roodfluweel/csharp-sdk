@@ -419,7 +419,7 @@ public class TransactionTests
         parameters["enduser[language]"].ShouldBe("NL");
         parameters["enduser[initials]"].ShouldBe("JD");
         parameters["enduser[lastName]"].ShouldBe("Doe");
-        parameters["enduser[gender]"].ShouldBe("M");
+        parameters["enduser[gender]"].ShouldBe("m");
         parameters["enduser[dob]"].ShouldBe("12-04-1985");
         parameters["enduser[phoneNumber]"].ShouldBe("+310123456789");
         parameters["enduser[emailAddress]"].ShouldBe("jd@example.test");
@@ -432,7 +432,7 @@ public class TransactionTests
         parameters["enduser[address][countryCode]"].ShouldBe("NL");
         parameters["enduser[invoiceAddress][initials]"].ShouldBe("JD");
         parameters["enduser[invoiceAddress][lastName]"].ShouldBe("Doe");
-        parameters["enduser[invoiceAddress][gender]"].ShouldBe("M");
+        parameters["enduser[invoiceAddress][gender]"].ShouldBe("m");
         parameters["enduser[invoiceAddress][streetName]"].ShouldBe("Invoice Street");
         parameters["enduser[invoiceAddress][streetNumber]"].ShouldBe("20");
         parameters["enduser[invoiceAddress][streetNumberExtension]"].ShouldBe("B");

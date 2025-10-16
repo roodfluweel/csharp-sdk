@@ -134,7 +134,7 @@ namespace PAYNLSDK.API.Transaction.Start
                 {
                     nvc.Add("transaction[currency]", TransactionData.Currency);
                 }
-                if (!ParameterValidator.IsNonEmptyInt(TransactionData.CostsVat))
+                if (ParameterValidator.IsNonEmptyInt(TransactionData.CostsVat))
                 {
                     nvc.Add("transaction[costsVat]", TransactionData.CostsVat.ToString());
                 }
@@ -152,7 +152,7 @@ namespace PAYNLSDK.API.Transaction.Start
                     nvc.Add("transaction[description]", TransactionData.Description);
                 }
 
-                if (!ParameterValidator.IsNonEmptyInt(TransactionData.EnduserId))
+                if (ParameterValidator.IsNonEmptyInt(TransactionData.EnduserId))
                 {
                     nvc.Add("transaction[enduserId]", TransactionData.EnduserId.ToString());
                 }

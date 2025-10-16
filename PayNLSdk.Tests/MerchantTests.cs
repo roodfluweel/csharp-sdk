@@ -1,9 +1,9 @@
-using System;
 using NSubstitute;
 using PAYNLSDK;
 using PAYNLSDK.API;
 using PAYNLSDK.Net;
 using Shouldly;
+using System;
 using Xunit;
 
 namespace PayNLSdk.Tests;
@@ -75,7 +75,8 @@ public class MerchantTests
           },
           "merchant": {
             "merchantId": "M-3",
-            "name": "Shop"
+            "name": "Shop",
+            "cocNumber": "12345678"
           }
         }
         """;

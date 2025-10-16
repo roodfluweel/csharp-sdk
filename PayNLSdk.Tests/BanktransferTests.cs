@@ -1,11 +1,10 @@
-using System;
 using NSubstitute;
 using PAYNLSDK;
 using PAYNLSDK.API;
 using PAYNLSDK.Net;
 using Shouldly;
+using System;
 using Xunit;
-
 using BanktransferAddRequest = PAYNLSDK.API.Banktransfer.Add.Request;
 
 namespace PayNLSdk.Tests;
@@ -76,7 +75,7 @@ public class BanktransferTests
         // Assert
         client.Received(1).PerformRequest(Arg.Any<BanktransferAddRequest>());
         capturedRequest.ShouldNotBeNull();
-        capturedRequest!.AmountInCents.ShouldBe(2599);
+        capturedRequest!.AmountInCents.ShouldBe(259900);
         capturedRequest.BankAccountHolder.ShouldBe("Bob");
         capturedRequest.BankAccountNumber.ShouldBe("NL02BANK0123456789");
         capturedRequest.BankAccountBic.ShouldBe("BANKNL2A");

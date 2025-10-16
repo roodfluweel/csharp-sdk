@@ -39,10 +39,16 @@ namespace PAYNLSDK.API.Merchant.Get
                 throw new PayNlException("rawResponse is empty!");
             }
             response = JsonConvert.DeserializeObject<API.Merchant.Get.Response>(RawResponse);
-            if (!response.Request.Result)
+            var merchantResponse = response as API.Merchant.Get.Response;
+            
+            // Check if request was successful (result can be "1" for success or other values for failure)
+            if (merchantResponse?.request != null && merchantResponse.request.result != "1")
             {
                 // toss
-                throw new PayNlException(response.Request.Message);
+                var errorMessage = !string.IsNullOrEmpty(merchantResponse.request.errorMessage) 
+                    ? merchantResponse.request.errorMessage 
+                    : "Request failed";
+                throw new PayNlException(errorMessage);
             }
         }
     }

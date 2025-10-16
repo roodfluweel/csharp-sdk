@@ -53,7 +53,8 @@ namespace PAYNLSDK
             request.GroupByFieldNames.Add(groupByFieldName2);
 
             var response = _webClient.PerformRequest(request);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<GetStatsMultiLevel>(response);
+            var jsonConverters = new List<JsonConverter> { new DecimalConverter() };
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<GetStatsMultiLevel>(response, jsonConverters.ToArray());
         }
     }
 
