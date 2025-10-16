@@ -99,7 +99,7 @@ public class ClientTests
 
         protected override int Version => 1;
 
-        protected override string Controller => nameof(Transaction);
+        protected override string Controller => "Transaction";
 
         protected override string Method => "test";
 

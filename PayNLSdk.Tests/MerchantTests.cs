@@ -1,3 +1,4 @@
+using System;
 using NSubstitute;
 using PAYNLSDK;
 using PAYNLSDK.API;
@@ -14,9 +15,7 @@ public class MerchantTests
     public void AddClearing_ShouldReturnParsedResponse()
     {
         // Arrange
-        var capturedRequest = default(RequestBase);
-        var client = CreateClientWithCapture(
-            out capturedRequest,
+        var (client, capture) = CreateClientWithCapture(
             """
 {
   "request": {
@@ -35,7 +34,7 @@ public class MerchantTests
 
         // Assert
         response.Result.ShouldBe("CL-1");
-        capturedRequest.ShouldBe(request);
+        capture().ShouldBe(request);
     }
 
     [Fact]
@@ -93,18 +92,18 @@ public class MerchantTests
 
     private static IClient CreateClient(string rawResponse)
     {
-        return CreateClientWithCapture(out _, rawResponse);
+        return CreateClientWithCapture(rawResponse).Client;
     }
 
-    private static IClient CreateClientWithCapture(out RequestBase capturedRequest, string rawResponse)
+    private static (IClient Client, Func<RequestBase?> Capture) CreateClientWithCapture(string rawResponse)
     {
-        capturedRequest = null;
         var client = Substitute.For<IClient>();
-        client.PerformRequest(Arg.Do<RequestBase>(r => capturedRequest = r)).Returns(callInfo =>
+        RequestBase? captured = null;
+        client.PerformRequest(Arg.Do<RequestBase>(r => captured = r)).Returns(callInfo =>
         {
             callInfo.Arg<RequestBase>().RawResponse = rawResponse;
             return rawResponse;
         });
-        return client;
+        return (client, () => captured);
     }
 }

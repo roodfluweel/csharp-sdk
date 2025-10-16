@@ -111,7 +111,12 @@ public class AllianceTests
         var alliance = new Alliance(client);
 
         // Act
-        var result = alliance.AddInvoice(new PAYNLSDK.API.Alliance.AddInvoice.Request());
+        var result = alliance.AddInvoice(new PAYNLSDK.API.Alliance.AddInvoice.Request(
+            merchantId: "M-4",
+            serviceId: "SL-1000-2000",
+            invoiceId: "INV-1",
+            description: "Alliance invoice",
+            amountInCents: 1234));
 
         // Assert
         result.ReferenceId.ShouldBe("INV-1");

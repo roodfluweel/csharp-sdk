@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using PAYNLSDK;
 using PAYNLSDK.API;
 using PAYNLSDK.Enums;
@@ -183,8 +184,7 @@ public class TransactionTests
     public void GetService_ShouldPassPaymentMethodAndReturnResponse()
     {
         // Arrange
-        var capturedRequest = default(RequestBase);
-        var client = CreateClientWithCapture(out capturedRequest, BuildGetServiceResponse());
+        var client = CreateClientWithCapture(BuildGetServiceResponse(), out var capturedRequestAccessor);
         var transaction = new Transaction(client);
 
         // Act
@@ -192,8 +192,9 @@ public class TransactionTests
 
         // Assert
         response.Service.ShouldNotBeNull();
+        var capturedRequest = capturedRequestAccessor();
         capturedRequest.ShouldBeOfType<TransactionGetServiceRequest>();
-        ((TransactionGetServiceRequest)capturedRequest).PaymentMethodId.ShouldBe(PaymentMethodId.PayPerTransaction);
+        ((TransactionGetServiceRequest)capturedRequest!).PaymentMethodId.ShouldBe(PaymentMethodId.PayPerTransaction);
     }
 
     [Fact]
@@ -214,8 +215,7 @@ public class TransactionTests
     public void Refund_ShouldPopulateRequestAndReturnResponse()
     {
         // Arrange
-        var capturedRequest = default(RequestBase);
-        var client = CreateClientWithCapture(out capturedRequest, BuildRefundResponse("RF-1"));
+        var client = CreateClientWithCapture(BuildRefundResponse("RF-1"), out var capturedRequestAccessor);
         var transaction = new Transaction(client);
         var processDate = new DateTime(2024, 6, 15);
 
@@ -224,7 +224,7 @@ public class TransactionTests
 
         // Assert
         response.RefundId.ShouldBe("RF-1");
-        var refundRequest = capturedRequest.ShouldBeOfType<TransactionRefundRequest>();
+        var refundRequest = capturedRequestAccessor().ShouldBeOfType<TransactionRefundRequest>();
         refundRequest.TransactionId.ShouldBe("TRANS-10");
         refundRequest.Description.ShouldBe("Description");
         refundRequest.Amount.ShouldBe(12.34m);
@@ -241,8 +241,7 @@ public class TransactionTests
     public void Approve_ShouldSendRequestAndReturnMessage()
     {
         // Arrange
-        var capturedRequest = default(RequestBase);
-        var client = CreateClientWithCapture(out capturedRequest, BuildApproveResponse("approved"));
+        var client = CreateClientWithCapture(BuildApproveResponse("approved"), out var capturedRequestAccessor);
         var transaction = new Transaction(client);
 
         // Act
@@ -250,7 +249,7 @@ public class TransactionTests
 
         // Assert
         response.Message.ShouldBe("approved");
-        var approveRequest = capturedRequest.ShouldBeOfType<TransactionApproveRequest>();
+        var approveRequest = capturedRequestAccessor().ShouldBeOfType<TransactionApproveRequest>();
         approveRequest.TransactionId.ShouldBe("TRANS-11");
         approveRequest.GetParameters()["orderId"].ShouldBe("TRANS-11");
     }
@@ -259,8 +258,7 @@ public class TransactionTests
     public void Decline_ShouldSendRequestAndReturnMessage()
     {
         // Arrange
-        var capturedRequest = default(RequestBase);
-        var client = CreateClientWithCapture(out capturedRequest, BuildDeclineResponse("declined"));
+        var client = CreateClientWithCapture(BuildDeclineResponse("declined"), out var capturedRequestAccessor);
         var transaction = new Transaction(client);
 
         // Act
@@ -268,7 +266,7 @@ public class TransactionTests
 
         // Assert
         response.Message.ShouldBe("declined");
-        var declineRequest = capturedRequest.ShouldBeOfType<TransactionDeclineRequest>();
+        var declineRequest = capturedRequestAccessor().ShouldBeOfType<TransactionDeclineRequest>();
         declineRequest.TransactionId.ShouldBe("TRANS-12");
         declineRequest.GetParameters()["orderId"].ShouldBe("TRANS-12");
     }
@@ -348,7 +346,7 @@ public class TransactionTests
                 Language = "NL",
                 Initials = "JD",
                 Lastname = "Doe",
-                Gender = Gender.M,
+                Gender = Gender.Male,
                 BirthDate = new DateTime(1985, 4, 12),
                 PhoneNumber = "+310123456789",
                 EmailAddress = "jd@example.test",
@@ -366,7 +364,7 @@ public class TransactionTests
                 {
                     Initials = "JD",
                     LastName = "Doe",
-                    Gender = Gender.M,
+                    Gender = Gender.Male,
                     StreetName = "Invoice Street",
                     StreetNumber = "20",
                     StreetNumberExtension = "B",
@@ -388,7 +386,7 @@ public class TransactionTests
                 DeliveryDate = new DateTime(2024, 5, 2),
                 OrderData = new List<OrderData>
                 {
-                    new("SKU-1", "Widget", 2500, TaxClass.HIGH, 2, ProductType.ARTICLE)
+                    new("SKU-1", "Widget", 2500, TaxClass.High, 2, ProductType.ARTICLE)
                 }
             },
             TestMode = true
@@ -476,12 +474,19 @@ public class TransactionTests
 
     private static IClient CreateClient(string rawResponse)
     {
-        return CreateClientWithCapture(out _, rawResponse);
+        var client = Substitute.For<IClient>();
+        client.PerformRequest(Arg.Any<RequestBase>()).Returns(callInfo =>
+        {
+            var request = callInfo.Arg<RequestBase>();
+            request.RawResponse = rawResponse;
+            return rawResponse;
+        });
+        return client;
     }
 
-    private static IClient CreateClientWithCapture(out RequestBase capturedRequest, string rawResponse)
+    private static IClient CreateClientWithCapture(string rawResponse, out Func<RequestBase?> capturedRequestAccessor)
     {
-        capturedRequest = null;
+        RequestBase? capturedRequest = null;
         var client = Substitute.For<IClient>();
         client.PerformRequest(Arg.Do<RequestBase>(r => capturedRequest = r)).Returns(callInfo =>
         {
@@ -489,6 +494,7 @@ public class TransactionTests
             request.RawResponse = rawResponse;
             return rawResponse;
         });
+        capturedRequestAccessor = () => capturedRequest;
         return client;
     }
 

@@ -128,7 +128,8 @@ public class PaymentProfileTests
         capturedRequest!.CategoryId.ShouldBe(10);
         capturedRequest.ProgramId.ShouldBe(99);
         capturedRequest.PaymentMethodId.ShouldBe(712);
-        capturedRequest.ShowNotAllowedOnRegistration.ShouldBeTrue();
+        capturedRequest.ShowNotAllowedOnRegistration.ShouldNotBeNull();
+        capturedRequest.ShowNotAllowedOnRegistration!.Value.ShouldBeTrue();
         response.ShouldNotBeNull();
         response.PaymentProfiles.ShouldNotBeNull();
         response.PaymentProfiles.Length.ShouldBe(1);

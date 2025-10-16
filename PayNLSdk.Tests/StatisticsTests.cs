@@ -140,9 +140,10 @@ public class StatisticsTests
 
         var topLevel = result.TopLevelGroup.ShouldHaveSingleItem();
         topLevel.Label.ShouldBe("Acme BV");
-        var nested = topLevel.Data.ShouldHaveSingleItem();
-        nested.Data.sum.ShouldBe(45.67m);
-        nested.Data.cst.ShouldBe(1.00m);
-        nested.Data.num.ShouldBe(2m);
+        var nestedGroup = topLevel.Data.ShouldHaveSingleItem();
+        var nestedLine = nestedGroup.Data.ShouldHaveSingleItem();
+        nestedLine.Data.sum.ShouldBe(45.67m);
+        nestedLine.Data.cst.ShouldBe(1.00m);
+        nestedLine.Data.num.ShouldBe(2m);
     }
 }

@@ -35,12 +35,12 @@ public class PaymentMethodTests
         var sut = new PaymentMethod(client);
 
         // Act
-        var response = sut.Get(PaymentMethodId.Ideal);
+        var response = sut.Get(PaymentMethodId.PayPerTransaction);
 
         // Assert
         client.Received(1).PerformRequest(Arg.Any<PaymentMethodGetRequest>());
         capturedRequest.ShouldNotBeNull();
-        capturedRequest!.PaymentMethodId.ShouldBe(PaymentMethodId.Ideal);
+        capturedRequest!.PaymentMethodId.ShouldBe(PaymentMethodId.PayPerTransaction);
         response.ShouldNotBeNull();
         response.PaymentMethod.ShouldNotBeNull();
         response.PaymentMethod.Id.ShouldBe(10);
