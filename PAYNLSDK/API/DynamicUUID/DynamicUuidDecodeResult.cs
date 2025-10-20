@@ -1,4 +1,4 @@
-namespace PAYNLSDK.API.DynamicUUID
+namespace PayNlSdk.API.DynamicUUID
 {
     /// <summary>
     /// Represents the decoded information from a Dynamic UUID.

@@ -26,7 +26,7 @@ public class GetMerchantResult
 
     public class Request
     {
-        [JsonPropertyName("result")] public string result { get; set; }
+        [JsonPropertyName("result")] public bool result { get; set; }
         [JsonPropertyName("errorId")] public string errorId { get; set; }
         [JsonPropertyName("errorMessage")] public string errorMessage { get; set; }
     }

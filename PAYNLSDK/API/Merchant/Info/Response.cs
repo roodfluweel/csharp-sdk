@@ -12,12 +12,6 @@ public class Response : ResponseBase
         return JsonSerialization.Deserialize<Response>(response);
     }
 
-    /// <summary>
-    /// This array contains information whether the request was succesfull yes or no 
-    /// </summary>
-    [JsonPropertyName("request")]
-    public ResultInfo request { get; set; }
-
     [JsonPropertyName("merchant")]
     public Merchant merchant { get; set; }
 
@@ -28,12 +22,6 @@ public class Response : ResponseBase
     public Contact contactData { get; set; }
 
     #region Models (SubClasses)
-    public class ResultInfo
-    {
-        public string result { get; set; }
-        public string errorId { get; set; }
-        public string errorMessage { get; set; }
-    }
 
     public class Merchant
     {
@@ -78,8 +66,8 @@ public class Response : ResponseBase
         public Address postalAddress { get; set; }
         public Address visitAddress { get; set; }
         public Tradename[] tradeNames { get; set; }
-            public Contact[] contactData { get; set; }
-            public string state { get; set; }
+        public Contact[] contactData { get; set; }
+        public string state { get; set; }
 
         public class Address
         {

@@ -6,5 +6,5 @@ namespace PayNlSdk.Api.Transaction.Decline;
 public class Response : ResponseBase
 {
     [JsonPropertyName("message")]
-    public string Message { get; protected set; }
+    public string? Message { get; set; }
 }

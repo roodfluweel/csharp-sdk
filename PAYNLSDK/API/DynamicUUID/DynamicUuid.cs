@@ -1,11 +1,11 @@
+using PayNlSdk.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
-using PAYNLSDK.Exceptions;
 
-namespace PAYNLSDK.API.DynamicUUID
+namespace PayNlSdk.API.DynamicUUID
 {
     /// <summary>
     /// Provides helpers to create, validate and decode Dynamic UUIDs for Pay.nl.

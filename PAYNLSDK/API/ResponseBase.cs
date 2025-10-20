@@ -14,7 +14,7 @@ public abstract class ResponseBase
     /// The Error if the request led to a failed response
     /// </summary>
     [JsonPropertyName("request")]
-    public Error Request { get; protected set; }
+    public Error? Request { get; set; }
 
     /// <summary>
     /// Return response as formatted JSON

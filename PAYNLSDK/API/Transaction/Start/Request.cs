@@ -135,7 +135,7 @@ public class Request : RequestBase
             {
                 nvc.Add("transaction[currency]", TransactionData.Currency);
             }
-                if (ParameterValidator.IsNonEmptyInt(TransactionData.CostsVat))
+            if (ParameterValidator.IsNonEmptyInt(TransactionData.CostsVat))
             {
                 nvc.Add("transaction[costsVat]", TransactionData.CostsVat.ToString());
             }
@@ -153,7 +153,7 @@ public class Request : RequestBase
                 nvc.Add("transaction[description]", TransactionData.Description);
             }
 
-                if (ParameterValidator.IsNonEmptyInt(TransactionData.EnduserId))
+            if (ParameterValidator.IsNonEmptyInt(TransactionData.EnduserId))
             {
                 nvc.Add("transaction[enduserId]", TransactionData.EnduserId.ToString());
             }
@@ -423,10 +423,14 @@ public class Request : RequestBase
             throw new PayNlException("rawResponse is empty!");
         }
         response = JsonSerialization.Deserialize<Response>(RawResponse);
-        if (!Response.Request.Result)
+        if (response == null)
+        {
+            throw new PayNlException("Failed to deserialize response");
+        }
+        if (Response.Request == null || !Response.Request.Result)
         {
             // toss
-            throw new PayNlException(Response.Request.Code + " " + Response.Request.Message);
+            throw new PayNlException((Response.Request?.Code ?? "Unknown") + " " + (Response.Request?.Message ?? "Request failed"));
         }
     }
 }

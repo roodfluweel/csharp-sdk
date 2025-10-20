@@ -52,9 +52,14 @@ public class Request : RequestBase
             throw new PayNlException("rawResponse is empty!");
         }
         response = Response.FromRawResponse(RawResponse);
-        if (!Response.Request.Result)
+        if (response == null)
         {
-            throw new PayNlException(Response.Request.Code + " " + Response.Request.Message);
+            throw new PayNlException("Failed to deserialize response");
+        }
+
+        if (Response.Request == null || !Response.Request.Result)
+        {
+            throw new PayNlException("Request failed");
         }
     }
 }

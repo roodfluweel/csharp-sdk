@@ -51,16 +51,17 @@ public class BanktransferTests
         // Arrange
         var client = Substitute.For<IClient>();
         BanktransferAddRequest? capturedRequest = null;
-        const string rawResponse = """
-        {
-          "refundId": "RF-456",
-          "request": {
-            "result": true,
-            "errorId": null,
-            "errorMessage": null
-          }
-        }
-        """;
+        const string rawResponse =
+            """
+            {
+              "refundId": "RF-456",
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              }
+            }
+            """;
         client.PerformRequest(Arg.Do<RequestBase>(performedRequest =>
         {
             capturedRequest = performedRequest.ShouldBeOfType<BanktransferAddRequest>();

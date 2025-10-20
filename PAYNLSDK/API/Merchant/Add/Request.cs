@@ -1,13 +1,15 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using PayNlSdk.Exceptions;
+﻿using PayNlSdk.Exceptions;
 using PayNlSdk.Utilities;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PayNlSdk.Api.Merchant.Add;
 
+/// <summary>
+/// Message to create a new submerchant.
+/// </summary>
 public class Request : RequestBase
 {
     /**
@@ -189,10 +191,14 @@ public class Request : RequestBase
             throw new PayNlException("rawResponse is empty!");
         }
         response = JsonSerialization.Deserialize<Response>(RawResponse);
-        if (!response.Request.Result)
+        if (response == null)
+        {
+            throw new PayNlException("Failed to deserialize response");
+        }
+        if (response.Request is not { Result: true })
         {
             // toss
-            throw new PayNlException(response.Request.Message);
+            throw new PayNlException(response.Request?.Message ?? "Request failed");
         }
     }
 }

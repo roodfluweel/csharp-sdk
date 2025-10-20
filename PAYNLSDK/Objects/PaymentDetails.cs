@@ -86,26 +86,26 @@ public class PaymentDetails
     /// Payment Status indicator
     /// </summary>
     [JsonPropertyName("state")]
-    public PaymentStatus State { get; protected set; }
+    public PaymentStatus State { get; set; }
 
     /// <summary>
     /// Payment status name
     /// </summary>
     [JsonPropertyName("stateName")]
-    public string StateName { get; protected set; }
+    public string? StateName { get; set; }
 
     /// <summary>
     /// Payment status description
     /// </summary>
     [JsonPropertyName("stateDescription")]
-    public string StateDescription { get; protected set; }
+    public string? StateDescription { get; set; }
 
     /// <summary>
     /// Indicator whether or not the exchange URL has been called succesfully
     /// </summary>
     [JsonPropertyName("exchange")]
-    //public ExchangeState Exchange { get; protected set; }
-    public string Exchange { get; protected set; }
+    //public ExchangeState Exchange { get; set; }
+    public string? Exchange { get; set; }
 
     /// <summary>
     /// Indicator whether or not the transaction is refunded

@@ -4,6 +4,7 @@ using PayNlSdk.Exceptions;
 using PayNlSdk.Net;
 using System;
 using Request = PayNlSdk.Api.Transaction.Start.Request;
+using Response = PayNlSdk.Api.Transaction.Info.Response;
 using TransactionApprove = PayNlSdk.Api.Transaction.Approve.Request;
 using TransactionDecline = PayNlSdk.Api.Transaction.Decline.Request;
 using TransactionGetService = PayNlSdk.Api.Transaction.GetService.Request;
@@ -38,13 +39,8 @@ public class Transaction : ITransaction
     /// <returns>True if PAID, false otherwise</returns>
     public bool IsPaid(string transactionId)
     {
-        var request = new TransactionInfo
-        {
-            TransactionId = transactionId
-        };
-
-        _webClient.PerformRequest(request);
-        return (request.Response.PaymentDetails.State == Enums.PaymentStatus.PAID);
+        return CheckTransactionStatus(transactionId, response =>
+            response?.PaymentDetails?.State == Enums.PaymentStatus.PAID);
     }
 
 
@@ -55,17 +51,8 @@ public class Transaction : ITransaction
     /// <returns>True if CANCELLED, false otherwise</returns>
     public bool IsCancelled(string transactionId)
     {
-        try
-        {
-            TransactionInfo request = new TransactionInfo();
-            request.TransactionId = transactionId;
-            _webClient.PerformRequest(request);
-            return (request.Response.PaymentDetails.State == Enums.PaymentStatus.CANCEL);
-        }
-        catch (PayNlException e)
-        {
-            return false;
-        }
+        return CheckTransactionStatus(transactionId, response =>
+            response?.PaymentDetails?.State == Enums.PaymentStatus.CANCEL);
     }
 
 
@@ -77,22 +64,12 @@ public class Transaction : ITransaction
     /// <returns>True if PENDING, false otherwise</returns>
     public bool IsPending(string transactionId)
     {
-        try
-        {
-            TransactionInfo request = new TransactionInfo();
-            request.TransactionId = transactionId;
-
-            _webClient.PerformRequest(request);
-            return ((request.Response.PaymentDetails.State == Enums.PaymentStatus.PENDING_1) ||
-                    (request.Response.PaymentDetails.State == Enums.PaymentStatus.PENDING_2) ||
-                    (request.Response.PaymentDetails.State == Enums.PaymentStatus.PENDING_3) ||
-                    (request.Response.PaymentDetails.State == Enums.PaymentStatus.VERIFY) ||
-                    (request.Response.PaymentDetails.StateName == "PENDING"));
-        }
-        catch (PayNlException e)
-        {
-            return false;
-        }
+        return CheckTransactionStatus(transactionId, response =>
+            (response?.PaymentDetails?.State == Enums.PaymentStatus.PENDING_1) ||
+            (response?.PaymentDetails?.State == Enums.PaymentStatus.PENDING_2) ||
+            (response?.PaymentDetails?.State == Enums.PaymentStatus.PENDING_3) ||
+            (response?.PaymentDetails?.State == Enums.PaymentStatus.VERIFY) ||
+            (response?.PaymentDetails?.StateName == "PENDING"));
     }
 
 
@@ -104,17 +81,28 @@ public class Transaction : ITransaction
     /// <returns>True if VERIFY, false otherwise</returns>
     public bool IsVerify(string transactionId)
     {
+        return CheckTransactionStatus(transactionId, response =>
+            (response?.PaymentDetails?.State == Enums.PaymentStatus.VERIFY) ||
+            (response?.PaymentDetails?.StateName == "VERIFY"));
+    }
+
+    /// <summary>
+    /// Helper method to safely check transaction status with proper exception handling
+    /// </summary>
+    /// <param name="transactionId">Transaction ID</param>
+    /// <param name="statusCheck">Function to check the status from response</param>
+    /// <returns>True if status check passes, false if check fails or exception occurs</returns>
+    private bool CheckTransactionStatus(string transactionId, Func<Response?, bool> statusCheck)
+    {
         try
         {
-            TransactionInfo request = new TransactionInfo();
-            request.TransactionId = transactionId;
-
+            var request = new TransactionInfo { TransactionId = transactionId };
             _webClient.PerformRequest(request);
-            return ((request.Response.PaymentDetails.State == Enums.PaymentStatus.VERIFY) ||
-                    (request.Response.PaymentDetails.StateName == "VERIFY"));
+            return statusCheck(request.Response);
         }
-        catch (PayNlException e)
+        catch (PayNlException)
         {
+            // Network or API errors should return false for status checks
             return false;
         }
     }
@@ -128,14 +116,7 @@ public class Transaction : ITransaction
     /// <returns>True if REFUND or REFUNDING, false otherwise</returns>
     public static bool IsRefund(Enums.PaymentStatus status)
     {
-        try
-        {
-            return status == Enums.PaymentStatus.REFUND || status == Enums.PaymentStatus.REFUNDING;
-        }
-        catch (PayNlException e)
-        {
-            return false;
-        }
+        return status == Enums.PaymentStatus.REFUND || status == Enums.PaymentStatus.REFUNDING;
     }
 
     /// <summary>
@@ -145,14 +126,7 @@ public class Transaction : ITransaction
     /// <returns>True if REFUNDING, false otherwise</returns>
     public static bool IsRefunding(Enums.PaymentStatus status)
     {
-        try
-        {
-            return status == Enums.PaymentStatus.REFUNDING;
-        }
-        catch (PayNlException e)
-        {
-            return false;
-        }
+        return status == Enums.PaymentStatus.REFUNDING;
     }
 
     /// <summary>

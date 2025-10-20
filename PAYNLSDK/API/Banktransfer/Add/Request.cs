@@ -189,10 +189,14 @@ public class Request : RequestBase
             throw new PayNlException("rawResponse is empty!");
         }
         response = JsonSerialization.Deserialize<Response>(RawResponse);
-        if (!Response.Request.Result)
+        if (response == null)
+        {
+            throw new PayNlException("Failed to deserialize response");
+        }
+        if (Response.Request == null || !Response.Request.Result)
         {
             // toss
-            throw new PayNlException(Response.Request.Message);
+            throw new PayNlException(Response.Request?.Message ?? "Request failed");
         }
     }
 

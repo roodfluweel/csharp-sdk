@@ -13,17 +13,17 @@ public class Error
     /// Result of a call. In case of a real error, this SHOULD always be false.
     /// </summary>
     [JsonPropertyName("result"), JsonConverter(typeof(BooleanConverter))]
-    public bool Result { get; protected set; }
+    public bool Result { get; set; }
 
     /// <summary>
     /// Error code
     /// </summary>
     [JsonPropertyName("errorId")]
-    public string Code { get; protected set; }
+    public string? Code { get; set; }
 
     /// <summary>
     /// Error message
     /// </summary>
     [JsonPropertyName("errorMessage")]
-    public string Message { get; protected set; }
+    public string? Message { get; set; }
 }

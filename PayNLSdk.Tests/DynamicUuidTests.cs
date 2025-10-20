@@ -1,11 +1,11 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PAYNLSDK.API.DynamicUUID;
-using PAYNLSDK.Exceptions;
+using Shouldly;
+using Xunit;
+using PayNlSdk.API.DynamicUUID;
+using PayNlSdk.Exceptions;
 
-namespace PayNLSdk.Tests
+namespace PayNlSdk.Tests
 {
-    [TestClass]
     public class DynamicUuidTests
     {
         private const string ServiceId = "SL-1234-1234";
@@ -13,38 +13,38 @@ namespace PayNLSdk.Tests
         private const string Reference = "INV001";
         private const string ExpectedUuid = "b0898a33-1234-1234-0000-494e56303031";
 
-        [TestMethod]
+        [Fact]
         public void Encode_GeneratesExpectedUuid()
         {
             var uuid = DynamicUuid.Encode(ServiceId, Secret, Reference);
 
-            Assert.AreEqual(ExpectedUuid, uuid);
+            uuid.ShouldBe(ExpectedUuid);
         }
 
-        [TestMethod]
+        [Fact]
         public void Validate_ReturnsTrueForKnownUuid()
         {
             var isValid = DynamicUuid.Validate(ExpectedUuid, Secret);
 
-            Assert.IsTrue(isValid);
+            isValid.ShouldBeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void Decode_ReturnsServiceIdAndReference()
         {
             var result = DynamicUuid.Decode(ExpectedUuid, Secret);
 
-            Assert.AreEqual(ServiceId, result.ServiceId);
-            Assert.AreEqual(Reference, result.Reference);
+            result.ServiceId.ShouldBe(ServiceId);
+            result.Reference.ShouldBe(Reference);
         }
 
-        [TestMethod]
+        [Fact]
         public void Encode_WithInvalidSecret_ThrowsException()
         {
-            Assert.ThrowsException<PayNlException>(() => DynamicUuid.Encode(ServiceId, "123", Reference));
+            Should.Throw<PayNlException>(() => DynamicUuid.Encode(ServiceId, "123", Reference));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetIdealQr_WithBase64_UsesProvidedDownloader()
         {
             var expectedBytes = new byte[] { 1, 2, 3 };
@@ -56,13 +56,13 @@ namespace PayNLSdk.Tests
                 return expectedBytes;
             });
 
-            Assert.AreEqual("https://qr6.ideal.nl/" + ExpectedUuid, info.Url);
-            Assert.AreEqual("https://ideal.pay.nl/qr/" + ExpectedUuid, info.QrUrl);
-            Assert.AreEqual(Convert.ToBase64String(expectedBytes), info.QrBase64);
-            Assert.AreEqual("https://ideal.pay.nl/qr/" + ExpectedUuid, capturedUrl);
+            info.Url.ShouldBe("https://qr6.ideal.nl/" + ExpectedUuid);
+            info.QrUrl.ShouldBe("https://ideal.pay.nl/qr/" + ExpectedUuid);
+            info.QrBase64.ShouldBe(Convert.ToBase64String(expectedBytes));
+            capturedUrl.ShouldBe("https://ideal.pay.nl/qr/" + ExpectedUuid);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetBancontactQr_WithBase64_UsesProvidedDownloader()
         {
             var expectedBytes = new byte[] { 4, 5, 6 };
@@ -79,10 +79,10 @@ namespace PayNLSdk.Tests
                 "https://chart.googleapis.com/chart?cht=qr&chs=260x260&chl=" +
                 Uri.EscapeDataString(expectedRedirect);
 
-            Assert.AreEqual(expectedRedirect, info.Url);
-            Assert.AreEqual(expectedQrUrl, info.QrUrl);
-            Assert.AreEqual(Convert.ToBase64String(expectedBytes), info.QrBase64);
-            Assert.AreEqual(expectedQrUrl, capturedUrl);
+            info.Url.ShouldBe(expectedRedirect);
+            info.QrUrl.ShouldBe(expectedQrUrl);
+            info.QrBase64.ShouldBe(Convert.ToBase64String(expectedBytes));
+            capturedUrl.ShouldBe(expectedQrUrl);
         }
     }
 }

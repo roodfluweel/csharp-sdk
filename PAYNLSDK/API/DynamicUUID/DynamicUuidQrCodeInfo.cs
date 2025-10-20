@@ -1,4 +1,4 @@
-namespace PAYNLSDK.API.DynamicUUID
+namespace PayNlSdk.API.DynamicUUID
 {
     /// <summary>
     /// Contains QR-code information for Dynamic UUID payments.

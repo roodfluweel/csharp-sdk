@@ -57,7 +57,8 @@ internal static class JsonSerialization
     {
         var options = new JsonSerializerOptions
         {
-            NumberHandling = JsonNumberHandling.AllowReadingFromString
+            NumberHandling = JsonNumberHandling.AllowReadingFromString,
+            PropertyNameCaseInsensitive = true
         };
 
         // Use factories that can handle both nullable and non-nullable types

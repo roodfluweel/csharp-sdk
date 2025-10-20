@@ -33,15 +33,19 @@ public class Request : RequestBase
         {
             throw new PayNlException("rawResponse is empty!");
         }
-        response = System.Text.Json.JsonSerializer.Deserialize<PayNlSdk.Api.Merchant.Info.Response>(RawResponse);
+        response = JsonSerialization.Deserialize<PayNlSdk.Api.Merchant.Info.Response>(RawResponse);
+        if (response == null)
+        {
+            throw new PayNlException("Failed to deserialize response");
+        }
         var merchantResponse = response as PayNlSdk.Api.Merchant.Info.Response;
 
-        // Check if request was successful (result can be "1" for success or other values for failure)
-        if (merchantResponse?.request != null && merchantResponse.request.result != "1")
+        // Check if request was successful (result should be true for success)
+        if (merchantResponse?.Request != null && !merchantResponse.Request.Result)
         {
             // toss
-            var errorMessage = !string.IsNullOrEmpty(merchantResponse.request.errorMessage)
-                ? merchantResponse.request.errorMessage
+            var errorMessage = !string.IsNullOrEmpty(merchantResponse.Request.Message)
+                ? merchantResponse.Request.Message
                 : "Request failed";
             throw new PayNlException(errorMessage);
         }

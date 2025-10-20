@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using PayNlSdk.Utilities;
+﻿using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 
 namespace PayNlSdk.Api;
@@ -63,7 +61,7 @@ public abstract class RequestBase
     /// <summary>
     /// Response belonging to this request
     /// </summary>
-    protected ResponseBase response;
+    protected ResponseBase? response;
 
     /// <summary>
     /// The raw response stroing

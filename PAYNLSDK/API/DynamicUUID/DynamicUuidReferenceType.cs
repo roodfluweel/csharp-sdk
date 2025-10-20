@@ -1,4 +1,4 @@
-namespace PAYNLSDK.API.DynamicUUID
+namespace PayNlSdk.API.DynamicUUID
 {
     /// <summary>
     /// Defines the reference type used when encoding or decoding Dynamic UUIDs.

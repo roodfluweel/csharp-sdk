@@ -500,93 +500,99 @@ public class TransactionTests
     private static string BuildInfoResponse(PaymentStatus status, string stateName = null)
     {
         stateName ??= status.ToString();
-        return $$"""
-        {
-          "request": {
-            "result": true,
-            "errorId": null,
-            "errorMessage": null
-          },
-          "paymentDetails": {
-            "state": {{(int)status}},
-            "stateName": "{{stateName}}"
-          }
-        }
-        """;
+        return
+            $$"""
+            {
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              },
+              "paymentDetails": {
+                "state": {{(int)status}},
+                "stateName": "{{stateName}}"
+              }
+            }
+            """;
     }
 
     private static string BuildGetServiceResponse()
     {
-        return """
-        {
-          "request": {
-            "result": true,
-            "errorId": null,
-            "errorMessage": null
-          },
-          "merchant": {},
-          "service": {},
-          "countryOptionList": {}
-        }
-        """;
+        return
+            """
+            {
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              },
+              "merchant": {},
+              "service": {},
+              "countryOptionList": {}
+            }
+            """;
     }
 
     private static string BuildRefundResponse(string refundId)
     {
-        return $$"""
-        {
-          "request": {
-            "result": true,
-            "errorId": null,
-            "errorMessage": null
-          },
-          "refundId": "{{refundId}}"
-        }
-        """;
+        return
+            """
+            {
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              },
+              "refundId": "{{refundId}}"
+            }
+            """.Replace("{{refundId}}", refundId);
     }
 
     private static string BuildApproveResponse(string message)
     {
-        return $$"""
-        {
-          "request": {
-            "result": true,
-            "errorId": null,
-            "errorMessage": null
-          },
-          "message": "{{message}}"
-        }
-        """;
+        return
+            """
+            {
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              },
+              "message": "{{message}}"
+            }
+            """.Replace("{{message}}", message);
     }
 
     private static string BuildDeclineResponse(string message)
     {
-        return $$"""
-        {
-          "request": {
-            "result": true,
-            "errorId": null,
-            "errorMessage": null
-          },
-          "message": "{{message}}"
-        }
-        """;
+        return
+            """
+            {
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              },
+              "message": "{{message}}"
+            }
+            """.Replace("{{message}}", message);
     }
 
     private static string BuildStartResponse()
     {
-        return """
-        {
-          "request": {
-            "result": true,
-            "errorId": null,
-            "errorMessage": null
-          },
-          "transaction": {
-            "transactionId": "TRANS-13",
-            "paymentReference": "REF"
-          }
-        }
-        """;
+        return
+            """
+            {
+              "request": {
+                "result": true,
+                "errorId": null,
+                "errorMessage": null
+              },
+              "transaction": {
+                "transactionId": "TRANS-13",
+                "paymentReference": "REF"
+              }
+            }
+            """;
     }
 }
