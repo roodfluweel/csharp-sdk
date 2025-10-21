@@ -4,9 +4,9 @@
 
 namespace PayNlSdk.Utilities;
 
-internal class ParameterValidator
+public static class ParameterValidator
 {
-    internal static void IsNotEmpty(string param, string paramName)
+    public static void IsNotEmpty(string param, string paramName)
     {
         if (String.IsNullOrWhiteSpace(param))
         {
@@ -14,7 +14,7 @@ internal class ParameterValidator
         }
     }
 
-    internal static void IsNotNull(object param, string paramName)
+    public static void IsNotNull(object param, string paramName)
     {
         if (param == null)
         {
@@ -22,17 +22,17 @@ internal class ParameterValidator
         }
     }
 
-    internal static bool IsEmpty(string param)
+    public static bool IsEmpty(string param)
     {
         return String.IsNullOrWhiteSpace(param);
     }
 
-    internal static bool IsNull(object param)
+    public static bool IsNull(object param)
     {
         return (param == null);
     }
 
-    internal static bool IsNonEmptyInt(int? param)
+    public static bool IsNonEmptyInt(int? param)
     {
         return (param != null);
     }

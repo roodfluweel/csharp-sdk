@@ -75,7 +75,6 @@ public static class DependencyInjection
         services.TryAddScoped<ITransaction, Transaction>();
         services.TryAddScoped<IMerchant, Merchant>();
         services.TryAddScoped<IService, Service>();
-        services.TryAddScoped<IAlliance, Alliance>();
         services.TryAddScoped<IStatistics, Statistics>();
         services.TryAddScoped<ILanguage, Language>();
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace PayNlSdk.Api.Alliance.AddMerchant;
 
@@ -15,7 +16,7 @@ public class Request : RequestBase
     }
 
     /// <inheritdoc />
-    protected override int Version => 6;
+    protected override int Version => 7;
     /// <inheritdoc />
     protected override string Controller => "Alliance";
     /// <inheritdoc />
@@ -23,124 +24,140 @@ public class Request : RequestBase
     /// <inheritdoc />
     public override NameValueCollection GetParameters()
     {
-        var retVal = new NameValueCollection { };
+        var retVal = new NameValueCollection();
 
-        retVal.Add("merchant[name]", FullName);
-        retVal.Add("merchant[coc]", Coc);
-        retVal.Add("merchant[vat]", Vat);
-        retVal.Add("merchant[street]", Street);
-        retVal.Add("merchant[houseNumber]", HouseNumber);
-        retVal.Add("merchant[houseNumberAddition]", HouseNumberAddition);
-        retVal.Add("merchant[postalCode]", PostalCode);
-        retVal.Add("merchant[city]", City);
-        retVal.Add("merchant[countryCode]", CountryCode);
-        retVal.Add("merchant[contactEmail]", ContactEmail);
-        retVal.Add("merchant[contactPhone]", ContactPhone);
+        AddIfNotEmpty(retVal, "merchant[name]", FullName);
+        AddIfNotEmpty(retVal, "merchant[coc]", Coc);
+        AddIfNotEmpty(retVal, "merchant[vat]", Vat);
+        AddIfNotEmpty(retVal, "merchant[street]", Street);
+        AddIfNotEmpty(retVal, "merchant[houseNumber]", HouseNumber);
+        AddIfNotEmpty(retVal, "merchant[houseNumberAddition]", HouseNumberAddition);
+        AddIfNotEmpty(retVal, "merchant[postalCode]", PostalCode);
+        AddIfNotEmpty(retVal, "merchant[city]", City);
+        AddIfNotEmpty(retVal, "merchant[countryCode]", CountryCode);
+
+        if (!string.IsNullOrWhiteSpace(ContactEmail))
+        {
+            retVal.Add("merchant[contactEmail]", ContactEmail);
+        }
+
+        if (!string.IsNullOrWhiteSpace(ContactPhone))
+        {
+            retVal.Add("merchant[contactPhone]", ContactPhone);
+        }
 
         for (var i = 0; i < Accounts.Count; i++)
         {
             var account = Accounts[i];
-            retVal.Add($"accounts[{i}][email]", account.Email);
-            retVal.Add($"accounts[{i}][firstname]", account.FirstName);
-            retVal.Add($"accounts[{i}][lastname]", account.LastName);
-            retVal.Add($"accounts[{i}][gender]", account.Gender.ToString());
-            retVal.Add($"accounts[{i}][authorizedToSign]", account.AuthorizedToSign.ToString());
+            AddIfNotEmpty(retVal, $"accounts[{i}][email]", account.Email);
+            AddIfNotEmpty(retVal, $"accounts[{i}][firstname]", account.FirstName);
+            AddIfNotEmpty(retVal, $"accounts[{i}][lastname]", account.LastName);
+            AddIfNotEmpty(retVal, $"accounts[{i}][gender]", account.Gender.ToString());
+            retVal.Add($"accounts[{i}][authorizedToSign]", ((int)account.AuthorizedToSign).ToString(CultureInfo.InvariantCulture));
             retVal.Add($"accounts[{i}][ubo]", account.UltimateBeneficialOwner ? "1" : "0");
-            retVal.Add($"accounts[{i}][uboPercentage]", account.UboPercentage.ToString());
+            retVal.Add($"accounts[{i}][uboPercentage]", account.UboPercentage.ToString(CultureInfo.InvariantCulture));
             retVal.Add($"accounts[{i}][useCompanyAuth]", account.UseCompanyAuth ? "1" : "0");
             retVal.Add($"accounts[{i}][hasAccess]", account.HasAccess ? "1" : "0");
-            retVal.Add($"accounts[{i}][language]", account.Language);
+            AddIfNotEmpty(retVal, $"accounts[{i}][language]", account.Language);
         }
 
         if (BankAccount != null)
         {
-            retVal.Add("bankaccount[BankAccountOwner]", BankAccount.BankAccountOwner);
-            retVal.Add("bankaccount[BankAccountNumber]", BankAccount.BankAccountNumber);
-            retVal.Add("bankaccount[BankAccountBIC]", BankAccount.BankAccountBic);
+            AddIfNotEmpty(retVal, "bankAccount[bankAccountOwner]", BankAccount.BankAccountOwner);
+            AddIfNotEmpty(retVal, "bankAccount[bankAccountNumber]", BankAccount.BankAccountNumber);
+            AddIfNotEmpty(retVal, "bankAccount[bankAccountBic]", BankAccount.BankAccountBic);
         }
 
         if (MerchantSettings != null)
         {
-            retVal.Add("settings[package]", MerchantSettings.Package);
-            retVal.Add("settings[sendEmail]", MerchantSettings.SendEmail);
+            AddIfNotEmpty(retVal, "settings[packageName]", MerchantSettings.Package);
+            AddIfNotEmpty(retVal, "settings[sendEmail]", MerchantSettings.SendEmail);
             retVal.Add("settings[settleBalance]", MerchantSettings.SettleBalance ? "1" : "0");
-            retVal.Add("settings[referralProfileId]", MerchantSettings.ReferralProfileId);
-            retVal.Add("settings[clearingInterval]", MerchantSettings.ClearingInterval);
+            AddIfNotEmpty(retVal, "settings[referralProfileId]", MerchantSettings.ReferralProfileId);
+            AddIfNotEmpty(retVal, "settings[clearingInterval]", MerchantSettings.ClearingInterval);
         }
 
         return retVal;
     }
 
+    private static void AddIfNotEmpty(NameValueCollection collection, string key, string? value)
+    {
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            collection.Add(key, value);
+        }
+    }
+
     /// <summary>
     /// a phone number that customers can use to contact the merchant
     /// </summary>
-    public string ContactPhone { get; set; }
+    public string? ContactPhone { get; set; }
 
     /// <summary>
     /// an email address that customers can use to contact the merchant
     /// </summary>
-    public string ContactEmail { get; set; }
+    public string? ContactEmail { get; set; }
 
     /// <summary>
     /// Countrycode of the country where the company is located
     /// </summary>
     [Required]
-    public string CountryCode { get; set; }
+    public string? CountryCode { get; set; }
 
     /// <summary>
     /// City where the company is located
     /// </summary>
     [Required]
-    public string City { get; set; }
+    public string? City { get; set; }
 
     /// <summary>
     /// Postcalcode of the company
     /// </summary>
     [Required]
-    public string PostalCode { get; set; }
+    public string? PostalCode { get; set; }
 
     /// <summary>
     /// Housenumber of the company
     /// </summary>
-    public string HouseNumber { get; set; }
+    public string? HouseNumber { get; set; }
 
     /// <summary>
     /// Housenumber addition of the company
     /// </summary>
-    public string HouseNumberAddition { get; set; }
+    public string? HouseNumberAddition { get; set; }
 
     /// <summary>
     /// Name of the street the company is located
     /// </summary>
     [Required]
-    public string Street { get; set; }
+    public string? Street { get; set; }
 
     /// <summary>
     /// VAT number of the company
     /// </summary>
     [Required]
-    public string Vat { get; set; }
+    public string? Vat { get; set; }
 
     /// <summary>
     /// Chamber of Commerce number of the company
     /// </summary>
     /// 
     [JsonPropertyName("coc")]
-    public string Coc { get; set; }
+    public string? Coc { get; set; }
 
     /// <summary>
     /// Name of the company
     /// </summary>
     [JsonPropertyName("name")]
-    public string FullName { get; set; }
+    public string? FullName { get; set; }
 
     /// <summary>
     /// Array of accounts to be linked to the merchant. At least 1 account must be added
     /// </summary>
     public List<Account> Accounts { get; set; }
 
-    public BankAccount BankAccount { get; set; }
-    public MerchantSettings MerchantSettings { get; set; }
+    public BankAccount? BankAccount { get; set; }
+    public MerchantSettings? MerchantSettings { get; set; }
 
 
     /// <inheritdoc />

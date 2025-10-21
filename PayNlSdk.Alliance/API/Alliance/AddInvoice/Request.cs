@@ -1,7 +1,8 @@
-﻿using PayNlSdk.Exceptions;
+using PayNlSdk.Exceptions;
 using PayNlSdk.Utilities;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace PayNlSdk.Api.Alliance.AddInvoice;
 
@@ -29,7 +30,7 @@ public class Request : RequestBase
     }
 
     /// <inheritdoc />
-    protected override int Version => 5;
+    protected override int Version => 7;
     /// <inheritdoc />
     protected override string Controller => "Alliance";
     /// <inheritdoc />
@@ -45,34 +46,39 @@ public class Request : RequestBase
             { "serviceId", ServiceId },
             { "merchantId", MerchantId },
             { "invoiceId", InvoiceId },
-            { "amount", AmountInCents.ToString() },
+            { "amount", AmountInCents.ToString(CultureInfo.InvariantCulture) },
             { "description", Description }
         };
 
         // Optional fields
-        if (string.IsNullOrWhiteSpace(InvoiceUrl) == false)
+        if (!string.IsNullOrWhiteSpace(InvoiceUrl))
         {
             retval.Add("invoiceUrl", InvoiceUrl);
         }
 
         if (MakeYesterday.HasValue)
         {
-            retval.Add("makeYesterday", MakeYesterday.ToString().ToLower());
+            retval.Add("makeYesterday", MakeYesterday.Value ? "1" : "0");
         }
 
-        if (string.IsNullOrWhiteSpace(Extra1) == false)
+        if (!string.IsNullOrWhiteSpace(Extra1))
         {
             retval.Add("extra1", Extra1);
         }
 
-        if (string.IsNullOrWhiteSpace(Extra2) == false)
+        if (!string.IsNullOrWhiteSpace(Extra2))
         {
             retval.Add("extra2", Extra2);
         }
 
-        if (string.IsNullOrWhiteSpace(Extra3) == false)
+        if (!string.IsNullOrWhiteSpace(Extra3))
         {
-            retval.Add("extra2", Extra3);
+            retval.Add("extra3", Extra3);
+        }
+
+        if (!string.IsNullOrWhiteSpace(MerchantServiceId))
+        {
+            retval.Add("merchantServiceId", MerchantServiceId);
         }
 
         return retval;
@@ -95,6 +101,11 @@ public class Request : RequestBase
     /// </summary>
     /// <value>The extra1.</value>
     public string Extra1 { get; set; }
+
+    /// <summary>
+    /// Gets or sets the service id of the merchant to invoice.
+    /// </summary>
+    public string? MerchantServiceId { get; set; }
 
     /// <summary>
     /// Gets or sets the id of your invoice.

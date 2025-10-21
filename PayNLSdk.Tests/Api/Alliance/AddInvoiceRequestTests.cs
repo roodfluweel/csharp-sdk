@@ -45,7 +45,7 @@ public class AddInvoiceRequestTests
         _sut.MakeYesterday = true;
 
         // Assert
-        _sut.GetParameters()["makeYesterday"].ShouldBe("true");
+        _sut.GetParameters()["makeYesterday"].ShouldBe("1");
     }
 
     [Fact]

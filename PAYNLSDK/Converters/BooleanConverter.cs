@@ -7,7 +7,7 @@ namespace PayNlSdk.Converters;
 /// <summary>
 /// A boolean json converter for System.Text.Json that supports numeric and string payloads.
 /// </summary>
-internal class BooleanConverter : JsonConverter<bool>
+public class BooleanConverter : JsonConverter<bool>
 {
     public override bool Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

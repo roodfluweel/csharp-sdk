@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>RoodFluweel.PayNlSdk.Alliance</PackageId>
+    <Version>2.0.0-beta002</Version>
+    <Authors>paynl, dampee, Sebsoft</Authors>
+    <Company>dampee, paynl</Company>
+    <Description>Alliance-specific extensions for the Pay.NL SDK.</Description>
+    <PackageTags>paynl payment gateway alliance</PackageTags>
+    <RepositoryUrl>https://github.com/roodfluweel/paynl-csharp-sdk</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <AssemblyName>PayNlSdk.Alliance</AssemblyName>
+    <RootNamespace>PayNlSdk</RootNamespace>
+    <Configurations>Debug;Release;AppVeyor</Configurations>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\PayNlSdk.Alliance.xml</DocumentationFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PAYNLSDK\PayNlSdk.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+</Project>

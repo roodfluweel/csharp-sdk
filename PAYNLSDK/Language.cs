@@ -1,4 +1,3 @@
-﻿using PayNlSdk.Api.Alliance.GetMerchant;
 using PayNlSdk.Api.Language;
 using PayNlSdk.Net;
 using PayNlSdk.Utilities;
@@ -6,7 +5,7 @@ using PayNlSdk.Utilities;
 namespace PayNlSdk;
 
 /// <summary>
-/// This is a part of the alliance SDK
+/// Provides access to language-related endpoints.
 /// </summary>
 public class Language : ILanguage
 {
@@ -19,17 +18,17 @@ public class Language : ILanguage
     }
 
     /// <inheritdoc />
-    public GetMerchantResult GetAll()
+    public GetAllResult GetAll()
     {
         var response = _webClient.PerformRequest(new GetAllRequest());
-        return JsonSerialization.Deserialize<GetMerchantResult>(response);
+        return JsonSerialization.Deserialize<GetAllResult>(response);
     }
 }
 
 /// <summary>
-/// 
+/// Contract for working with language endpoints.
 /// </summary>
 public interface ILanguage
 {
-    GetMerchantResult GetAll();
+    GetAllResult GetAll();
 }
