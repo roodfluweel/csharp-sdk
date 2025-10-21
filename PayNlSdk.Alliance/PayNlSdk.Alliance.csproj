@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">netstandard2.0</TargetFrameworks>
     <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>RoodFluweel.PayNlSdk.Alliance</PackageId>
-    <Version>2.0.0-beta002</Version>
+    <Version>2.0.0-beta003</Version>
     <Authors>paynl, dampee, Sebsoft</Authors>
     <Company>dampee, paynl</Company>
     <Description>Alliance-specific extensions for the Pay.NL SDK.</Description>
@@ -24,6 +24,11 @@
     <DocumentationFile>bin\Debug\$(TargetFramework)\PayNlSdk.Alliance.xml</DocumentationFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="PayNlSdk.Alliance.Tests" />
+    </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\PAYNLSDK\PayNlSdk.csproj" />
   </ItemGroup>

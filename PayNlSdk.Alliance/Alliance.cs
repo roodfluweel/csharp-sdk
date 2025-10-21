@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using PayNlSdk.Api.Alliance.AddBankAccount;
 using PayNlSdk.Api.Alliance.AddClearing;
 using PayNlSdk.Api.Alliance.AddInvoice;
@@ -18,6 +17,7 @@ using PayNlSdk.Api.Alliance.Suspend;
 using PayNlSdk.Api.Alliance.Unsuspend;
 using PayNlSdk.Net;
 using PayNlSdk.Utilities;
+using System.Diagnostics.CodeAnalysis;
 using GetMerchantRequest = PayNlSdk.Api.Alliance.GetMerchant.Request;
 using GetMerchantsRequest = PayNlSdk.Api.Alliance.GetMerchants.Request;
 
@@ -40,119 +40,119 @@ public class Alliance : IAlliance
     }
 
     /// <inheritdoc />
-    public GetMerchantResult GetMerchant(GetMerchantRequest request)
+    public GetMerchantResult? GetMerchant(GetMerchantRequest request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<GetMerchantResult>(response);
     }
 
     /// <inheritdoc />
-    public GetMerchantsResult GetMerchants(GetMerchantsRequest request)
+    public GetMerchantsResult? GetMerchants(GetMerchantsRequest request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<GetMerchantsResult>(response);
     }
 
     /// <inheritdoc />
-    public AddMerchantResult AddMerchant(Api.Alliance.AddMerchant.Request request)
+    public AddMerchantResult? AddMerchant(Api.Alliance.AddMerchant.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<AddMerchantResult>(response);
     }
 
     /// <inheritdoc />
-    public AddServiceResult AddService(Api.Alliance.AddService.Request request)
+    public AddServiceResult? AddService(Api.Alliance.AddService.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<AddServiceResult>(response);
     }
 
     /// <inheritdoc />
-    public AddBankAccountResult AddBankAccount(Api.Alliance.AddBankAccount.Request request)
+    public AddBankAccountResult? AddBankAccount(Api.Alliance.AddBankAccount.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<AddBankAccountResult>(response);
     }
 
     /// <inheritdoc />
-    public AddInvoiceResult AddInvoice(Api.Alliance.AddInvoice.Request request)
+    public AddInvoiceResult? AddInvoice(Api.Alliance.AddInvoice.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<AddInvoiceResult>(response);
     }
 
     /// <inheritdoc />
-    public AddClearingResult AddClearing(Api.Alliance.AddClearing.Request request)
+    public AddClearingResult? AddClearing(Api.Alliance.AddClearing.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<AddClearingResult>(response);
     }
 
     /// <inheritdoc />
-    public MarkReadyResult MarkReady(Api.Alliance.MarkReady.Request request)
+    public MarkReadyResult? MarkReady(Api.Alliance.MarkReady.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<MarkReadyResult>(response);
     }
 
     /// <inheritdoc />
-    public SetPackageResult SetPackage(Api.Alliance.SetPackage.Request request)
+    public SetPackageResult? SetPackage(Api.Alliance.SetPackage.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<SetPackageResult>(response);
     }
 
     /// <inheritdoc />
-    public SuspendResult Suspend(Api.Alliance.Suspend.Request request)
+    public SuspendResult? Suspend(Api.Alliance.Suspend.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<SuspendResult>(response);
     }
 
     /// <inheritdoc />
-    public UnsuspendResult Unsuspend(Api.Alliance.Unsuspend.Request request)
+    public UnsuspendResult? Unsuspend(Api.Alliance.Unsuspend.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<UnsuspendResult>(response);
     }
 
     /// <inheritdoc />
-    public GetAvailablePaymentOptionsResult GetAvailablePaymentOptions(Api.Alliance.GetAvailablePaymentOptions.Request request)
+    public GetAvailablePaymentOptionsResult? GetAvailablePaymentOptions(Api.Alliance.GetAvailablePaymentOptions.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<GetAvailablePaymentOptionsResult>(response);
     }
 
     /// <inheritdoc />
-    public GetCategoriesResult GetCategories(Api.Alliance.GetCategories.Request request)
+    public GetCategoriesResult? GetCategories(Api.Alliance.GetCategories.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<GetCategoriesResult>(response);
     }
 
     /// <inheritdoc />
-    public EnablePaymentOptionResult EnablePaymentOption(Api.Alliance.EnablePaymentOption.Request request)
+    public EnablePaymentOptionResult? EnablePaymentOption(Api.Alliance.EnablePaymentOption.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<EnablePaymentOptionResult>(response);
     }
 
     /// <inheritdoc />
-    public DisablePaymentOptionResult DisablePaymentOption(Api.Alliance.DisablePaymentOption.Request request)
+    public DisablePaymentOptionResult? DisablePaymentOption(Api.Alliance.DisablePaymentOption.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<DisablePaymentOptionResult>(response);
     }
 
     /// <inheritdoc />
-    public Response UploadDocument(Api.Alliance.Document.Add.Request request)
+    public Response? UploadDocument(Api.Alliance.Document.Add.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<Response>(response);
     }
 
     /// <inheritdoc />
-    public StatisticsResult GetStatistics(Api.Alliance.Statistics.Request request)
+    public StatisticsResult? GetStatistics(Api.Alliance.Statistics.Request request)
     {
         var response = _webClient.PerformRequest(request);
         return JsonSerialization.Deserialize<StatisticsResult>(response);

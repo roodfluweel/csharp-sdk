@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayNlSdk.Alliance", "PayNlSdk.Alliance\PayNlSdk.Alliance.csproj", "{9DD31F4A-5D3B-48AF-82D2-EA4693CBD3C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayNlSdk.Alliance.Tests", "PayNlSdk.Alliance.Tests\PayNlSdk.Alliance.Tests.csproj", "{53FC7241-D395-4964-95BC-A5EBE96254E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AppVeyor|Any CPU = AppVeyor|Any CPU
@@ -85,6 +87,24 @@ Global
 		{9DD31F4A-5D3B-48AF-82D2-EA4693CBD3C1}.Release|x64.Build.0 = Release|Any CPU
 		{9DD31F4A-5D3B-48AF-82D2-EA4693CBD3C1}.Release|x86.ActiveCfg = Release|Any CPU
 		{9DD31F4A-5D3B-48AF-82D2-EA4693CBD3C1}.Release|x86.Build.0 = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.AppVeyor|Any CPU.ActiveCfg = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.AppVeyor|Any CPU.Build.0 = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.AppVeyor|x64.ActiveCfg = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.AppVeyor|x64.Build.0 = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.AppVeyor|x86.ActiveCfg = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.AppVeyor|x86.Build.0 = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Debug|x64.Build.0 = Debug|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Debug|x86.Build.0 = Debug|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Release|x64.ActiveCfg = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Release|x64.Build.0 = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Release|x86.ActiveCfg = Release|Any CPU
+		{53FC7241-D395-4964-95BC-A5EBE96254E5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

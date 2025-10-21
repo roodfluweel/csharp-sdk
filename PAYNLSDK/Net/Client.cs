@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using PayNlSdk.Api;
 using PayNlSdk.Exceptions;
 using PayNlSdk.Net.ProxyConfigurationInjector;
