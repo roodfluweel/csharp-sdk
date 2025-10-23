@@ -7,7 +7,7 @@ namespace PayNlSdk.Api.Alliance.GetMerchant;
 public class Request : RequestBase
 {
     /// <inheritdoc />
-    protected override int Version => 4;
+    protected override int Version => 7;
     /// <inheritdoc />
     protected override string Controller => "Alliance";
     /// <inheritdoc />

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace PayNlSdk.Utilities;
 
-internal static class JsonSerialization
+public static class JsonSerialization
 {
     public static JsonSerializerOptions DefaultOptions { get; } = CreateDefaultOptions();
 
